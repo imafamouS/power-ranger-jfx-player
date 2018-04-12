@@ -17,14 +17,40 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader
-                      .load(ResourceUtils.getInstance().loadLayout("sample.fxml"));
+                      .load(ResourceUtils.getInstance().loadLayout("select_video.fxml"));
             primaryStage.setTitle("Hello World");
-            primaryStage.setScene(new Scene(root, 300, 275));
+            primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.setResizable(false);
             primaryStage.show();
+            
+//            ObservableList<String> items = FXCollections.observableArrayList(
+//                      "A", "B", "C", "D", "E"
+//            );
+//            items.addListener(new ListChangeListener<String>() {
+//                public void onChanged(Change<? extends String> c) {
+//                    System.out.println(c);
+//                }
+//            });
+//
+//            StackPane root = new StackPane();
+//            ListView<String> list = new ListView<String>(items);
+//            list.setEditable(true);
+//            list.setCellFactory(new Callback<ListView<String>,
+//                                          ListCell<String>>() {
+//                                    public ListCell<String> call(ListView<String> list) {
+//                                        return new TFListCell();
+//                                    }
+//                                }
+//            );
+//            root.getChildren().add(list);
+//
+//            Scene scene = new Scene(root, 200, 200);
+//
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
         } catch (Exception ex) {
             LOG.log(Level.INFO, ex.getMessage());
         }
-        
     }
     
     public static void main(String[] args) {
