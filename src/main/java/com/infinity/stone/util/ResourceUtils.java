@@ -10,10 +10,10 @@ public class ResourceUtils {
     
     public static final String LAYOUT_PATH = "layout/";
     public static final String RAW_PATH = "raw/";
-    
-    private static ResourceUtils INSTANCE;
-    
+    public static final String VIDEO_PATH = "video/";
+    public static final String ICON_PATH = "icon/";
     private static final Object LOCK = new Object();
+    private static ResourceUtils INSTANCE;
     
     private ResourceUtils() {
     
@@ -44,6 +44,14 @@ public class ResourceUtils {
     
     public URL loadRaw(String name) {
         return load(RAW_PATH + name);
+    }
+    
+    public URL loadVideo(String name) {
+        return load(VIDEO_PATH + name);
+    }
+    
+    public URL loadIcon(String name) {
+        return load(ICON_PATH + name);
     }
     
 }
