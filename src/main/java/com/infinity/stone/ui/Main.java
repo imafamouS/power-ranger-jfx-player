@@ -1,53 +1,77 @@
 package com.infinity.stone.ui;
 
-import com.infinity.stone.util.ResourceUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
     
     private static Logger LOG = Logger.getLogger("Main");
     
+    private final Image IMAGE_RUBY = new Image(
+              "https://upload.wikimedia.org/wikipedia/commons/f/f1/Ruby_logo_64x64.png");
+    private final Image IMAGE_APPLE = new Image(
+              "http://findicons.com/files/icons/832/social_and_web/64/apple.png");
+    private final Image IMAGE_VISTA = new Image("http://antaki.ca/bloom/img/windows_64x64.png");
+    private final Image IMAGE_TWITTER = new Image(
+              "http://files.softicons.com/download/social-media-icons/fresh-social-media-icons-by-creative-nerds/png/64x64/twitter-bird.png");
+    
+    private Image[] listOfImages = {IMAGE_RUBY, IMAGE_APPLE, IMAGE_VISTA, IMAGE_TWITTER};
+    
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader
-                      .load(ResourceUtils.getInstance().loadLayout("select_video.fxml"));
-            primaryStage.setTitle("Hello World");
-            primaryStage.setScene(new Scene(root, 1280, 720));
-            primaryStage.setResizable(false);
-            primaryStage.show();
+            //            Parent root = FXMLLoader
+            //                      .load(ResourceUtils.getInstance().loadLayout("select_video.fxml"));
+            //            primaryStage.setTitle("Hello World");
+            //            primaryStage.setScene(new Scene(root, 1280, 720));
+            //            primaryStage.setResizable(false);
+            //            primaryStage.show();
             
-//            ObservableList<String> items = FXCollections.observableArrayList(
-//                      "A", "B", "C", "D", "E"
-//            );
-//            items.addListener(new ListChangeListener<String>() {
-//                public void onChanged(Change<? extends String> c) {
-//                    System.out.println(c);
-//                }
-//            });
-//
-//            StackPane root = new StackPane();
-//            ListView<String> list = new ListView<String>(items);
-//            list.setEditable(true);
-//            list.setCellFactory(new Callback<ListView<String>,
-//                                          ListCell<String>>() {
-//                                    public ListCell<String> call(ListView<String> list) {
-//                                        return new TFListCell();
-//                                    }
-//                                }
-//            );
-//            root.getChildren().add(list);
-//
-//            Scene scene = new Scene(root, 200, 200);
-//
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
+            ListView<String> listView = new ListView<String>();
+            ObservableList<String> items = FXCollections.observableArrayList(
+                      "RUBY", "APPLE", "VISTA", "TWITTER");
+            listView.setItems(items);
+            
+            listView.setCellFactory(param -> new ListCell<String>() {
+                private ImageView imageView = new ImageView();
+                
+                @Override
+                public void updateItem(String name, boolean empty) {
+                    super.updateItem(name, empty);
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        if (name.equals("RUBY")) {
+                            imageView.setImage(listOfImages[0]);
+                        } else if (name.equals("APPLE")) {
+                            imageView.setImage(listOfImages[1]);
+                        } else if (name.equals("VISTA")) {
+                            imageView.setImage(listOfImages[2]);
+                        } else if (name.equals("TWITTER")) {
+                            imageView.setImage(listOfImages[3]);
+                        }
+                        setText(name);
+                        setGraphic(imageView);
+                    }
+                }
+            });
+            VBox box = new VBox(listView);
+            box.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(box, 200, 200);
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (Exception ex) {
             LOG.log(Level.INFO, ex.getMessage());
         }

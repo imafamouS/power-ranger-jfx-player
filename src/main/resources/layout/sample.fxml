@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.SplitPane?><?import javafx.scene.control.Tab?><?import javafx.scene.control.TabPane?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.ColumnConstraints?><?import javafx.scene.layout.GridPane?><?import javafx.scene.layout.RowConstraints?><?import javafx.scene.media.MediaView?>
+<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1"
+  xmlns="http://javafx.com/javafx/9.0.1">
+  <columnConstraints>
+    <ColumnConstraints />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints />
+  </rowConstraints>
+  <children>
+    <AnchorPane prefHeight="721.0" prefWidth="1280.0" styleClass="anchor-pane"
+      stylesheets="@../css/LightTheme.css">
+      <children>
+        <SplitPane dividerPositions="0.29797979797979796" layoutX="290.0" layoutY="212.0"
+          prefHeight="721.6" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <items>
+            <AnchorPane minWidth="-Infinity" prefWidth="960.0">
+              <children>
+                <MediaView fitHeight="720.0" fitWidth="960.0" layoutX="238.0" layoutY="242.0"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="-Infinity" prefHeight="160.0" prefWidth="320.0">
+              <children>
+                <TabPane layoutX="21.0" layoutY="127.0" prefHeight="720.0" prefWidth="320.8"
+                  tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
+                  <tabs>
+                    <Tab text="Favourite">
+                      <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                          prefWidth="200.0" />
+                      </content>
+                    </Tab>
+                    <Tab text="Subtitle">
+                      <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                          prefWidth="200.0" />
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </children>
+            </AnchorPane>
+          </items>
+        </SplitPane>
+      </children>
+    </AnchorPane>
+  </children>
+</GridPane>
