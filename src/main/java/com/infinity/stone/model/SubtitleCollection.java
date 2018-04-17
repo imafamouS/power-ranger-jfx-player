@@ -17,14 +17,12 @@ public class SubtitleCollection {
         if (collection != null) {
             this.lstModel.addAll(collection);
         }
-        return; //end
     }
     
     public void add(SubtitleModel model) {
         if (model != null) {
             lstModel.add(model);
         }
-        return; //end
     }
     
     public void remove(SubtitleModel model) {

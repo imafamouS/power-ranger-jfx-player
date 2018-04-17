@@ -1,7 +1,6 @@
 package com.infinity.stone.ui;
 
 import com.infinity.stone.util.ResourceUtils;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +20,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader
-                      .load(ResourceUtils.getInstance().loadLayout("sample.fxml"));
-            primaryStage.setTitle("Hello World");
+                      .load(ResourceUtils.getInstance().loadLayout("select_video.fxml"));
+            primaryStage.setTitle("T h e G o o d P l a y e r");
             primaryStage.setScene(new Scene(root));
             primaryStage.sizeToScene();
             primaryStage.centerOnScreen();
@@ -30,9 +29,10 @@ public class Main extends Application {
                 root.prefWidth(newValue.doubleValue());
                 LOG.info(root.toString());
             });
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (Exception ex) {
-            LOG.log(Level.INFO, ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

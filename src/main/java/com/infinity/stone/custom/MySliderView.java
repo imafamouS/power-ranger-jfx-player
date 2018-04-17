@@ -2,11 +2,9 @@ package com.infinity.stone.custom;
 
 import com.jfoenix.controls.JFXSlider;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.image.ImageView;
-import javafx.util.Callback;
 
 public abstract class MySliderView extends JFXSlider {
     
@@ -32,15 +30,9 @@ public abstract class MySliderView extends JFXSlider {
             }
         });
         
-        this.setValueFactory(new Callback<JFXSlider, StringBinding>() {
-            
-            @Override
-            public StringBinding call(JFXSlider param) {
-                return Bindings.createStringBinding(
-                          () -> ((int) param.getValue() * 100) + "%",
-                          param.valueProperty());
-            }
-        });
+        this.setValueFactory(param -> Bindings.createStringBinding(
+                  () -> ((int) param.getValue() * 100) + "%",
+                  param.valueProperty()));
         this.apply(this);
     }
     

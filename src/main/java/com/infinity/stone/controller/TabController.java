@@ -16,8 +16,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -229,7 +227,6 @@ public class TabController implements Initializable {
             JFXSlider slider = new MySliderView(0, 1, 1) {
                 @Override
                 public JFXSlider apply(JFXSlider slider) {
-                    // TODO Auto-generated method stub
                     slider.setIndicatorPosition(IndicatorPosition.LEFT);
                     return slider;
                 }
@@ -274,28 +271,15 @@ public class TabController implements Initializable {
                       toggleSubImageView,
                       fullWidthImageView);
             controllerContainer.setHgrow(region, Priority.ALWAYS);
-            playImageView.setOnMouseClicked(new EventHandler<Event>() {
-                @Override
-                public void handle(Event event) {
-                    controller.togglePausePlay();
+            playImageView.setOnMouseClicked(
+                      (EventHandler<Event>) event -> controller.togglePausePlay());
+            volumeImageView.setOnMouseClicked(
+                      (EventHandler<Event>) event -> controller.toggleMuteOrUnmute());
+            timeLine.valueProperty().addListener(observable -> {
+                if (timeLine.isValueChanging()) {
+                    controller.calculatedPositionSlider(timeLine.getValue());
                 }
                 
-            });
-            volumeImageView.setOnMouseClicked(new EventHandler<Event>() {
-                @Override
-                public void handle(Event event) {
-                    controller.toggleMuteOrUnmute();
-                }
-            });
-            timeLine.valueProperty().addListener(new InvalidationListener() {
-                
-                @Override
-                public void invalidated(Observable observable) {
-                    if (timeLine.isValueChanging()) {
-                        controller.calculatedPositionSlider(timeLine.getValue());
-                    }
-                    
-                }
             });
             
             SubtitleCollection collection = new SubtitleCollection();
@@ -368,13 +352,7 @@ public class TabController implements Initializable {
                   new SubtitleModel("05:51", "Two wrongs don't make a right")));
         listViewSubtitle.setItems(collection.getLstModel());
         listViewSubtitle.setCellFactory(
-                  new Callback<JFXListView<SubtitleModel>, JFXListCell<SubtitleModel>>() {
-                      @Override
-                      public JFXListCell<SubtitleModel> call(JFXListView<SubtitleModel> param) {
-                          return new ListViewCell();
-                      }
-                      
-                  });
+                  (Callback<JFXListView<SubtitleModel>, JFXListCell<SubtitleModel>>) param -> new ListViewCell());
     }
     
     static class ListViewCell extends JFXListCell<SubtitleModel> {
@@ -441,6 +419,7 @@ public class TabController implements Initializable {
                         setText(null);
                         setUpLabelTime(lblTime);
                         setUpLabelSentence(lblSentence);
+                        hbox.getChildren().clear();
                         hbox.getChildren().addAll(lblTime, lblSentence);
                         lblTime.setText(item.getTime());
                         lblSentence.setText(item.getSentence());

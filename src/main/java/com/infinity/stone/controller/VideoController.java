@@ -4,14 +4,9 @@ import com.infinity.stone.model.VideoModel;
 import com.infinity.stone.util.ResourceUtils;
 import java.util.List;
 import java.util.logging.Logger;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
@@ -86,12 +81,9 @@ public class VideoController extends BaseVideoController {
             mvw.bind(Bindings.selectDouble(videoView.sceneProperty(), "width"));
             mvh.bind(Bindings.selectDouble(videoView.sceneProperty(), "height"));
             mediaPlayer.setAutoPlay(true);
-            mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
-                @Override
-                public void invalidated(Observable observable) {
-                    getListener().updateValues(mediaPlayer.getCurrentTime(), media.getDuration());
-                }
-            });
+            mediaPlayer.currentTimeProperty().addListener(
+                      observable -> getListener()
+                                .updateValues(mediaPlayer.getCurrentTime(), media.getDuration()));
             mediaPlayer.setOnReady(
                       () -> getListener()
                                 .updateValues(mediaPlayer.getCurrentTime(), media.getDuration()));
@@ -112,26 +104,20 @@ public class VideoController extends BaseVideoController {
             mediaPlayer.setOnError(() -> {
             
             });
-            mediaPlayer.errorProperty().addListener(new ChangeListener<MediaException>() {
-                
-                @Override
-                public void changed(ObservableValue<? extends MediaException> observable,
-                          MediaException oldValue,
-                          MediaException newValue) {
-                    switch (newValue.getType()) {
-                        case MEDIA_CORRUPTED:
-                            LOG.info("corrupted " + newValue.getMessage());
-                            return;
-                        case PLAYBACK_ERROR:
-                            LOG.info("playback error " + newValue.getMessage());
-                            return;
-                        case PLAYBACK_HALTED:
-                            LOG.info("halted " + newValue.getMessage());
-                            return;
-                        default:
-                            LOG.info("dunno what's going on");
-                            return;
-                    }
+            mediaPlayer.errorProperty().addListener((observable, oldValue, newValue) -> {
+                switch (newValue.getType()) {
+                    case MEDIA_CORRUPTED:
+                        LOG.info("corrupted " + newValue.getMessage());
+                        return;
+                    case PLAYBACK_ERROR:
+                        LOG.info("playback error " + newValue.getMessage());
+                        return;
+                    case PLAYBACK_HALTED:
+                        LOG.info("halted " + newValue.getMessage());
+                        return;
+                    default:
+                        LOG.info("dunno what's going on");
+                        return;
                 }
             });
             setPlaying(true);
@@ -149,7 +135,6 @@ public class VideoController extends BaseVideoController {
     public void calculatedPositionSlider(double sliderposition) {
         if (mediaPlayer != null) {
             mediaPlayer.seek(media.getDuration().multiply(sliderposition / 100.0));
-            
         }
     }
     
