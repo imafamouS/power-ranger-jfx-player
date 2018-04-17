@@ -4,6 +4,8 @@ import com.infinity.stone.util.ResourceUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,7 +21,18 @@ public class Main extends Application {
             Parent root = FXMLLoader
                       .load(ResourceUtils.getInstance().loadLayout("sample.fxml"));
             primaryStage.setTitle("Hello World");
-            primaryStage.setScene(new Scene(root, 300, 275));
+            primaryStage.setScene(new Scene(root));     
+            primaryStage.sizeToScene();
+            primaryStage.centerOnScreen();
+            primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
+
+				@Override
+				public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+					root.prefWidth(newValue.doubleValue());
+					LOG.info(root.toString());
+				}
+            	
+			});
             primaryStage.show();
         } catch (Exception ex) {
             LOG.log(Level.INFO, ex.getMessage());
