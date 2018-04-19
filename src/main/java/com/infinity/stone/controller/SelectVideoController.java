@@ -113,8 +113,7 @@ public class SelectVideoController implements Initializable {
     private MyFileChooserDialog buildFileChooser() {
         
         return new MyFileChooserDialog()
-                  .setTitle("Select Video")
-                  .setExtensions(EXTENSIONS);
+                  .setTitle("Select Video");
     }
     
     private void showMainScreen(Event event) {

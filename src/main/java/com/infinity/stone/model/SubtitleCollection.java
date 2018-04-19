@@ -33,4 +33,10 @@ public class SubtitleCollection {
             }
         }
     }
+    
+    public void printValue() {
+        for (SubtitleModel i : lstModel) {
+            System.out.print(i.toString());
+        }
+    }
 }

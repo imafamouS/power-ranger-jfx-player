@@ -47,4 +47,12 @@ public class SubtitleModel {
             return false;
         }
     }
+    
+    @Override
+    public String toString() {
+        return "SubtitleModel{" +
+               "time='" + time + '\'' +
+               ", sentence='" + sentence + '\'' +
+               '}';
+    }
 }

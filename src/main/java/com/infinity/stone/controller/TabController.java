@@ -6,12 +6,12 @@ import com.infinity.stone.model.SubtitleCollection;
 import com.infinity.stone.model.SubtitleModel;
 import com.infinity.stone.model.VideoModel;
 import com.infinity.stone.model.VideoModel.LEVEL;
+import com.infinity.stone.youtube.DownloadCaptionManager;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
@@ -78,6 +78,9 @@ public class TabController implements Initializable {
     @FXML
     private JFXListView listviewSubtitleFullScreen;
     
+    
+    private DownloadCaptionManager mDownloadCaptionManager;
+    
     private static String formatTime(Duration elapsed, Duration duration) {
         int intElapsed = (int) Math.floor(elapsed.toSeconds());
         int elapsedHours = intElapsed / (60 * 60);
@@ -116,9 +119,13 @@ public class TabController implements Initializable {
             }
         }
     }
-    
+    SubtitleCollection mSubtitleCollection;
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        mDownloadCaptionManager = new DownloadCaptionManager();
+        String videoId = "CDj9gkIe5iY";
+        mSubtitleCollection = mDownloadCaptionManager.downloadSubtitle(videoId);
+        
         setUpListView();
         setUpController();
     }
@@ -281,46 +288,8 @@ public class TabController implements Initializable {
                 }
                 
             });
-            
-            SubtitleCollection collection = new SubtitleCollection();
-            collection.addAll(Arrays.asList(
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("02:41", "When in Rome, do as the Romans"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("03:12", "The pen is mightier than the sword"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("02:41", "When in Rome, do as the Romans"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("03:12", "The pen is mightier than the sword"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("02:41", "When in Rome, do as the Romans"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("03:12", "The pen is mightier than the sword"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("02:41", "When in Rome, do as the Romans"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("03:12", "The pen is mightier than the sword"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("02:41", "When in Rome, do as the Romans"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                      new SubtitleModel("03:12", "The pen is mightier than the sword"),
-                      new SubtitleModel("05:51", "Two wrongs don't make a right")));
-            listviewSubtitleFullScreen.setItems(collection.getLstModel());
+           
+            listviewSubtitleFullScreen.setItems(mSubtitleCollection.getLstModel());
             listviewSubtitleFullScreen.setCellFactory(
                       new Callback<JFXListView<SubtitleModel>, JFXListCell<SubtitleModel>>() {
                           @Override
@@ -336,21 +305,8 @@ public class TabController implements Initializable {
     }
     
     private void setUpListView() {
-        SubtitleCollection collection = new SubtitleCollection();
-        collection.addAll(Arrays.asList(
-                  new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                  new SubtitleModel("02:41", "When in Rome, do as the Romans"),
-                  new SubtitleModel("03:12", "The pen is mightier than the sword"),
-                  new SubtitleModel("05:51", "Two wrongs don't make a right"),
-                  new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                  new SubtitleModel("02:41", "When in Rome, do as the Romans"),
-                  new SubtitleModel("03:12", "The pen is mightier than the sword"),
-                  new SubtitleModel("05:51", "Two wrongs don't make a right"),
-                  new SubtitleModel("01:12", "The squeaky wheel gets the grease"),
-                  new SubtitleModel("02:41", "When in Rome, do as the Romans"),
-                  new SubtitleModel("03:12", "The pen is mightier than the sword"),
-                  new SubtitleModel("05:51", "Two wrongs don't make a right")));
-        listViewSubtitle.setItems(collection.getLstModel());
+       
+        listViewSubtitle.setItems(mSubtitleCollection.getLstModel());
         listViewSubtitle.setCellFactory(
                   (Callback<JFXListView<SubtitleModel>, JFXListCell<SubtitleModel>>) param -> new ListViewCell());
     }
