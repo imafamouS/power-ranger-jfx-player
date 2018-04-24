@@ -6,9 +6,12 @@ import com.infinity.stone.util.image.ImageUtilities;
 import com.jfoenix.controls.JFXListCell;
 import java.io.IOException;
 import java.util.logging.Logger;
+
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -19,10 +22,8 @@ import javafx.scene.layout.VBox;
 
 public class MyRecentVideoView extends VBox {
     
-    private static Logger LOG = Logger.getLogger("MyRecentVideoView");
-    
-    //fitHeight="150" fitWidth="210"
-    
+    private static Logger LOG = Logger.getLogger("MyRecsentVideoView");
+        
     private static int HEIGHT = 150;
     private static int WIDTH = 210;
     
@@ -50,6 +51,7 @@ public class MyRecentVideoView extends VBox {
                   ResourceUtils.getInstance().loadRaw(url).toString());
         
         Image imageResize = ImageUtilities.fastResize(image, WIDTH, HEIGHT);
+        mImageView.setCache(true);
         mImageView.setImage(imageResize);
     }
     
@@ -75,10 +77,10 @@ public class MyRecentVideoView extends VBox {
     
     public interface OnClickRecentItem {
         
-        void onClickRecentItem(RecentVideoModel item);
+        void onClickRecentItem(RecentVideoModel item, Event event);
     }
     
-    public static class RecentVideoFactory extends JFXListCell<RecentVideoModel> {
+    public static class RecentVideoFactory extends ListCell<RecentVideoModel> {
         
         MyRecentVideoView view = new MyRecentVideoView();
         
@@ -92,22 +94,28 @@ public class MyRecentVideoView extends VBox {
         protected void updateItem(final RecentVideoModel item, boolean empty) {
             super.updateItem(item, empty);
             try {
-                if (item != null) {
-                    if (empty) {
-                        setText(null);
-                        setGraphic(null);
-                    } else {
-                        view.setOnMouseClicked(event -> {
-                            mOnClickRecentItem.onClickRecentItem(item);
-                        });
-                        view.setImage(item.getImageThumbnail());
-                        view.setText(item.getVideoName());
-                        setText(null);
-                        setGraphic(view);
-                    }
-                } else {
-                    setGraphic(null);
-                }
+            	new Runnable() {
+					@Override
+					public void run() {
+						if (item != null) {
+		                    if (empty) {
+		                        setText(null);
+		                        setGraphic(null);
+		                    } else {
+		                        view.setOnMouseClicked(event -> {
+		                            mOnClickRecentItem.onClickRecentItem(item, event);
+		                        });
+		                        view.setImage(item.getImageThumbnail());
+		                        view.setText(item.getVideoName());
+		                        setText(null);
+		                        setGraphic(view);
+		                    }
+		                } else {
+		                    setGraphic(null);
+		                }
+					}
+				}.run();
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }

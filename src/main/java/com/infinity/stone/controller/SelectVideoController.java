@@ -5,7 +5,6 @@ import com.infinity.stone.custom.MyRecentVideoView;
 import com.infinity.stone.custom.MyRecentVideoView.OnClickRecentItem;
 import com.infinity.stone.model.RecentVideoModel;
 import com.infinity.stone.util.ResourceUtils;
-import com.jfoenix.controls.JFXListView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -37,16 +37,20 @@ public class SelectVideoController implements Initializable {
     
     public static final String[] EXTENSIONS = new String[]{"*.mp4"};
     private static Logger LOG = Logger.getLogger("SelectVideoController");
+    
     @FXML
     private Pane mSelectVideoPanel;
     
     @FXML
-    private JFXListView<RecentVideoModel> mListView;
+    private ListView<RecentVideoModel> mListView;
     
     @FXML
     private ImageView imageView;
     
-    private OnClickRecentItem mOnClickRecentItem = item -> LOG.info(item.toString());
+    private OnClickRecentItem mOnClickRecentItem = (item, event) ->{
+    	LOG.info(item.toString());
+    	showMainScreen(event);
+    };
     
     private EventHandler<DragEvent> mOnDragOver = event -> {
         Dragboard db = event.getDragboard();
@@ -65,6 +69,8 @@ public class SelectVideoController implements Initializable {
             String filePath = db.getFiles().get(0).getAbsolutePath();
             
             LOG.info(filePath);
+            showMainScreen(event);
+
         }
         event.setDropCompleted(success);
         event.consume();
@@ -96,16 +102,20 @@ public class SelectVideoController implements Initializable {
         //TODO: GET FROM SqlITE
         List<RecentVideoModel> list = new ArrayList<>();
         
-        list.add(new RecentVideoModel("1.JPG", "Video 1"));
-        list.add(new RecentVideoModel("1.JPG", "Video 2"));
-        list.add(new RecentVideoModel("1.JPG", "Video 3"));
-        list.add(new RecentVideoModel("1.JPG", "Video 4"));
-        list.add(new RecentVideoModel("1.JPG", "Video 5"));
-        list.add(new RecentVideoModel("1.JPG", "Video 6"));
-        list.add(new RecentVideoModel("1.JPG", "Video 7"));
-        list.add(new RecentVideoModel("1.JPG", "Video 8"));
-        list.add(new RecentVideoModel("1.JPG", "Video 9"));
-        list.add(new RecentVideoModel("1.JPG", "Video 10"));
+        for(int i = 1; i <= 100; i++) {
+        	list.add(new RecentVideoModel("1.JPG", "Video " + i));
+        }
+//        
+//        list.add(new RecentVideoModel("1.JPG", "Video 1"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 2"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 3"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 4"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 5"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 6"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 7"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 8"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 9"));
+//        list.add(new RecentVideoModel("1.JPG", "Video 10"));
         
         return list;
     }
@@ -113,9 +123,8 @@ public class SelectVideoController implements Initializable {
     private MyFileChooserDialog buildFileChooser() {
         
         return new MyFileChooserDialog()
-                  .setTitle("Select Video")
-                  .setExtensions(EXTENSIONS);
-    }
+                  .setTitle("Select Video");
+   }
     
     private void showMainScreen(Event event) {
         Parent mainLayout = null;
@@ -132,7 +141,6 @@ public class SelectVideoController implements Initializable {
                 finalMainLayout.prefWidth(newValue.doubleValue());
                 LOG.info(finalMainLayout.toString());
             });
-            appStage.setResizable(false);
             appStage.setScene(mainScreen);
             appStage.show();
         } catch (IOException e) {

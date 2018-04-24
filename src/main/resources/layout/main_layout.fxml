@@ -1,70 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXListView?><?import com.jfoenix.controls.JFXSlider?><?import com.jfoenix.controls.JFXTabPane?><?import javafx.scene.control.SplitPane?><?import javafx.scene.control.Tab?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.VBox?><?import javafx.scene.media.MediaView?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" styleClass="anchor-pane"
-  stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.121"
-  fx:controller="com.infinity.stone.controller.TabController">
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+
+<AnchorPane styleClass="anchor-pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.infinity.stone.controller.TabController">
   <children>
-    <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-      dividerPositions="0.298" layoutX="290.0" layoutY="212.0"
-      styleClass="split-pane" fx:id="splitPane">
+    <SplitPane fx:id="splitPane" dividerPositions="0.298" layoutX="290.0" layoutY="212.0" minHeight="720.0" styleClass="split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
-        <AnchorPane maxWidth="1.7976931348623157E308" minWidth="720.0" styleClass="videocontainer"
-          fx:id="mediaContainer">
+        <AnchorPane fx:id="mediaContainer" maxWidth="1.7976931348623157E308" minWidth="720.0" styleClass="videocontainer">
           <children>
-            <MediaView fitHeight="720.0" fitWidth="768.0" styleClass="videoplayer"
-              fx:id="videoPlayer" />
-            <JFXListView style="-fx-background-color: transparent;" AnchorPane.rightAnchor="0.0"
-              minWidth="450.0" styleClass="sublistviewtransparent"
-              fx:id="listviewSubtitleFullScreen" />
-            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" styleClass="videocontroller"
-              fx:id="slidercontrollercontainer">
+            <MediaView fx:id="videoPlayer" fitHeight="720.0" fitWidth="768.0" styleClass="videoplayer" />
+            <JFXListView fx:id="listviewSubtitleFullScreen" minWidth="450.0" style="-fx-background-color: transparent;" styleClass="sublistviewtransparent" AnchorPane.rightAnchor="0.0" />
+            <VBox fx:id="slidercontrollercontainer" styleClass="videocontroller" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
               <children>
-                <JFXSlider prefHeight="1.0" prefWidth="768.0" fx:id="timeLine" />
-                <HBox alignment="CENTER_LEFT" prefWidth="200.0" fx:id="controllerContainer" />
+                <JFXSlider fx:id="timeLine" prefHeight="1.0" prefWidth="768.0" />
+                <HBox fx:id="controllerContainer" alignment="CENTER_LEFT" prefWidth="200.0" />
               </children>
             </VBox>
           </children>
         </AnchorPane>
-        <AnchorPane maxWidth="512.0" minWidth="512.0" fx:id="rightPaneSide">
+        <AnchorPane fx:id="rightPaneSide" maxWidth="512.0" minWidth="512.0">
           <children>
-            <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0" dividerPositions="0.7" orientation="VERTICAL"
-              prefHeight="720.8" prefWidth="512.8">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="520.0">
+        <JFXTabPane prefHeight="355.2" prefWidth="511.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <tabs>
+            <Tab text="Subtitle">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="512.0">
                   <children>
-                    <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                      AnchorPane.topAnchor="0.0" prefHeight="355.2"
-                      prefWidth="511.2">
-                      <tabs>
-                        <Tab text="Subtitle">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                              prefWidth="512.0">
-                              <children>
-                                <JFXListView AnchorPane.bottomAnchor="-214.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                  AnchorPane.topAnchor="0.0" layoutX="47.0" layoutY="157.0"
-                                  prefHeight="670.0" prefWidth="510.0"
-                                  styleClass="mylistview" fx:id="listViewSubtitle" />
-                              </children>
-                            </AnchorPane>
-                          </content>
-                        </Tab>
-                        <Tab text="Favourite">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                              prefWidth="512.0" />
-                          </content>
-                        </Tab>
-                      </tabs>
-                    </JFXTabPane>
+                    <JFXListView fx:id="listViewSubtitle" layoutX="47.0" layoutY="157.0" prefWidth="510.0" styleClass="mylistview" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   </children>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="520.0" />
-              </items>
-            </SplitPane>
+              </content>
+            </Tab>
+            <Tab text="Favourite">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="512.0" />
+              </content>
+            </Tab>
+          </tabs>
+        </JFXTabPane>
           </children>
         </AnchorPane>
       </items>

@@ -102,7 +102,7 @@ public class VideoController extends BaseVideoController {
                 getListener().onEnd();
             });
             mediaPlayer.setOnError(() -> {
-            
+            	
             });
             mediaPlayer.errorProperty().addListener((observable, oldValue, newValue) -> {
                 switch (newValue.getType()) {
