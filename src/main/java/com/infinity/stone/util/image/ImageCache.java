@@ -16,15 +16,15 @@ import javafx.scene.image.Image;
 
 public class ImageCache {
     
-    private Executor executor;
+    private final Executor executor;
     
     private long pixelCount = 0;
     
-    private long maxPixelCount = 2000 * 2000 * 5;
+    private final long maxPixelCount = 2000 * 2000 * 5;
     
-    private Map<ImageIdentifier, WeakReference<Image>> cache;
+    private final Map<ImageIdentifier, WeakReference<Image>> cache;
     
-    private List<ImageIdentifier> usageData;
+    private final List<ImageIdentifier> usageData;
     
     public ImageCache(Executor executor) {
         this.executor = executor;

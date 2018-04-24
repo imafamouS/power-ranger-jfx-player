@@ -9,9 +9,9 @@ import javafx.scene.image.ImageView;
 
 public class MyImageView extends ImageView {
     
-    private static Logger LOG = Logger.getLogger("MyImageView");
+    private static final Logger LOG = Logger.getLogger("MyImageView");
     
-    Map<String, Image> cached = new HashMap<>();
+    final Map<String, Image> cached = new HashMap<>();
     
     public MyImageView(String url) {
         super(ResourceUtils.getInstance().loadIcon(url).toString());

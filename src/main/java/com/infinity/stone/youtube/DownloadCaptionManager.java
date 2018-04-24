@@ -1,8 +1,5 @@
 package com.infinity.stone.youtube;
 
-/**
- * Created by infamouSs on 4/19/18.
- */
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.media.MediaHttpDownloader;
@@ -26,30 +23,28 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+/**
+ * Created by infamouSs on 4/19/18.
+ */
+
 public class DownloadCaptionManager {
-    
-    private static Logger LOG = Logger.getLogger("DownloadCaptionManager");
-    
     
     private static final String TTML = "ttml";
     private static final String EXTENSION_TTML = "." + TTML;
-    
-    private final String CAPTION_FILE_FORMAT = "*/*";
-    
     private final static String PATH = "sub/";
+    private static final Logger LOG = Logger.getLogger("DownloadCaptionManager");
     
     static {
         boolean makeDir = new File(PATH).mkdir();
     }
     
-    private YouTube mYouTube;
-    
-    
+    private final String CAPTION_FILE_FORMAT = "*/*";
     private final List<String> SCOPES = Lists
               .newArrayList("https://www.googleapis.com/auth/youtube.force-ssl");
+    private YouTube mYouTube;
     
     public DownloadCaptionManager() {
-        Credential credential = null;
+        Credential credential;
         try {
             credential = Auth.authorize(SCOPES, "captions");
             mYouTube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential)

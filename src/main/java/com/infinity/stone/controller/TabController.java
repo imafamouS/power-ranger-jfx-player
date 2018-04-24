@@ -35,37 +35,33 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
+@SuppressWarnings("unchecked")
 public class TabController implements Initializable {
     
     private static final Logger LOG = Logger
               .getLogger(TabController.class.getCanonicalName());
-    
+    SubtitleCollection mSubtitleCollection;
     @FXML
     private TabPane tabPane;
-    
     @FXML
     private MediaView videoPlayer;
-    
     @FXML
     private JFXListView listViewSubtitle;
-    
     @FXML
     private AnchorPane rightPaneSide;
-    
     @FXML
     private JFXSlider timeLine;
     @FXML
     private HBox controllerContainer;
-    
     @FXML
     private VBox slidercontrollercontainer;
-    EventHandler<Event> onMouseEnterVideoContainer = new EventHandler<Event>() {
+    final EventHandler<Event> onMouseEnterVideoContainer = new EventHandler<Event>() {
         @Override
         public void handle(Event e) {
             slidercontrollercontainer.setOpacity(1.0);
         }
     };
-    EventHandler<Event> onMouseExitVideoContainer = new EventHandler<Event>() {
+    final EventHandler<Event> onMouseExitVideoContainer = new EventHandler<Event>() {
         @Override
         public void handle(Event e) {
             slidercontrollercontainer.setOpacity(0.0);
@@ -77,8 +73,6 @@ public class TabController implements Initializable {
     private SplitPane splitPane;
     @FXML
     private JFXListView listviewSubtitleFullScreen;
-    
-    
     private DownloadCaptionManager mDownloadCaptionManager;
     
     private static String formatTime(Duration elapsed, Duration duration) {
@@ -119,7 +113,7 @@ public class TabController implements Initializable {
             }
         }
     }
-    SubtitleCollection mSubtitleCollection;
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         mDownloadCaptionManager = new DownloadCaptionManager();
@@ -224,13 +218,8 @@ public class TabController implements Initializable {
                     
                 }
             });
-            fullWidthImageView.setOnMouseClicked(new EventHandler<Event>() {
-                @Override
-                public void handle(Event event) {
-                    controller.toggleFullScreen();
-                }
-                
-            });
+            fullWidthImageView.setOnMouseClicked(
+                      (EventHandler<Event>) event -> controller.toggleFullScreen());
             JFXSlider slider = new MySliderView(0, 1, 1) {
                 @Override
                 public JFXSlider apply(JFXSlider slider) {
@@ -288,16 +277,10 @@ public class TabController implements Initializable {
                 }
                 
             });
-           
+            
             listviewSubtitleFullScreen.setItems(mSubtitleCollection.getLstModel());
             listviewSubtitleFullScreen.setCellFactory(
-                      new Callback<JFXListView<SubtitleModel>, JFXListCell<SubtitleModel>>() {
-                          @Override
-                          public JFXListCell<SubtitleModel> call(JFXListView<SubtitleModel> param) {
-                              return new ListViewTransparentCell();
-                          }
-                          
-                      });
+                      (Callback<JFXListView<SubtitleModel>, JFXListCell<SubtitleModel>>) param -> new ListViewTransparentCell());
         } catch (Exception e) {
             e.printStackTrace();
             LOG.info(e.getMessage());
@@ -305,7 +288,7 @@ public class TabController implements Initializable {
     }
     
     private void setUpListView() {
-       
+        
         listViewSubtitle.setItems(mSubtitleCollection.getLstModel());
         listViewSubtitle.setCellFactory(
                   (Callback<JFXListView<SubtitleModel>, JFXListCell<SubtitleModel>>) param -> new ListViewCell());
@@ -313,9 +296,9 @@ public class TabController implements Initializable {
     
     static class ListViewCell extends JFXListCell<SubtitleModel> {
         
-        HBox hbox = new HBox();
-        Label lblTime = new Label();
-        Label lblSentence = new Label();
+        final HBox hbox = new HBox();
+        final Label lblTime = new Label();
+        final Label lblSentence = new Label();
         
         @Override
         protected void updateItem(SubtitleModel item, boolean empty) {
@@ -359,9 +342,9 @@ public class TabController implements Initializable {
     
     static class ListViewTransparentCell extends JFXListCell<SubtitleModel> {
         
-        HBox hbox = new HBox();
-        Label lblTime = new Label();
-        Label lblSentence = new Label();
+        final HBox hbox = new HBox();
+        final Label lblTime = new Label();
+        final Label lblSentence = new Label();
         
         @Override
         protected void updateItem(SubtitleModel item, boolean empty) {

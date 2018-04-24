@@ -1,5 +1,9 @@
 package com.infinity.stone.model;
 
+import com.infinity.stone.db.subtitle.Subtitle;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SubtitleModel {
     
     private String time;
@@ -8,6 +12,19 @@ public class SubtitleModel {
     public SubtitleModel(String time, String sentence) {
         this.time = time;
         this.sentence = sentence;
+    }
+    
+    public SubtitleModel(Subtitle subtitle) {
+        this.time = subtitle.getTimeStart();
+        this.sentence = subtitle.getContent();
+    }
+    
+    public static List<SubtitleModel> convert(List<Subtitle> subtitles) {
+        List<SubtitleModel> list = new ArrayList<>();
+        for (Subtitle i : subtitles) {
+            list.add(new SubtitleModel(i));
+        }
+        return list;
     }
     
     public String getTime() {
@@ -36,16 +53,9 @@ public class SubtitleModel {
         if (!(obj instanceof SubtitleModel)) {
             return false;
         }
-        if (this.time != null && this.sentence != null) {
-            if (this.time.equals(((SubtitleModel) obj).time) &&
-                ((SubtitleModel) obj).sentence.equals(this.sentence)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return this.time != null && this.sentence != null &&
+               this.time.equals(((SubtitleModel) obj).time) &&
+               ((SubtitleModel) obj).sentence.equals(this.sentence);
     }
     
     @Override

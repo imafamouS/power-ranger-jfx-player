@@ -4,12 +4,15 @@ import com.infinity.stone.custom.MyFileChooserDialog;
 import com.infinity.stone.custom.MyRecentVideoView;
 import com.infinity.stone.custom.MyRecentVideoView.OnClickRecentItem;
 import com.infinity.stone.model.RecentVideoModel;
+import com.infinity.stone.tracking.Action;
+import com.infinity.stone.tracking.TrackingManager;
 import com.infinity.stone.util.ResourceUtils;
 import com.jfoenix.controls.JFXListView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -36,7 +39,7 @@ import javafx.stage.Stage;
 public class SelectVideoController implements Initializable {
     
     public static final String[] EXTENSIONS = new String[]{"*.mp4"};
-    private static Logger LOG = Logger.getLogger("SelectVideoController");
+    private static final Logger LOG = Logger.getLogger("SelectVideoController");
     @FXML
     private Pane mSelectVideoPanel;
     
@@ -46,9 +49,9 @@ public class SelectVideoController implements Initializable {
     @FXML
     private ImageView imageView;
     
-    private OnClickRecentItem mOnClickRecentItem = item -> LOG.info(item.toString());
+    private final OnClickRecentItem mOnClickRecentItem = item -> LOG.info(item.toString());
     
-    private EventHandler<DragEvent> mOnDragOver = event -> {
+    private final EventHandler<DragEvent> mOnDragOver = event -> {
         Dragboard db = event.getDragboard();
         if (db.hasFiles()) {
             event.acceptTransferModes(TransferMode.COPY);
@@ -57,7 +60,7 @@ public class SelectVideoController implements Initializable {
         }
     };
     
-    private EventHandler<DragEvent> mOnDragDropped = event -> {
+    private final EventHandler<DragEvent> mOnDragDropped = event -> {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasFiles()) {
@@ -75,11 +78,16 @@ public class SelectVideoController implements Initializable {
         MyFileChooserDialog myFileChooserDialog = buildFileChooser();
         
         mSelectVideoPanel.setOnMouseClicked(event -> {
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO, "Select video start at" + new Date());
             File selectedFile = myFileChooserDialog.show();
             
-            LOG.info(selectedFile.getAbsolutePath());
-            
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO,
+                                "Video selected path " + selectedFile.getAbsolutePath());
             showMainScreen(event);
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO, "Select video end at" + new Date());
         });
         
         mSelectVideoPanel.setOnDragOver(mOnDragOver);
@@ -117,7 +125,7 @@ public class SelectVideoController implements Initializable {
     }
     
     private void showMainScreen(Event event) {
-        Parent mainLayout = null;
+        Parent mainLayout;
         try {
             mainLayout = FXMLLoader
                       .load(ResourceUtils.getInstance().loadLayout("main_layout.fxml"));

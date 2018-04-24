@@ -162,9 +162,9 @@ public class ImageUtilities {
         BICUBIC(RenderingHints.VALUE_INTERPOLATION_BICUBIC),
         BILINEAR((RenderingHints.VALUE_INTERPOLATION_BILINEAR));
         
-        private Object awtType;
+        private final Object awtType;
         
-        private InterpolationType(Object awtType) {
+        InterpolationType(Object awtType) {
             this.awtType = awtType;
         }
         

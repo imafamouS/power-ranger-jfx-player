@@ -11,7 +11,7 @@ public class RecentVideoModel {
     
     
     public RecentVideoModel() {
-    
+
     }
     
     public RecentVideoModel(String imageThumbnail, String videoName) {

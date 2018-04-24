@@ -15,9 +15,9 @@ public class VideoController extends BaseVideoController {
     private static final Logger LOG = Logger
               .getLogger(VideoController.class.getCanonicalName());
     private int indexActiveVideo;
-    private List<VideoModel> lst_video;
-    private MediaView videoView;
-    private VideoModel activeVideo;
+    private final List<VideoModel> lst_video;
+    private final MediaView videoView;
+    private final VideoModel activeVideo;
     private boolean isEnd;
     private Media media;
     
@@ -117,7 +117,6 @@ public class VideoController extends BaseVideoController {
                         return;
                     default:
                         LOG.info("dunno what's going on");
-                        return;
                 }
             });
             setPlaying(true);

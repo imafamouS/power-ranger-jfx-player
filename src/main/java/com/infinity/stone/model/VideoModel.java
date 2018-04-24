@@ -34,10 +34,7 @@ public class VideoModel implements Comparable<VideoModel> {
         if (obj == null) {
             return false;
         }
-        if (((VideoModel) obj).getPath().equals(this.getPath())) {
-            return true;
-        }
-        return super.equals(obj);
+        return ((VideoModel) obj).getPath().equals(this.getPath()) || super.equals(obj);
     }
     
     @Override

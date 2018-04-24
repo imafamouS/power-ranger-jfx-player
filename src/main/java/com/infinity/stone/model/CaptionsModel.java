@@ -10,7 +10,7 @@ public class CaptionsModel {
     private String lang;
     
     public CaptionsModel() {
-    
+
     }
     
     public CaptionsModel(String id, String lang) {
@@ -42,13 +42,11 @@ public class CaptionsModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        
+    
         CaptionsModel that = (CaptionsModel) o;
-        
-        if (id != null ? !id.equals(that.id) : that.id != null) {
-            return false;
-        }
-        return lang != null ? lang.equals(that.lang) : that.lang == null;
+    
+        return (id != null ? id.equals(that.id) : that.id == null) &&
+               (lang != null ? lang.equals(that.lang) : that.lang == null);
     }
     
     @Override

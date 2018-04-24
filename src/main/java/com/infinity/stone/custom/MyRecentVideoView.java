@@ -19,12 +19,12 @@ import javafx.scene.layout.VBox;
 
 public class MyRecentVideoView extends VBox {
     
-    private static Logger LOG = Logger.getLogger("MyRecentVideoView");
+    private static final Logger LOG = Logger.getLogger("MyRecentVideoView");
     
     //fitHeight="150" fitWidth="210"
     
-    private static int HEIGHT = 150;
-    private static int WIDTH = 210;
+    private static final int HEIGHT = 150;
+    private static final int WIDTH = 210;
     
     @FXML
     private ImageView mImageView;
@@ -80,9 +80,9 @@ public class MyRecentVideoView extends VBox {
     
     public static class RecentVideoFactory extends JFXListCell<RecentVideoModel> {
         
-        MyRecentVideoView view = new MyRecentVideoView();
+        final MyRecentVideoView view = new MyRecentVideoView();
         
-        OnClickRecentItem mOnClickRecentItem;
+        final OnClickRecentItem mOnClickRecentItem;
         
         public RecentVideoFactory(OnClickRecentItem listener) {
             this.mOnClickRecentItem = listener;
@@ -97,9 +97,7 @@ public class MyRecentVideoView extends VBox {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        view.setOnMouseClicked(event -> {
-                            mOnClickRecentItem.onClickRecentItem(item);
-                        });
+                        view.setOnMouseClicked(event -> mOnClickRecentItem.onClickRecentItem(item));
                         view.setImage(item.getImageThumbnail());
                         view.setText(item.getVideoName());
                         setText(null);

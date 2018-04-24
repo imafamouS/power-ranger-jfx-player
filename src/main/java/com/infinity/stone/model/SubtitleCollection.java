@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class SubtitleCollection {
     
-    ObservableList<SubtitleModel> lstModel = FXCollections.observableArrayList();
+    final ObservableList<SubtitleModel> lstModel = FXCollections.observableArrayList();
     
     public ObservableList<SubtitleModel> getLstModel() {
         return lstModel;

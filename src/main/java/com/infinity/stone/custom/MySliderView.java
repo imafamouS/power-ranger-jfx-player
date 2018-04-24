@@ -2,32 +2,26 @@ package com.infinity.stone.custom;
 
 import com.jfoenix.controls.JFXSlider;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.image.ImageView;
 
 public abstract class MySliderView extends JFXSlider {
     
     public MySliderView(double min, double max, double value) {
         super(min, max, value);
-        this.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-                      Number newValue) {
-                if (isMin()) {
-                    onMin();
-                }
-                if (isMax()) {
-                    onMax();
-                }
-                if (isMute()) {
-                    onMute();
-                }
-                if (isAverage()) {
-                    onAverage();
-                }
-                onValueChanged(newValue.doubleValue());
+        this.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (isMin()) {
+                onMin();
             }
+            if (isMax()) {
+                onMax();
+            }
+            if (isMute()) {
+                onMute();
+            }
+            if (isAverage()) {
+                onAverage();
+            }
+            onValueChanged(newValue.doubleValue());
         });
         
         this.setValueFactory(param -> Bindings.createStringBinding(
