@@ -1,16 +1,36 @@
 package com.infinity.stone.model;
 
+import com.infinity.stone.db.subtitle.Subtitle;
+
+import javafx.util.Duration;
+
 public class VideoModel implements Comparable<VideoModel> {
     
     private LEVEL level;
     private String path;
+    private SubtitleCollection collection;
     
-    public VideoModel(String path, LEVEL level) {
+    public VideoModel(String path,SubtitleCollection collection, LEVEL level) {
         this.path = path;
         this.level = level;
+        this.collection = collection;
     }
     
-    public LEVEL getLevel() {
+   
+    
+    public SubtitleCollection getCollection() {
+		return collection;
+	}
+
+    
+
+	public void setCollection(SubtitleCollection collection) {
+		this.collection = collection;
+	}
+
+
+
+	public LEVEL getLevel() {
         return level;
     }
     
@@ -34,10 +54,7 @@ public class VideoModel implements Comparable<VideoModel> {
         if (obj == null) {
             return false;
         }
-        if (((VideoModel) obj).getPath().equals(this.getPath())) {
-            return true;
-        }
-        return super.equals(obj);
+        return ((VideoModel) obj).getPath().equals(this.getPath()) || super.equals(obj);
     }
     
     @Override

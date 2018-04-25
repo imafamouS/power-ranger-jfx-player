@@ -1,7 +1,10 @@
 package com.infinity.stone.controller;
 
+import com.infinity.stone.db.subtitle.Subtitle;
 import com.infinity.stone.model.VideoModel;
 import com.infinity.stone.util.ResourceUtils;
+import com.infinity.stone.util.TextUtils;
+
 import java.util.List;
 import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
@@ -9,21 +12,22 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 public class VideoController extends BaseVideoController {
     
     private static final Logger LOG = Logger
               .getLogger(VideoController.class.getCanonicalName());
     private int indexActiveVideo;
-    private List<VideoModel> lst_video;
-    private MediaView videoView;
-    private VideoModel activeVideo;
+    private final List<VideoModel> lst_video;
+    private final MediaView videoView;
+    private final VideoModel activeVideo;
     private boolean isEnd;
     private Media media;
     
     public VideoController(MediaView videoView, VideoModel picked_video_name,
-              List<VideoModel> lst_video, OnVideoControllerListener listener) {
-        super(videoView, listener);
+              List<VideoModel> lst_video) {
+        super(videoView);
         this.videoView = videoView;
         this.videoView.setSmooth(true);
         this.videoView.setPreserveRatio(true);
@@ -70,36 +74,57 @@ public class VideoController extends BaseVideoController {
         }
     }
     
+    private String trackVideoSub() {
+    	Duration currentTime = mediaPlayer.getCurrentTime();
+    	for(Subtitle sub : activeVideo.getCollection().getLstModel()) {
+    		if(TextUtils.reverseFormatTime(sub.getTimeStart()).lessThan(currentTime) && 
+    				TextUtils.reverseFormatTime(sub.getTimeEnd()).greaterThan(currentTime)) {
+    			return sub.getContent();
+    		}
+    	}
+    	return null;
+    }
+    
     @Override
     public void loadSourceVideo(VideoModel video) {
         try {
             media = new Media(ResourceUtils.getInstance().loadVideo(video.getPath()).toString());
-            mediaPlayer = new MediaPlayer(media);
-            getListener().onLoadVideo(media.getDuration());
+            mediaPlayer = new MediaPlayer(media);          
             DoubleProperty mvw = videoView.fitWidthProperty();
             DoubleProperty mvh = videoView.fitHeightProperty();
             mvw.bind(Bindings.selectDouble(videoView.sceneProperty(), "width"));
             mvh.bind(Bindings.selectDouble(videoView.sceneProperty(), "height"));
             mediaPlayer.setAutoPlay(true);
-            mediaPlayer.currentTimeProperty().addListener(
-                      observable -> getListener()
-                                .updateValues(mediaPlayer.getCurrentTime(), media.getDuration()));
+            mediaPlayer.currentTimeProperty().addListener(observable->{
+            	if(listener!=null) {
+            		listener.updateValues(mediaPlayer.getCurrentTime(),
+            				media.getDuration(),
+            				trackVideoSub());
+            	}         
+            });
             mediaPlayer.setOnReady(
-                      () -> getListener()
-                                .updateValues(mediaPlayer.getCurrentTime(), media.getDuration()));
+                      () -> {
+                    	  if(listener!=null) {
+                    		  listener.updateValues(mediaPlayer.getCurrentTime(),
+                                		media.getDuration(),
+                                		trackVideoSub());
+                    	  }                 	
+                      });
             mediaPlayer.setOnPlaying(() -> {
-                if (isPlaying()) {
-                    getListener().onPlaying();
+                if (isPlaying() && listener!=null) {
+                	listener.onPlaying();
                 }
             });
             mediaPlayer.setOnPaused(() -> {
-                if (isPausing()) {
-                    getListener().onPause();
+                if (isPausing() && listener!=null) {
+                	listener.onPause();
                 }
             });
             mediaPlayer.setOnEndOfMedia(() -> {
                 isEnd = true;
-                getListener().onEnd();
+                if(listener!=null) {
+                	listener.onEnd();
+                }
             });
             mediaPlayer.setOnError(() -> {
             	
@@ -117,7 +142,6 @@ public class VideoController extends BaseVideoController {
                         return;
                     default:
                         LOG.info("dunno what's going on");
-                        return;
                 }
             });
             setPlaying(true);
@@ -136,6 +160,12 @@ public class VideoController extends BaseVideoController {
         if (mediaPlayer != null) {
             mediaPlayer.seek(media.getDuration().multiply(sliderposition / 100.0));
         }
+    }
+    
+    public void calculatedClickSub(Duration time) {
+    	if(mediaPlayer !=null) {
+    		mediaPlayer.seek(time);
+    	}
     }
     
     /*

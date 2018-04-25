@@ -10,7 +10,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class MyFileChooserDialog {
     
-    private FileChooser mFileChooser;
+    private final FileChooser mFileChooser;
     
     public MyFileChooserDialog() {
         mFileChooser = new FileChooser();
@@ -34,7 +34,7 @@ public class MyFileChooserDialog {
     }
     
     private String buildDesExtension(String extension) {
-        return new StringBuilder("Video Only").append("(").append(extension).append(")").toString();
+        return "Video Only" + "(" + extension + ")";
     }
     
     public File show() {

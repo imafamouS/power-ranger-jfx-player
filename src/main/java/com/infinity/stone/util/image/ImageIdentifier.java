@@ -6,11 +6,11 @@ package com.infinity.stone.util.image;
 
 public class ImageIdentifier {
     
-    private String url;
+    private final String url;
     
-    private int width;
+    private final int width;
     
-    private int height;
+    private final int height;
     
     public ImageIdentifier(String url, int width, int height) {
         this.url = url;
@@ -28,7 +28,7 @@ public class ImageIdentifier {
         }
         
         ImageIdentifier that = (ImageIdentifier) o;
-    
+        
         if (height != that.height) {
             return false;
         }

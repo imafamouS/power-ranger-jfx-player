@@ -6,12 +6,9 @@ import com.infinity.stone.util.image.ImageUtilities;
 import com.jfoenix.controls.JFXListCell;
 import java.io.IOException;
 import java.util.logging.Logger;
-
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -22,10 +19,12 @@ import javafx.scene.layout.VBox;
 
 public class MyRecentVideoView extends VBox {
     
-    private static Logger LOG = Logger.getLogger("MyRecsentVideoView");
-        
-    private static int HEIGHT = 150;
-    private static int WIDTH = 210;
+    private static final Logger LOG = Logger.getLogger("MyRecentVideoView");
+    
+    //fitHeight="150" fitWidth="210"
+    
+    private static final int HEIGHT = 150;
+    private static final int WIDTH = 210;
     
     @FXML
     private ImageView mImageView;
@@ -51,7 +50,6 @@ public class MyRecentVideoView extends VBox {
                   ResourceUtils.getInstance().loadRaw(url).toString());
         
         Image imageResize = ImageUtilities.fastResize(image, WIDTH, HEIGHT);
-        mImageView.setCache(true);
         mImageView.setImage(imageResize);
     }
     
@@ -77,14 +75,14 @@ public class MyRecentVideoView extends VBox {
     
     public interface OnClickRecentItem {
         
-        void onClickRecentItem(RecentVideoModel item, Event event);
+        void onClickRecentItem(RecentVideoModel item);
     }
     
-    public static class RecentVideoFactory extends ListCell<RecentVideoModel> {
+    public static class RecentVideoFactory extends JFXListCell<RecentVideoModel> {
         
-        MyRecentVideoView view = new MyRecentVideoView();
+        final MyRecentVideoView view = new MyRecentVideoView();
         
-        OnClickRecentItem mOnClickRecentItem;
+        final OnClickRecentItem mOnClickRecentItem;
         
         public RecentVideoFactory(OnClickRecentItem listener) {
             this.mOnClickRecentItem = listener;
@@ -94,28 +92,20 @@ public class MyRecentVideoView extends VBox {
         protected void updateItem(final RecentVideoModel item, boolean empty) {
             super.updateItem(item, empty);
             try {
-            	new Runnable() {
-					@Override
-					public void run() {
-						if (item != null) {
-		                    if (empty) {
-		                        setText(null);
-		                        setGraphic(null);
-		                    } else {
-		                        view.setOnMouseClicked(event -> {
-		                            mOnClickRecentItem.onClickRecentItem(item, event);
-		                        });
-		                        view.setImage(item.getImageThumbnail());
-		                        view.setText(item.getVideoName());
-		                        setText(null);
-		                        setGraphic(view);
-		                    }
-		                } else {
-		                    setGraphic(null);
-		                }
-					}
-				}.run();
-                
+            	if (item != null) {
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        view.setOnMouseClicked(event -> mOnClickRecentItem.onClickRecentItem(item));
+                        view.setImage(item.getImageThumbnail());
+                        view.setText(item.getVideoName());
+                        setText(null);
+                        setGraphic(view);
+                    }
+                } else {
+                    setGraphic(null);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -125,8 +125,13 @@
 .jfx-progress-bar > .bar {
   -fx-background-color: red;
   -fx-padding: 3;
+  
 }
-
+.subtitle-label{
+	-fx-font: 24 arial;
+	-fx-background-color: rgba(0, 0, 0, 0.7);
+	-fx-padding: 10;
+}
 .txt_play_time {
   -fx-text-fill: #fff !important;
 }

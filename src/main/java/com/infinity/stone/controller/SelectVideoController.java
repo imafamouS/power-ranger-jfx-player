@@ -4,11 +4,15 @@ import com.infinity.stone.custom.MyFileChooserDialog;
 import com.infinity.stone.custom.MyRecentVideoView;
 import com.infinity.stone.custom.MyRecentVideoView.OnClickRecentItem;
 import com.infinity.stone.model.RecentVideoModel;
+import com.infinity.stone.tracking.Action;
+import com.infinity.stone.tracking.TrackingManager;
 import com.infinity.stone.util.ResourceUtils;
+import com.jfoenix.controls.JFXListView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -21,7 +25,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -36,23 +39,19 @@ import javafx.stage.Stage;
 public class SelectVideoController implements Initializable {
     
     public static final String[] EXTENSIONS = new String[]{"*.mp4"};
-    private static Logger LOG = Logger.getLogger("SelectVideoController");
-    
+    private static final Logger LOG = Logger.getLogger("SelectVideoController");
     @FXML
     private Pane mSelectVideoPanel;
     
     @FXML
-    private ListView<RecentVideoModel> mListView;
+    private JFXListView<RecentVideoModel> mListView;
     
     @FXML
     private ImageView imageView;
     
-    private OnClickRecentItem mOnClickRecentItem = (item, event) ->{
-    	LOG.info(item.toString());
-    	showMainScreen(event);
-    };
     
-    private EventHandler<DragEvent> mOnDragOver = event -> {
+    private final OnClickRecentItem mOnClickRecentItem = item -> LOG.info(item.toString());
+    private final EventHandler<DragEvent> mOnDragOver = event -> {
         Dragboard db = event.getDragboard();
         if (db.hasFiles()) {
             event.acceptTransferModes(TransferMode.COPY);
@@ -61,7 +60,7 @@ public class SelectVideoController implements Initializable {
         }
     };
     
-    private EventHandler<DragEvent> mOnDragDropped = event -> {
+    private final EventHandler<DragEvent> mOnDragDropped = event -> {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasFiles()) {
@@ -69,8 +68,6 @@ public class SelectVideoController implements Initializable {
             String filePath = db.getFiles().get(0).getAbsolutePath();
             
             LOG.info(filePath);
-            showMainScreen(event);
-
         }
         event.setDropCompleted(success);
         event.consume();
@@ -81,11 +78,16 @@ public class SelectVideoController implements Initializable {
         MyFileChooserDialog myFileChooserDialog = buildFileChooser();
         
         mSelectVideoPanel.setOnMouseClicked(event -> {
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO, "Select video start at" + new Date());
             File selectedFile = myFileChooserDialog.show();
             
-            LOG.info(selectedFile.getAbsolutePath());
-            
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO,
+                                "Video selected path " + selectedFile.getAbsolutePath());
             showMainScreen(event);
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO, "Select video end at" + new Date());
         });
         
         mSelectVideoPanel.setOnDragOver(mOnDragOver);
@@ -102,20 +104,16 @@ public class SelectVideoController implements Initializable {
         //TODO: GET FROM SqlITE
         List<RecentVideoModel> list = new ArrayList<>();
         
-        for(int i = 1; i <= 100; i++) {
-        	list.add(new RecentVideoModel("1.JPG", "Video " + i));
-        }
-//        
-//        list.add(new RecentVideoModel("1.JPG", "Video 1"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 2"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 3"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 4"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 5"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 6"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 7"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 8"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 9"));
-//        list.add(new RecentVideoModel("1.JPG", "Video 10"));
+        list.add(new RecentVideoModel("1.JPG", "Video 1"));
+        list.add(new RecentVideoModel("1.JPG", "Video 2"));
+        list.add(new RecentVideoModel("1.JPG", "Video 3"));
+        list.add(new RecentVideoModel("1.JPG", "Video 4"));
+        list.add(new RecentVideoModel("1.JPG", "Video 5"));
+        list.add(new RecentVideoModel("1.JPG", "Video 6"));
+        list.add(new RecentVideoModel("1.JPG", "Video 7"));
+        list.add(new RecentVideoModel("1.JPG", "Video 8"));
+        list.add(new RecentVideoModel("1.JPG", "Video 9"));
+        list.add(new RecentVideoModel("1.JPG", "Video 10"));
         
         return list;
     }
@@ -127,7 +125,7 @@ public class SelectVideoController implements Initializable {
    }
     
     private void showMainScreen(Event event) {
-        Parent mainLayout = null;
+        Parent mainLayout;
         try {
             mainLayout = FXMLLoader
                       .load(ResourceUtils.getInstance().loadLayout("main_layout.fxml"));
@@ -141,6 +139,7 @@ public class SelectVideoController implements Initializable {
                 finalMainLayout.prefWidth(newValue.doubleValue());
                 LOG.info(finalMainLayout.toString());
             });
+            appStage.setResizable(false);
             appStage.setScene(mainScreen);
             appStage.show();
         } catch (IOException e) {
