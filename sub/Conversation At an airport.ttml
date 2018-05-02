@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<tt xml:lang="en" xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" ttp:profile="http://www.w3.org/TR/profile/sdp-us" >
+<head>
+<styling>
+<style xml:id="s1" tts:textAlign="center" tts:extent="90% 90%" tts:origin="5% 5%" tts:displayAlign="after"/>
+<style xml:id="s2" tts:fontSize=".72c" tts:backgroundColor="black" tts:color="white"/>
+<style xml:id="s3" tts:color="#CCCCCC"/>
+<style xml:id="s4" tts:color="#E5E5E5"/>
+</styling>
+<layout>
+<region xml:id="r1" style="s1"/>
+</layout>
+</head>
+<body region="r1">
+<div>
+<p begin="00:00:00.030" end="00:00:08.069" style="s2">hi this is<span style="s3"> Mark</span> this is English</p>
+<p begin="00:00:03.049" end="00:00:21.810" style="s2"><span style="s4">conversation</span> practice<span style="s4"> conversations</span> at</p>
+<p begin="00:00:08.069" end="00:00:30.960" style="s2"><span style="s4">an</span> airport<span style="s4"> let&#39;s</span> preview where are you</p>
+<p begin="00:00:21.810" end="00:00:37.790" style="s2">going what takes you there I&#39;m going for</p>
+<p begin="00:00:30.960" end="00:00:37.790" style="s2">business<span style="s3"> I&#39;m</span> going for pleasure</p>
+<p begin="00:00:38.989" end="00:00:54.940" style="s2">how long will you stay<span style="s4"> I&#39;m</span> not going I&#39;m</p>
+<p begin="00:00:46.100" end="00:00:54.940" style="s2">arriving where are you arriving<span style="s4"> from</span> I</p>
+<p begin="00:00:55.510" end="00:01:03.649" style="s2">want<span style="s4"> to</span> go</p>
+<p begin="00:00:57.589" end="00:01:09.290" style="s2"><span style="s4">I</span> plan<span style="s3"> to</span> travel<span style="s4"> around</span> for<span style="s4"> about</span> a</p>
+<p begin="00:01:03.649" end="00:01:15.110" style="s2">month<span style="s3"> I</span> hope<span style="s4"> you</span> have a safe and<span style="s3"> fun</span></p>
+<p begin="00:01:09.290" end="00:01:22.460" style="s2">trip<span style="s3"> okay</span> let&#39;s practice<span style="s4"> the</span></p>
+<p begin="00:01:15.110" end="00:01:26.289" style="s2">conversations<span style="s4"> two</span> people are<span style="s4"> talking</span></p>
+<p begin="00:01:22.460" end="00:01:26.289" style="s2">while waiting for their flights</p>
+<p begin="00:01:30.870" end="00:01:38.130" style="s2">where are you going I&#39;m off to the</p>
+<p begin="00:01:35.680" end="00:01:38.130" style="s2"><span style="s4">States</span></p>
+<p begin="00:01:40.920" end="00:01:55.490" style="s2">what takes you there I&#39;m going for</p>
+<p begin="00:01:45.840" end="00:02:00.020" style="s2">business<span style="s3"> and Gia I&#39;m going to Thailand</span></p>
+<p begin="00:01:55.490" end="00:02:00.020" style="s2"><span style="s4">are</span> you also going for<span style="s4"> business</span></p>
+<p begin="00:02:03.580" end="00:02:11.880" style="s2"><span style="s3">No</span> I&#39;m going for pleasure<span style="s4"> how</span> long will</p>
+<p begin="00:02:09.340" end="00:02:11.880" style="s2">you<span style="s3"> stay</span></p>
+<p begin="00:02:15.510" end="00:02:27.170" style="s2">I&#39;m planning<span style="s3"> to</span> stay for about<span style="s3"> ten</span> days</p>
+<p begin="00:02:20.659" end="00:02:27.170" style="s2">have a safe<span style="s3"> trip</span><span style="s4"> thanks</span> you<span style="s4"> too</span></p>
+<p begin="00:02:29.959" end="00:02:37.730" style="s2"><span style="s4">two</span> people meet at an airport<span style="s4"> lunch</span></p>
+<p begin="00:02:33.560" end="00:02:42.370" style="s2">counter<span style="s4"> one</span> person is departing and the</p>
+<p begin="00:02:37.730" end="00:02:42.370" style="s2">other person<span style="s4"> is</span> just arriving</p>
+<p begin="00:02:48.910" end="00:02:56.130" style="s2">where are you going I&#39;m not<span style="s4"> going</span> I&#39;m</p>
+<p begin="00:02:53.380" end="00:02:56.130" style="s2">arriving</p>
+<p begin="00:03:00.959" end="00:03:09.720" style="s2">where are you<span style="s3"> arriving</span> from I&#39;m</p>
+<p begin="00:03:05.709" end="00:03:09.720" style="s2">returning<span style="s4"> from</span> Australia</p>
+<p begin="00:03:13.890" end="00:03:28.320" style="s2"><span style="s3">Wow</span> that sounds<span style="s4"> great how long were you</span></p>
+<p begin="00:03:17.310" end="00:03:37.910" style="s2"><span style="s4">there</span><span style="s3"> I</span> was there just<span style="s3"> over</span> a year<span style="s4"> did</span></p>
+<p begin="00:03:28.320" end="00:03:42.050" style="s2">you like<span style="s4"> it</span> there<span style="s4"> yes</span> I loved it</p>
+<p begin="00:03:37.910" end="00:03:42.050" style="s2">what did you like<span style="s3"> most</span></p>
+<p begin="00:03:45.810" end="00:03:55.540" style="s2">the people were<span style="s4"> so</span> nice and<span style="s3"> of</span> course</p>
+<p begin="00:03:49.150" end="00:03:57.810" style="s2"><span style="s4">the</span> food was<span style="s3"> delicious</span><span style="s4"> how</span> was the</p>
+<p begin="00:03:55.540" end="00:03:57.810" style="s2">weather</p>
+<p begin="00:04:02.940" end="00:04:09.420" style="s2">the weather was<span style="s4"> great</span> in Australia<span style="s4"> not</span></p>
+<p begin="00:04:06.600" end="00:04:16.790" style="s2">too hot and not too<span style="s3"> cold</span></p>
+<p begin="00:04:09.420" end="00:04:16.790" style="s2"><span style="s3">oh</span> I want to<span style="s4"> go</span> you should<span style="s3"> go</span></p>
+<p begin="00:04:21.380" end="00:04:31.130" style="s2">well how about cheetah<span style="s4"> where</span> are you</p>
+<p begin="00:04:24.870" end="00:04:31.130" style="s2">going I&#39;m<span style="s4"> going</span> to India</p>
+<p begin="00:04:34.900" end="00:04:45.159" style="s2">how long will<span style="s4"> you</span><span style="s3"> stay</span> in<span style="s3"> India I plan</span></p>
+<p begin="00:04:40.759" end="00:04:45.159" style="s2"><span style="s4">to</span> travel around<span style="s4"> for about a month</span></p>
+<p begin="00:04:48.389" end="00:04:59.300" style="s2">I hope you have a safe and fun<span style="s4"> trip</span></p>
+<p begin="00:04:56.060" end="00:04:59.300" style="s2">thanks so much</p>
+<p begin="00:05:02.750" end="00:05:13.740" style="s2"><span style="s4">okay</span> great</p>
+<p begin="00:05:04.409" end="00:05:18.680" style="s2">let&#39;s review where are you going<span style="s4"> what</span></p>
+<p begin="00:05:13.740" end="00:05:23.849" style="s2">takes you there<span style="s4"> I</span> am going<span style="s3"> for</span><span style="s4"> business</span></p>
+<p begin="00:05:18.680" end="00:05:29.150" style="s2">I&#39;m going<span style="s3"> for</span> a pleasure how long will</p>
+<p begin="00:05:23.849" end="00:05:35.969" style="s2">you stay<span style="s3"> I&#39;m</span> not going<span style="s4"> I&#39;m</span> arriving</p>
+<p begin="00:05:29.150" end="00:05:40.319" style="s2">where are you arriving from<span style="s4"> I</span> want<span style="s4"> to</span> go</p>
+<p begin="00:05:35.969" end="00:05:45.029" style="s2"><span style="s4">I</span> plan to<span style="s4"> travel</span><span style="s3"> around</span> for<span style="s4"> about</span> a</p>
+<p begin="00:05:40.319" end="00:05:47.479" style="s2"><span style="s4">month</span> I hope you have a safe<span style="s4"> and</span><span style="s3"> fun</span></p>
+<p begin="00:05:45.029" end="00:05:47.479" style="s2">trip</p>
+<p begin="00:05:52.960" end="00:05:59.580" style="s2">okay great job<span style="s3"> we&#39;ll</span> see you<span style="s4"> next time</span></p>
+<p begin="00:05:56.050" end="00:05:59.580" style="s2">take it easy<span style="s3"> bye</span></p>
+</div>
+</body>
+</tt>

@@ -3,6 +3,7 @@ package com.infinity.stone.controller;
 import com.infinity.stone.db.subtitle.Subtitle;
 import com.infinity.stone.model.VideoModel;
 import com.infinity.stone.util.TextUtils;
+import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
@@ -86,7 +87,9 @@ public class VideoController extends BaseVideoController {
     @Override
     public void loadSourceVideo(VideoModel video) {
         try {
-            media = new Media("file:///" + video.getPath());
+            String filePath = "file:///" + video.getPath();
+            URI uri = new URI(filePath.replaceAll(" ", "%20"));
+            media = new Media(uri.toString());
             mediaPlayer = new MediaPlayer(media);
             DoubleProperty mvw = videoView.fitWidthProperty();
             DoubleProperty mvh = videoView.fitHeightProperty();
