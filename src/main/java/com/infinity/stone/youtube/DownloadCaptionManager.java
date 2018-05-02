@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.jsoup.Jsoup;
@@ -73,6 +74,28 @@ public class DownloadCaptionManager {
         return subtitleCollection;
     }
     
+    public List<Subtitle> buildSubtitleListFromFileTTML(String filePath) {
+        List<Subtitle> list = new ArrayList<>();
+        try {
+            File input = new File(filePath);
+            Document doc = Jsoup.parse(input, "UTF-8");
+            Elements pTags = doc.body().select("p");
+            
+            for (Element element : pTags) {
+                String timeStart = element.attr("begin");
+                String timeEnd = element.attr("end");
+                String sentence = element.text();
+                
+                Subtitle subtitleModel = new Subtitle(timeStart, timeEnd, sentence);
+                list.add(subtitleModel);
+            }
+        } catch (IOException ex) {
+            LOG.info(ex.getMessage());
+        }
+        
+        return list;
+    }
+    
     public SubtitleCollection buildSubtitleCollectionFromFileTTML(String filePath) {
         SubtitleCollection subtitleCollection = null;
         
@@ -86,7 +109,7 @@ public class DownloadCaptionManager {
                 String timeEnd = element.attr("end");
                 String sentence = element.text();
                 
-                Subtitle subtitleModel = new Subtitle(timeStart,timeEnd, sentence);
+                Subtitle subtitleModel = new Subtitle(timeStart, timeEnd, sentence);
                 subtitleCollection.add(subtitleModel);
             }
         } catch (IOException ex) {

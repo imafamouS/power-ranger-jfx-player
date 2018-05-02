@@ -6,6 +6,7 @@ import com.infinity.stone.util.image.ImageUtilities;
 import com.jfoenix.controls.JFXListCell;
 import java.io.IOException;
 import java.util.logging.Logger;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -75,7 +76,7 @@ public class MyRecentVideoView extends VBox {
     
     public interface OnClickRecentItem {
         
-        void onClickRecentItem(RecentVideoModel item);
+        void onClickRecentItem(Event event, RecentVideoModel item);
     }
     
     public static class RecentVideoFactory extends JFXListCell<RecentVideoModel> {
@@ -92,12 +93,13 @@ public class MyRecentVideoView extends VBox {
         protected void updateItem(final RecentVideoModel item, boolean empty) {
             super.updateItem(item, empty);
             try {
-            	if (item != null) {
+                if (item != null) {
                     if (empty) {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        view.setOnMouseClicked(event -> mOnClickRecentItem.onClickRecentItem(item));
+                        view.setOnMouseClicked(
+                                  event -> mOnClickRecentItem.onClickRecentItem(event, item));
                         view.setImage(item.getImageThumbnail());
                         view.setText(item.getVideoName());
                         setText(null);

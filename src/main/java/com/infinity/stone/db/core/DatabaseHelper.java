@@ -23,8 +23,8 @@ public class DatabaseHelper {
     private static final String DEFAULT_PORT = "3306";
     private static final String DEFAULT_USERNAME = "";
     private static final String DEFAULT_PASSWORD = "";
-    private static Logger LOG = Logger.getLogger("DatabaseHelper");
     private static final DatabaseHelper INSTANCE = new DatabaseHelper();
+    private static Logger LOG = Logger.getLogger("DatabaseHelper");
     private String mURL;
     private ConnectionPool mConnectionPool;
     private ClientDatabaseType mDatabaseType;
@@ -35,7 +35,7 @@ public class DatabaseHelper {
         try {
             mConnectionPool = ConnectionPoolImpl.getInstance(mDatabaseType, mURL);
         } catch (SQLException ignored) {
-
+        
         }
     }
     

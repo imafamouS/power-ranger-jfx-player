@@ -8,7 +8,8 @@ import java.util.logging.Level;
 
 public enum Action {
     START_APP(Level.INFO, "START APP"),
-    SELECT_VIDEO(Level.INFO, "SELECT VIDEO");
+    SELECT_VIDEO(Level.INFO, "SELECT VIDEO"),
+    ADD_FAVORITE(Level.INFO, "ADD FAVORITE");
     
     
     final Level mLevel;

@@ -135,3 +135,11 @@
 .txt_play_time {
   -fx-text-fill: #fff !important;
 }
+
+.jfx-snackbar-content{
+  -fx-background-color: #000000;
+}
+.jfx-snackbar-toast {
+  -fx-text-fill: WHITE;
+  -fx-font-size: 16;
+}

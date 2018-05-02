@@ -1,9 +1,6 @@
 package com.infinity.stone.model;
 
 import com.infinity.stone.db.subtitle.Subtitle;
-
-import javafx.util.Duration;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +26,6 @@ public class SubtitleModel {
         }
         return list;
     }
-    
     
     
     public String getTime() {

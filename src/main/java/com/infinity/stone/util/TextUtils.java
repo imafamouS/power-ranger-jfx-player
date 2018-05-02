@@ -8,7 +8,7 @@ import javafx.util.Duration;
 
 public class TextUtils {
     
-	public static String formatTime(Duration elapsed, Duration duration) {
+    public static String formatTime(Duration elapsed, Duration duration) {
         int intElapsed = (int) Math.floor(elapsed.toSeconds());
         int elapsedHours = intElapsed / (60 * 60);
         if (elapsedHours > 0) {
@@ -48,11 +48,11 @@ public class TextUtils {
     }
     
     public static Duration reverseFormatTime(String time) {
-    	String[] timeArr = time.split(":");
-    	int hour = Integer.valueOf(timeArr[0]);
-    	int minute = Integer.valueOf(timeArr[1]);
-    	int second = (int)Math.floor(Double.valueOf(timeArr[2]));
-		return Duration.seconds(hour*60*60 + minute*60 + second);
+        String[] timeArr = time.split(":");
+        int hour = Integer.valueOf(timeArr[0]);
+        int minute = Integer.valueOf(timeArr[1]);
+        int second = (int) Math.floor(Double.valueOf(timeArr[2]));
+        return Duration.seconds(hour * 60 * 60 + minute * 60 + second);
     }
     
     public static boolean isEmpty(String str) {

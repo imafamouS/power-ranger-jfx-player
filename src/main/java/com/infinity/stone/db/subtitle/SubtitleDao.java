@@ -16,5 +16,7 @@ public interface SubtitleDao extends BaseDao<Subtitle> {
     
     long deleteByVideoId(String videoId) throws SQLException;
     
+    long checkExistsSub(String videoId) throws SQLException;
+    
     List<Subtitle> findAllSubtitleByVideoId(String videoId) throws SQLException;
 }

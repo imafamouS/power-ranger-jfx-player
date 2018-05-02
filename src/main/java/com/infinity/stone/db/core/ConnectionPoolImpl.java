@@ -19,10 +19,11 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private static ConnectionPoolImpl INSTANCE;
     private final ClientDatabaseType mDatabaseType;
     private final String mUrl;
-    private String mUserName;
-    private String mPassword;
     private final List<Connection> mAvailableConnections = new ArrayList<>();
     private final List<Connection> mUsedConnections = new ArrayList<>();
+    private String mUserName;
+    private String mPassword;
+    
     private ConnectionPoolImpl(ClientDatabaseType type, String url) throws SQLException {
         this.mDatabaseType = type;
         this.mUrl = url;

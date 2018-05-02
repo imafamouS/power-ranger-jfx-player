@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane styleClass="anchor-pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.infinity.stone.controller.VideoShowController">
+<AnchorPane fx:id="mainPane" styleClass="anchor-pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.infinity.stone.controller.VideoShowController">
 	<children>
 		<SplitPane fx:id="splitPane" dividerPositions="0.298" layoutX="290.0" layoutY="212.0" styleClass="split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<items>

@@ -31,7 +31,7 @@ public abstract class MySliderView extends JFXSlider {
     }
     
     public void bindHoverVolumeToTransition(ImageView imageView) {
-    
+
     }
     
     

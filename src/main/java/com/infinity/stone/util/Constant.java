@@ -17,4 +17,7 @@ public class Constant {
     
     public static final String EXTRA_HOST = "host";
     public static final String EXTRA_PORT = "port";
+    
+    public static String CURRENT_VIDEO_PATH = "";
+    public static String CURRENT_VIDEO_ID = "";
 }

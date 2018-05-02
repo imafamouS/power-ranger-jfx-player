@@ -17,7 +17,7 @@ public class Video extends Entity {
     private Date dateCreated;
     
     public Video() {
-
+    
     }
     
     public Video(String id, String youtubeId, String url, Date dateCreated) {
@@ -79,9 +79,9 @@ public class Video extends Entity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-    
+        
         Video video = (Video) o;
-    
+        
         if (id != null ? !id.equals(video.id) : video.id != null) {
             return false;
         }

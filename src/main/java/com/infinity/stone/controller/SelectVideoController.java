@@ -3,10 +3,19 @@ package com.infinity.stone.controller;
 import com.infinity.stone.custom.MyFileChooserDialog;
 import com.infinity.stone.custom.MyRecentVideoView;
 import com.infinity.stone.custom.MyRecentVideoView.OnClickRecentItem;
+import com.infinity.stone.db.RepositoryManager;
+import com.infinity.stone.db.RepositoryType;
+import com.infinity.stone.db.subtitle.Subtitle;
+import com.infinity.stone.db.subtitle.SubtitleRepository;
+import com.infinity.stone.db.video.Video;
+import com.infinity.stone.db.video.VideoRepository;
 import com.infinity.stone.model.RecentVideoModel;
 import com.infinity.stone.tracking.Action;
 import com.infinity.stone.tracking.TrackingManager;
+import com.infinity.stone.util.Constant;
 import com.infinity.stone.util.ResourceUtils;
+import com.infinity.stone.util.SecurityUtils;
+import com.infinity.stone.youtube.DownloadCaptionManager;
 import com.jfoenix.controls.JFXListView;
 import java.io.File;
 import java.io.IOException;
@@ -40,17 +49,12 @@ public class SelectVideoController implements Initializable {
     
     public static final String[] EXTENSIONS = new String[]{"*.mp4"};
     private static final Logger LOG = Logger.getLogger("SelectVideoController");
-    @FXML
-    private Pane mSelectVideoPanel;
-    
-    @FXML
-    private JFXListView<RecentVideoModel> mListView;
-    
-    @FXML
-    private ImageView imageView;
-    
-    
-    private final OnClickRecentItem mOnClickRecentItem = item -> LOG.info(item.toString());
+    private final OnClickRecentItem mOnClickRecentItem = (event, item) -> {
+        TrackingManager.getInstance()
+                  .track(Action.SELECT_VIDEO,
+                            "Select video " + item.getVideoName() + " at " + new Date());
+        showMainScreen(item, event);
+    };
     private final EventHandler<DragEvent> mOnDragOver = event -> {
         Dragboard db = event.getDragboard();
         if (db.hasFiles()) {
@@ -59,19 +63,27 @@ public class SelectVideoController implements Initializable {
             event.consume();
         }
     };
-    
     private final EventHandler<DragEvent> mOnDragDropped = event -> {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasFiles()) {
             success = true;
             String filePath = db.getFiles().get(0).getAbsolutePath();
+            File selectedFile = new File(filePath);
+            if (selectedFile.exists()) {
+                insertVideoAndOpenScreen(selectedFile, event);
+            }
             
-            LOG.info(filePath);
         }
         event.setDropCompleted(success);
         event.consume();
     };
+    @FXML
+    private Pane mSelectVideoPanel;
+    @FXML
+    private JFXListView<RecentVideoModel> mListView;
+    @FXML
+    private ImageView imageView;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,38 +94,64 @@ public class SelectVideoController implements Initializable {
                       .track(Action.SELECT_VIDEO, "Select video start at" + new Date());
             File selectedFile = myFileChooserDialog.show();
             
-            TrackingManager.getInstance()
-                      .track(Action.SELECT_VIDEO,
-                                "Video selected path " + selectedFile.getAbsolutePath());
-            showMainScreen(event);
-            TrackingManager.getInstance()
-                      .track(Action.SELECT_VIDEO, "Select video end at" + new Date());
+            if (selectedFile.exists()) {
+                TrackingManager.getInstance()
+                          .track(Action.SELECT_VIDEO,
+                                    "Video selected path " + selectedFile.getAbsolutePath());
+                TrackingManager.getInstance()
+                          .track(Action.SELECT_VIDEO, "Select video end at" + new Date());
+                
+                insertVideoAndOpenScreen(selectedFile, event);
+            }
         });
         
         mSelectVideoPanel.setOnDragOver(mOnDragOver);
         mSelectVideoPanel.setOnDragDropped(mOnDragDropped);
+        VideoRepository videoRepo = (VideoRepository) RepositoryManager
+                  .getInstance(RepositoryType.VIDEO);
         
-        List<RecentVideoModel> recentVideoModelList = getListRecentVideo();
-        mListView.setItems(FXCollections.observableArrayList(recentVideoModelList));
-        mListView.setCellFactory(
-                  param -> new MyRecentVideoView.RecentVideoFactory(mOnClickRecentItem));
+        videoRepo.findAll()
+                  .subscribe(success -> {
+                      List<RecentVideoModel> recentVideoModelList = getListRecentVideo(success);
+                      mListView.setItems(FXCollections.observableArrayList(recentVideoModelList));
+                      mListView.setCellFactory(
+                                param -> new MyRecentVideoView.RecentVideoFactory(
+                                          mOnClickRecentItem));
+                  }, throwable -> {
+                  
+                  });
+        
+    }
+    
+    private void insertVideoAndOpenScreen(File selectedFile, Event event) {
+        
+        VideoRepository videoRepo = (VideoRepository) RepositoryManager
+                  .getInstance(RepositoryType.VIDEO);
+        Video video = new Video(SecurityUtils.getRandomUUID(),
+                  selectedFile.getName(),
+                  selectedFile.getAbsolutePath(),
+                  new Date());
+        videoRepo.create(video)
+                  .subscribe(success -> {
+                      TrackingManager.getInstance()
+                                .track(Action.SELECT_VIDEO, "Insert video to database success");
+                      
+                      showMainScreen(new RecentVideoModel(video), event);
+                  }, throwable -> {
+                      TrackingManager.getInstance()
+                                .track(Action.SELECT_VIDEO, "Insert video to database failure");
+                  });
     }
     
     
-    private List<RecentVideoModel> getListRecentVideo() {
+    private List<RecentVideoModel> getListRecentVideo(List<Video> videos) {
         //TODO: GET FROM SqlITE
         List<RecentVideoModel> list = new ArrayList<>();
         
-        list.add(new RecentVideoModel("1.JPG", "Video 1"));
-        list.add(new RecentVideoModel("1.JPG", "Video 2"));
-        list.add(new RecentVideoModel("1.JPG", "Video 3"));
-        list.add(new RecentVideoModel("1.JPG", "Video 4"));
-        list.add(new RecentVideoModel("1.JPG", "Video 5"));
-        list.add(new RecentVideoModel("1.JPG", "Video 6"));
-        list.add(new RecentVideoModel("1.JPG", "Video 7"));
-        list.add(new RecentVideoModel("1.JPG", "Video 8"));
-        list.add(new RecentVideoModel("1.JPG", "Video 9"));
-        list.add(new RecentVideoModel("1.JPG", "Video 10"));
+        for (Video video : videos) {
+            list.add(new RecentVideoModel("1.JPG", video.getId(), video.getYoutubeId(),
+                      video.getUrl()));
+        }
         
         return list;
     }
@@ -122,13 +160,55 @@ public class SelectVideoController implements Initializable {
         
         return new MyFileChooserDialog()
                   .setTitle("Select Video");
-   }
+    }
     
-    private void showMainScreen(Event event) {
+    private void showMainScreen(RecentVideoModel video, Event event) {
+        Constant.CURRENT_VIDEO_PATH = video.getVideoPath();
+        Constant.CURRENT_VIDEO_ID = video.getVideoId();
+        
+        String pathWithoutExtension = video.getVideoPath().split("[.]")[0];
+        String pathSub = pathWithoutExtension + ".ttml";
+        
+        DownloadCaptionManager downloadCaptionManager = new DownloadCaptionManager();
+        List<Subtitle> collection = downloadCaptionManager
+                  .buildSubtitleListFromFileTTML(pathSub);
+        
+        for (Subtitle subtitle : collection) {
+            subtitle.setId(SecurityUtils.getRandomUUID());
+            subtitle.setVideoId(Constant.CURRENT_VIDEO_ID);
+        }
+        
+        SubtitleRepository repository = (SubtitleRepository) RepositoryManager
+                  .getInstance(RepositoryType.SUBTITLE);
+        
+        repository.findAllSubtitleByVideoId(video.getVideoId())
+                  .subscribe(success -> {
+                      if (success.isEmpty()) {
+                          repository.create(collection)
+                                    .subscribe(_success -> {
+                                        openScreen(event);
+                                    }, _throwable -> {
+                                    });
+                          return;
+                      }
+                      openScreen(event);
+                  }, throwable -> {
+                      repository.create(collection)
+                                .subscribe(success -> {
+                                    openScreen(event);
+                                }, _throwable -> {
+                                });
+                  });
+        
+        
+    }
+    
+    private void openScreen(Event event) {
         Parent mainLayout;
         try {
             mainLayout = FXMLLoader
                       .load(ResourceUtils.getInstance().loadLayout("main_layout.fxml"));
+            
             Scene mainScreen = new Scene(mainLayout);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.hide();

@@ -25,7 +25,7 @@ public class SubtitleDaoImpl extends ContentProvider<Subtitle> implements Subtit
     public long create(Subtitle subtitle) throws SQLException {
         Connection connection = mDatabaseHelper.getConnection();
         try {
-            String sql = "INSERT INTO " + Properties.TABLE_NAME + " VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO " + Properties.TABLE_NAME + " VALUES (?, ?, ?,?, ?)";
             
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             return executeInsert(preparedStatement, subtitle);
@@ -38,7 +38,7 @@ public class SubtitleDaoImpl extends ContentProvider<Subtitle> implements Subtit
     public long create(List<Subtitle> subtitles) throws SQLException {
         Connection connection = mDatabaseHelper.getConnection();
         try {
-            String sql = "INSERT INTO " + Properties.TABLE_NAME + " VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO " + Properties.TABLE_NAME + " VALUES (?, ?, ?,?, ?)";
             long result = 0;
             for (Subtitle subtitle : subtitles) {
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -155,6 +155,23 @@ public class SubtitleDaoImpl extends ContentProvider<Subtitle> implements Subtit
     }
     
     @Override
+    public long checkExistsSub(String videoId) throws SQLException {
+        Connection connection = mDatabaseHelper.getConnection();
+        try {
+            String sql =
+                      "SELECT COUNT(*) FROM " + getTableName() + " WHERE " + Properties.VIDEO_ID +
+                      " = ?";
+            
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, videoId);
+            
+            return preparedStatement.executeUpdate();
+        } finally {
+            mDatabaseHelper.releaseConnection(connection);
+        }
+    }
+    
+    @Override
     public List<Subtitle> findAllSubtitleByVideoId(String videoId) throws SQLException {
         Connection connection = mDatabaseHelper.getConnection();
         try {
@@ -200,8 +217,9 @@ public class SubtitleDaoImpl extends ContentProvider<Subtitle> implements Subtit
         preparedStatement.setString(1, subtitle.getId());
         preparedStatement.setString(2, subtitle.getVideoId());
         preparedStatement.setString(3, subtitle.getTimeStart());
-        preparedStatement.setString(4, subtitle.getContent());
-        
+        preparedStatement.setString(4, subtitle.getTimeEnd());
+        preparedStatement.setString(5, subtitle.getContent());
+
         return preparedStatement.executeUpdate();
     }
     
@@ -211,6 +229,7 @@ public class SubtitleDaoImpl extends ContentProvider<Subtitle> implements Subtit
         public static final String ID = "id";
         public static final String VIDEO_ID = "video_id";
         public static final String TIME_START = "time_start";
+        public static final String TIME_END = "time_end";
         public static final String CONTENT = "content";
         
         public static String[] toArray() {

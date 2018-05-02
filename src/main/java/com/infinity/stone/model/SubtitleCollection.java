@@ -1,16 +1,20 @@
 package com.infinity.stone.model;
 
+import com.infinity.stone.db.subtitle.Subtitle;
 import java.util.Iterator;
 import java.util.List;
-
-import com.infinity.stone.db.subtitle.Subtitle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class SubtitleCollection {
     
     final ObservableList<Subtitle> lstModel = FXCollections.observableArrayList();
+    
+    public static SubtitleCollection makeSubtitleCollectionFromListSub(List<Subtitle> list) {
+        SubtitleCollection collection = new SubtitleCollection();
+        collection.addAll(list);
+        return collection;
+    }
     
     public ObservableList<Subtitle> getLstModel() {
         return lstModel;
@@ -32,7 +36,7 @@ public class SubtitleCollection {
         Iterator iter = lstModel.iterator();
         while (iter.hasNext()) {
             if (iter.next().equals(model)) {
-            
+
             }
         }
     }

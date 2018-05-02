@@ -31,13 +31,15 @@ public class RepositoryManager {
                 throw new IllegalArgumentException("Not found repository");
         }
     }
+    //
     //    public static void main(String[] args) {
     //        try {
     //            SubtitleRepository subtitleRepository = (SubtitleRepository) RepositoryManager
     //                      .getInstance(RepositoryType.SUBTITLE);
     //            List<Subtitle> subtitleList = new ArrayList<>();
     //            for (int i = 0; i < 10; i++) {
-    //                subtitleList.add(new Subtitle("id" + i, "videoid" + i, "time" + i, "content" + i));
+    //                subtitleList.add(new Subtitle("id" + i, "videoid" + i, "time" + i, "end" + i,
+    //                          "content" + i));
     //            }
     //
     //            subtitleRepository.create(subtitleList)

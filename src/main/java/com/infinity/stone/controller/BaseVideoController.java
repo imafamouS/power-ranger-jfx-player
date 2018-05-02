@@ -12,19 +12,15 @@ public abstract class BaseVideoController {
     private static final Logger LOG = Logger
               .getLogger(BaseVideoController.class.getCanonicalName());
     protected final MediaView mediaView;
-    protected MediaPlayer mediaPlayer;
     private final double default_width;
     private final double default_height;
     private final double default_volumn;
+    protected MediaPlayer mediaPlayer;
+    protected OnVideoControllerListener listener;
     private double cachedvolumebeforemute;
     private boolean isDragTimeLine;
     private boolean isPlaying = false;
     private boolean isFullScreen = false;
-    protected OnVideoControllerListener listener;
-    
-    public void setOnVideoControllerListener(OnVideoControllerListener listener) {
-    	this.listener = listener;
-    }
     
     public BaseVideoController(MediaView mediaView) {
         this.mediaView = mediaView;
@@ -33,6 +29,10 @@ public abstract class BaseVideoController {
         this.default_volumn = 1.0d;
         //this.mediaView.prefHeight(default_height);
         //this.mediaView.prefWidth(default_width);
+    }
+    
+    public void setOnVideoControllerListener(OnVideoControllerListener listener) {
+        this.listener = listener;
     }
     
     public void play() {
@@ -56,8 +56,8 @@ public abstract class BaseVideoController {
     public void expandfullScreen() {
         ((Stage) mediaView.getScene().getWindow()).setFullScreen(true);
         isFullScreen = true;
-        if(listener!=null) {
-        	listener.onFullScreen(isFullScreen);
+        if (listener != null) {
+            listener.onFullScreen(isFullScreen);
         }
         
     }
@@ -65,8 +65,8 @@ public abstract class BaseVideoController {
     public void collapsedFullScreen() {
         ((Stage) mediaView.getScene().getWindow()).setFullScreen(false);
         isFullScreen = false;
-        if(listener!=null) {
-        	listener.onFullScreen(isFullScreen);
+        if (listener != null) {
+            listener.onFullScreen(isFullScreen);
         }
     }
     
@@ -109,8 +109,8 @@ public abstract class BaseVideoController {
     public void unmute() {
         if (mediaPlayer != null) {
             mediaPlayer.setMute(false);
-            if(listener!=null) {
-            	listener.onUnMute(cachedvolumebeforemute);
+            if (listener != null) {
+                listener.onUnMute(cachedvolumebeforemute);
             }
         } else {
             LOG.info("mediaPlayer reference null pls check to set mediaPlayer variable");
@@ -120,8 +120,8 @@ public abstract class BaseVideoController {
     public void mute() {
         if (mediaPlayer != null) {
             mediaPlayer.setMute(true);
-            if(listener!=null) {
-            	listener.onMute();
+            if (listener != null) {
+                listener.onMute();
             }
         } else {
             LOG.info("mediaPlayer reference null pls check to set mediaPlayer variable");
@@ -160,7 +160,7 @@ public abstract class BaseVideoController {
         
         void onPlaying();
         
-        void onMute();     
+        void onMute();
         
         void onEnd();
         
@@ -168,7 +168,7 @@ public abstract class BaseVideoController {
         
         void onReady();
         
-        void updateValues(Duration currentTime, Duration contentLength,String subVideo);      
+        void updateValues(Duration currentTime, Duration contentLength, String subVideo);
         
         void onFullScreen(boolean isFullScreen);
     }

@@ -42,9 +42,9 @@ public class CaptionsModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-    
+
         CaptionsModel that = (CaptionsModel) o;
-    
+
         return (id != null ? id.equals(that.id) : that.id == null) &&
                (lang != null ? lang.equals(that.lang) : that.lang == null);
     }
