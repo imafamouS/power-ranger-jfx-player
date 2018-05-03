@@ -8,6 +8,17 @@ import javafx.util.Duration;
 
 public class TextUtils {
     
+    
+    public static String formatFilePath(String path) {
+        String os = System.getProperty("os.name");
+        
+        if (os.equals("Windows 10")) {
+            return "file:///" + path.replaceAll("\\\\", "/");
+        } else {
+            return "file:///" + path;
+        }
+    }
+    
     public static String formatTime(Duration elapsed, Duration duration) {
         int intElapsed = (int) Math.floor(elapsed.toSeconds());
         int elapsedHours = intElapsed / (60 * 60);

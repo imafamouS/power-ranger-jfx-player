@@ -56,12 +56,12 @@ public class DownloadCaptionManager {
     }
     
     public static void main(String[] args) throws IOException {
-        DownloadCaptionManager aa = new DownloadCaptionManager();
-        String videoId = "CDj9gkIe5iY";
-        
-        SubtitleCollection subtitleCollection = aa.downloadSubtitle(videoId);
-        
-        subtitleCollection.printValue();
+       System.out.print( System.getProperty("os.name"));
+//        DownloadCaptionManager aa = new DownloadCaptionManager();
+//        String videoId = "nLACT4r_RyQ";
+//
+//        SubtitleCollection subtitleCollection = aa.downloadSubtitle(videoId);
+//        subtitleCollection.printValue();
     }
     
     public SubtitleCollection downloadSubtitle(String videoId) {

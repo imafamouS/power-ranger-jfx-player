@@ -18,9 +18,7 @@ public class SecurityUtils {
     
     
     static {
-        AES_KEY = PropertyUtils
-                  .getProperties(ResourceUtils.getInstance().load("application.properties"))
-                  .getProperty("secret_key", "");
+        AES_KEY = "12345678";
         KEY_AES = AES_KEY.getBytes();
     }
     

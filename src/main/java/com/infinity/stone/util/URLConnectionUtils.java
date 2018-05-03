@@ -7,7 +7,7 @@ package com.infinity.stone.util;
 public class URLConnectionUtils {
     
     private static final String BASE_URL_MYSQL = "jdbc:mysql://%s:%s/%s?user=%s&password=%s";
-    private static final String BASE_URL_SQLITE = "jdbc:sqlite:%s.db";
+    private static final String BASE_URL_SQLITE = "jdbc:sqlite::resource:%s.db";
     
     public static String getURLConnectionMySQL(String host, String port, String databaseName,
               String username,
@@ -21,6 +21,7 @@ public class URLConnectionUtils {
     }
     
     public static String getURLSQLiteConnection(String databaseName) {
+        
         return String.format(BASE_URL_SQLITE, databaseName);
     }
 }
