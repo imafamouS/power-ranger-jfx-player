@@ -1,0 +1,145 @@
+.jfx-tab-pane .headers-region .tab-selected-line {
+  -fx-background-color: #fff;
+}
+
+.jfx-tab-pane .tab-header-background {
+  -fx-background-color: #ff1744;
+}
+
+.jfx-tab-pane .headers-region .tab .tab-container .tab-label {
+  -fx-padding: 15 92 15 92;
+  -fx-font-size: 16;
+}
+
+/* The main scrollbar **track** CSS class  */
+.mylistview .scroll-bar:horizontal .track,
+.mylistview .scroll-bar:vertical .track {
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+  -fx-background-radius: 0em;
+  -fx-border-radius: 2em;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+  -fx-background-color: transparent;
+}
+
+.split-pane:vertical > .split-pane-divider {
+  -fx-background-color: transparent;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.mylistview .scroll-bar:horizontal .increment-button,
+.mylistview .scroll-bar:horizontal .decrement-button {
+  -fx-background-color: transparent;
+  -fx-background-radius: 0em;
+  -fx-padding: 0 0 10 0;
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.sublistviewtransparent .scroll-bar:horizontal .increment-arrow,
+.sublistviewtransparent .scroll-bar:horizontal .decrement-arrow,
+.sublistviewtransparent .scroll-bar:horizontal .increment-button,
+.sublistviewtransparent .scroll-bar:horizontal .decrement-button {
+  -fx-padding: 0;
+}
+
+.sublistviewtransparent .list-cell:odd {
+  -fx-background-color: rgba(0, 0, 0, 0.6);
+  -fx-text-fill: #fff !important;
+}
+
+.sublistviewtransparent .list-cell:even {
+  -fx-background-color: rgba(0, 0, 0, 0.4);
+  -fx-text-fill: #fff !important;
+}
+
+.mylistview .scroll-bar:vertical .increment-button,
+.mylistview .scroll-bar:vertical .decrement-button {
+
+  -fx-background-color: transparent;
+  -fx-background-radius: 0em;
+  -fx-padding: 0 10 0 0;
+
+}
+
+.mylistview .scroll-bar:vertical {
+  -fx-pref-width: 12;
+  -fx-padding: 0;
+}
+
+.mylistview .scroll-bar .increment-arrow, .mylistview .scroll-bar .decrement-arrow {
+  -fx-shape: " ";
+  -fx-padding: 0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.mylistview .scroll-bar:horizontal .thumb,
+.mylistview .scroll-bar:vertical .thumb {
+  -fx-background-color: derive(black, 100%);
+  -fx-background-insets: 2, 0, 0;
+  -fx-background-radius: 2em;
+
+}
+
+.jfx-slider {
+  -jfx-default-thumb: #ff1744;
+  -jfx-default-track: #CCCCCC;
+}
+
+.jfx-slider .thumb {
+  -fx-background-color: transparent;
+}
+
+.jfx-slider .thumb:hover {
+  -fx-background-color: red;
+}
+
+.jfx-slider .animated-thumb {
+  -fx-pref-width: 30px;
+  -fx-pref-height: 30px;
+  -fx-background-color: -jfx-default-thumb;
+  -fx-background-radius: 50% 50% 50% 0%;
+  -fx-background-insets: 0;
+}
+
+.jfx-slide .track {
+  -fx-padding: 30;
+}
+
+.videocontainer {
+  -fx-background-color: #000;
+}
+
+.videoplayer {
+  -fx-background-color: #000;
+}
+
+.videocontroller {
+  -fx-background-color: rgba(0, 0, 0, 0.8);
+  -fx-padding: 0 0 0 0;
+
+}
+
+.jfx-progress-bar > .bar {
+  -fx-background-color: red;
+  -fx-padding: 3;
+  
+}
+.subtitle-label{
+	-fx-font: 24 arial;
+	-fx-background-color: rgba(0, 0, 0, 0.7);
+	-fx-padding: 10;
+}
+.txt_play_time {
+  -fx-text-fill: #fff !important;
+}
+
+.jfx-snackbar-content{
+  -fx-background-color: #000000;
+}
+.jfx-snackbar-toast {
+  -fx-text-fill: WHITE;
+  -fx-font-size: 16;
+}

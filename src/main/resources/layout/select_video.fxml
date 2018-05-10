@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.Pane?><?import javafx.scene.text.Font?><?import javafx.scene.text.Text?>
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
+  minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0"
+  xmlns="http://javafx.com/javafx/8.0.121"
+  fx:controller="com.infinity.stone.controller.SelectVideoController">
+  <Text layoutX="95.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent video"
+    wrappingWidth="290.21875">
+    <font>
+      <Font size="39.0" />
+    </font>
+  </Text>
+  <Pane layoutX="459.0" layoutY="42.0" prefHeight="410.0" prefWidth="353.0"
+    fx:id="mSelectVideoPanel">
+    <ImageView fitHeight="290.0" fitWidth="290.0" layoutX="36.0" layoutY="1.0" pickOnBounds="true"
+      preserveRatio="true" fx:id="imageView">
+      <Image url="@../raw/select_video.png" />
+    </ImageView>
+    <Text layoutX="59.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select video"
+      wrappingWidth="229.21875">
+      <font>
+        <Font size="39.0" />
+      </font>
+    </Text>
+  </Pane>
+  <AnchorPane layoutX="16.0" layoutY="476.0" prefHeight="218.0" prefWidth="1245.0">
+    <JFXListView AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0" layoutX="17.0" layoutY="157.0" orientation="HORIZONTAL"
+      prefHeight="218.0" prefWidth="1245.0" styleClass="mylistview" fx:id="mListView" />
+  </AnchorPane>
+</Pane>
