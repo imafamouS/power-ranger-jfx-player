@@ -18,7 +18,7 @@ public class SecurityUtils {
     
     
     static {
-        AES_KEY = "zxvawdsd";
+        AES_KEY = "12345678";
         KEY_AES = AES_KEY.getBytes();
     }
     

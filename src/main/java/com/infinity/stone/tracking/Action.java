@@ -11,7 +11,6 @@ public enum Action {
     SELECT_VIDEO(Level.INFO, "SELECT VIDEO"),
     DELETE_FAVORITE(Level.INFO,"DELETE FAVORITE"),
     ADD_FAVORITE(Level.INFO, "ADD FAVORITE");
-
     
     final Level mLevel;
     final String name;

@@ -2,7 +2,6 @@ package com.infinity.stone.util;
 
 import com.infinity.stone.db.subtitle.Subtitle;
 import com.infinity.stone.model.SubtitleCollection;
-
 import javafx.util.Duration;
 
 /**
@@ -66,7 +65,7 @@ public class TextUtils {
         int second = (int) Math.floor(Double.valueOf(timeArr[2]));
         return Duration.seconds(hour * 60 * 60 + minute * 60 + second);
     }
-    
+
     public static int reverseFormatTimeToInt(String time) {
     	String[] timeArr = time.split(":");
         int hour = Integer.valueOf(timeArr[0]);
@@ -84,7 +83,7 @@ public class TextUtils {
     	}
     	return null;
     }
-    
+
     public static boolean isEmpty(String str) {
         return str == null || str.isEmpty();
     }

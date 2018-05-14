@@ -90,10 +90,7 @@ public class VideoController extends BaseVideoController {
     public void loadSourceVideo(VideoModel video) {
         try {
             String filePath = TextUtils.formatFilePath(video.getPath());
-           
             URI uri = new URI(filePath.replaceAll(" ", "%20"));
-            
-            
             media = new Media(uri.toString());
             mediaPlayer = new MediaPlayer(media);
             DoubleProperty mvw = videoView.fitWidthProperty();

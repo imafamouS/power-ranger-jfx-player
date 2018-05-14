@@ -177,7 +177,7 @@ public class SelectVideoController implements Initializable {
             subtitle.setId(SecurityUtils.getRandomUUID());
             subtitle.setVideoId(Constant.CURRENT_VIDEO_ID);
         }
-        
+
         SubtitleRepository repository = (SubtitleRepository) RepositoryManager
                   .getInstance(RepositoryType.SUBTITLE);
         
@@ -198,9 +198,7 @@ public class SelectVideoController implements Initializable {
                                     openScreen(event);
                                 }, _throwable -> {
                                 });
-                  });
-        
-        
+                  });             
     }
     
     private void openScreen(Event event) {

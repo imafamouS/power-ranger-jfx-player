@@ -1,12 +1,10 @@
 package com.infinity.stone.db.subtitle;
 
 import com.infinity.stone.db.core.Entity;
-
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.util.Callback;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,7 +13,7 @@ import java.sql.SQLException;
  */
 
 public class Subtitle extends Entity {
-    
+
     private String id;
     private String videoId;
     private String timeStart;
@@ -96,8 +94,6 @@ public class Subtitle extends Entity {
     public void setContent(String content) {
         this.content = content;
     }
-    
-    
     
     @Override
 	public int hashCode() {

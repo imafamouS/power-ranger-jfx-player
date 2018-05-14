@@ -4,7 +4,6 @@ import com.infinity.stone.db.favorite.Favorite;
 import com.infinity.stone.db.subtitle.Subtitle;
 import java.util.Iterator;
 import java.util.List;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +29,6 @@ public class SubtitleCollection {
     	}
     	return collection;
     }
-    
     public ObservableList<Subtitle> getLstModel() {
         return lstModel;
     }

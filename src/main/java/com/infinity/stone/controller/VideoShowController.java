@@ -24,7 +24,6 @@ import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXSnackbar;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -174,8 +173,6 @@ public class VideoShowController implements Initializable,
                       init();
                   });
         
-        		
-        
     }
     
     public void init() {
@@ -192,16 +189,19 @@ public class VideoShowController implements Initializable,
     private void setUpVideoController() {
         playImageView = new MyImageView("ic_play_18dp_2x.png");
         toggleSubImageView = new MyImageView("ic_subtitles_white_18dp_2x.png");
+
         fullWidthImageView = new MyImageView("ic_fullscreen_white_18dp_2x.png");
         nextImageView = new MyImageView("ic_skip_next_white_18dp_2x.png");
         previousImageView = new MyImageView("ic_skip_previous_white_18dp_2x.png");
         volumeImageView = new MyImageView("ic_volume_max_white_18dp_2x.png");
         backImageView.setImage(new Image(ResourceUtils.getInstance().loadIcon("round_back_white_18dp2x.png").toString()));
         backImageView.setOnMouseClicked(this::openSelectVideoScreen);
+
         lblplaytime = new Label();
         lblplaytime.getStyleClass().add("txt_play_time");
         region = new Region();
         region.setPrefWidth(200.0);
+
         transition = new TranslateTransition(Duration.millis(500),
                   listviewSubtitleFullScreen);
         transition.setByX(-512);
@@ -219,8 +219,8 @@ public class VideoShowController implements Initializable,
                   volumeImageView,
                   slider,
                   region,
-                  toggleSubImageView,
-                  fullWidthImageView);
+                  toggleSubImageView);
+        // fullWidthImageView);
         controllerContainer.setHgrow(region, Priority.ALWAYS);
         
         controller = new VideoController(videoPlayer,
@@ -238,6 +238,7 @@ public class VideoShowController implements Initializable,
         controller.setOnVideoControllerListener(this);
     }
     
+
     private void openSelectVideoScreen(Event event) {
         Parent mainLayout;
         try {
@@ -301,7 +302,6 @@ public class VideoShowController implements Initializable,
     }
     
     
-    
     private void setUpTrackingSub() {
     	mTrackingSubUtils = new TrackingSubUtils(mSubtitleCollection);
     	mTrackingSubUtils.setOnChangeListener(this);
@@ -356,7 +356,6 @@ public class VideoShowController implements Initializable,
                             },favouriteListview));
     	
     }
-    
     
     private void setUpTimeline() {
         timeLine.setOnMouseClicked(event -> {
@@ -432,6 +431,7 @@ public class VideoShowController implements Initializable,
     }   
 
 	private boolean hoverListViewSubtitle = false;
+    
     
     @Override
     public void onReady() {
@@ -523,6 +523,7 @@ public class VideoShowController implements Initializable,
             label.setPrefWidth(340.0);
             label.setWrapText(true);
         }
+
     }
     
     static class ListViewTransparentCell extends JFXListCell<Subtitle> {
@@ -631,7 +632,4 @@ public class VideoShowController implements Initializable,
         
     }
 
-	
-
-	
 }
