@@ -168,7 +168,30 @@ public class SelectVideoController implements Initializable {
         
         String pathWithoutExtension = video.getVideoPath().split("[.]")[0];
         String pathSub = pathWithoutExtension + ".ttml";
+        SubtitleRepository repository = (SubtitleRepository) RepositoryManager
+                  .getInstance(RepositoryType.SUBTITLE);
         
+        repository.findAllSubtitleByVideoId(video.getVideoId())
+                  .subscribe(success -> {
+                      if (success.isEmpty()) {
+                          repository.create(createSub(pathSub))
+                                    .subscribe(successCreate -> {
+                                        openScreen(event);
+                                    }, throwable -> {
+                                    });
+                      } else {
+                          openScreen(event);
+                      }
+                  }, throwable -> {
+                      repository.create(createSub(pathSub))
+                                .subscribe(successCreate -> {
+                                    openScreen(event);
+                                }, error -> {
+                                });
+                  });
+    }
+    
+    private List<Subtitle> createSub(String pathSub) {
         DownloadCaptionManager downloadCaptionManager = new DownloadCaptionManager();
         List<Subtitle> collection = downloadCaptionManager
                   .buildSubtitleListFromFileTTML(pathSub);
@@ -177,30 +200,7 @@ public class SelectVideoController implements Initializable {
             subtitle.setId(SecurityUtils.getRandomUUID());
             subtitle.setVideoId(Constant.CURRENT_VIDEO_ID);
         }
-        
-        SubtitleRepository repository = (SubtitleRepository) RepositoryManager
-                  .getInstance(RepositoryType.SUBTITLE);
-        
-        repository.findAllSubtitleByVideoId(video.getVideoId())
-                  .subscribe(success -> {
-                      if (success.isEmpty()) {
-                          repository.create(collection)
-                                    .subscribe(_success -> {
-                                        openScreen(event);
-                                    }, _throwable -> {
-                                    });
-                          return;
-                      }
-                      openScreen(event);
-                  }, throwable -> {
-                      repository.create(collection)
-                                .subscribe(success -> {
-                                    openScreen(event);
-                                }, _throwable -> {
-                                });
-                  });
-        
-        
+        return collection;
     }
     
     private void openScreen(Event event) {

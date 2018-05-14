@@ -1,6 +1,7 @@
 package com.infinity.stone.controller;
 
 import com.infinity.stone.db.subtitle.Subtitle;
+import com.infinity.stone.model.SubtitleCollection;
 import com.infinity.stone.model.VideoModel;
 import com.infinity.stone.util.TextUtils;
 import java.net.URI;
@@ -19,7 +20,7 @@ public class VideoController extends BaseVideoController {
               .getLogger(VideoController.class.getCanonicalName());
     private final List<VideoModel> lst_video;
     private final MediaView videoView;
-    private final VideoModel activeVideo;
+    private VideoModel activeVideo;
     private int indexActiveVideo;
     private boolean isEnd;
     private Media media;
@@ -32,9 +33,13 @@ public class VideoController extends BaseVideoController {
         this.videoView.setPreserveRatio(true);
         this.lst_video = lst_video;
         this.activeVideo = picked_video_name;
-        this.indexActiveVideo = getIndexActiveVideo();
-        loadSourceVideo(picked_video_name);
         this.isEnd = false;
+    }
+    
+    
+    public void setSubtitle(SubtitleCollection subtitleCollection) {
+        this.activeVideo.setCollection(subtitleCollection);
+        loadSourceVideo(activeVideo);
     }
     
     public Media getMedia() {
@@ -88,6 +93,8 @@ public class VideoController extends BaseVideoController {
     public void loadSourceVideo(VideoModel video) {
         try {
             String filePath = TextUtils.formatFilePath(video.getPath());
+            
+            System.out.print(filePath);
             URI uri = new URI(filePath.replaceAll(" ", "%20"));
             
             media = new Media(uri.toString());
@@ -97,6 +104,7 @@ public class VideoController extends BaseVideoController {
             DoubleProperty mvh = videoView.fitHeightProperty();
             mvw.bind(Bindings.selectDouble(videoView.sceneProperty(), "width"));
             mvh.bind(Bindings.selectDouble(videoView.sceneProperty(), "height"));
+            
             mediaPlayer.setAutoPlay(true);
             mediaPlayer.currentTimeProperty().addListener(observable -> {
                 if (listener != null) {

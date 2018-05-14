@@ -24,7 +24,6 @@
                         <Label fx:id="subtilelabel" text="Label" BorderPane.alignment="CENTER" />
                      </center>
                   </BorderPane>
-						<JFXListView fx:id="listviewSubtitleFullScreen" minWidth="450.0" style="-fx-background-color: transparent;" styleClass="sublistviewtransparent" AnchorPane.rightAnchor="0.0" />
 						<VBox fx:id="slidercontrollercontainer" styleClass="videocontroller" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 							<children>
 								<JFXSlider fx:id="timeLine" prefHeight="1.0" prefWidth="768.0" />

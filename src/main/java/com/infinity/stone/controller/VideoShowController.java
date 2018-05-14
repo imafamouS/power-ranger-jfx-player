@@ -94,8 +94,8 @@ public class VideoShowController implements Initializable,
     private AnchorPane mediaContainer;
     @FXML
     private SplitPane splitPane;
-    @FXML
-    private JFXListView listviewSubtitleFullScreen;
+    //    @FXML
+    //    private JFXListView listviewSubtitleFullScreen;
     private DownloadCaptionManager mDownloadCaptionManager;
     private String videoPath;
     private MyImageView playImageView;
@@ -110,50 +110,55 @@ public class VideoShowController implements Initializable,
     private TranslateTransition transition;
     private JFXSlider slider;
     private SubtitleController subController;
-
+    SubtitleRepository subtitleRepository;
+    
     public String getVideoPath() {
         return videoPath;
     }
-
+    
     public void setVideoPath(String path) {
         this.videoPath = path;
     }
-
+    
+    public VideoShowController() {
+    
+    }
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        mDownloadCaptionManager = new DownloadCaptionManager();
         favouriteRepo = new FavoriteRepositoryImpl();
-        //        String videoId = "CDj9gkIe5iY";
-        //        mSubtitleCollection = mDownloadCaptionManager.downloadSubtitle(videoId);
-        
-        SubtitleRepository subtitleRepository = (SubtitleRepository) RepositoryManager
+        subtitleRepository = (SubtitleRepository) RepositoryManager
                   .getInstance(RepositoryType.SUBTITLE);
-        
+        init();
         subtitleRepository.findAllSubtitleByVideoId(Constant.CURRENT_VIDEO_ID)
+                  .doOnSubscribe(onSubscribe -> {
+                      setUpVideoController();
+                  })
                   .subscribe(success -> {
                       mSubtitleCollection = SubtitleCollection
                                 .makeSubtitleCollectionFromListSub(success);
-                      init();
+                      mSubtitleCollection.printValue();
+                      controller.setSubtitle(mSubtitleCollection);
+                      setUpSubTitleController();
+                      setUpListSubTitle();
                   }, throwable -> {
-                      init();
+                      throwable.printStackTrace();
                   });
         
         
     }
     
     public void init() {
+        
         setUpSlider();
-        setUpVideoController();
-        setUpSubTitleController();
+        
         setUpTimeline();
-        setUpListSubTitle();
-        setUpListSubTitleTransparent();
     }
     
     private void setUpVideoController() {
         playImageView = new MyImageView("ic_play_18dp_2x.png");
         toggleSubImageView = new MyImageView("ic_subtitles_white_18dp_2x.png");
-        fullWidthImageView = new MyImageView("ic_fullscreen_white_18dp_2x.png");
+        //fullWidthImageView = new MyImageView("ic_fullscreen_white_18dp_2x.png");
         nextImageView = new MyImageView("ic_skip_next_white_18dp_2x.png");
         previousImageView = new MyImageView("ic_skip_previous_white_18dp_2x.png");
         volumeImageView = new MyImageView("ic_volume_max_white_18dp_2x.png");
@@ -161,16 +166,16 @@ public class VideoShowController implements Initializable,
         lblplaytime.getStyleClass().add("txt_play_time");
         region = new Region();
         region.setPrefWidth(200.0);
-        transition = new TranslateTransition(Duration.millis(500),
-                  listviewSubtitleFullScreen);
-        transition.setByX(-512);
-        transition.setFromX(512);
-        listviewSubtitleFullScreen.setVisible(false);
-        mediaContainer.setOnMouseEntered(onMouseEnterVideoContainer);
-        mediaContainer.setOnMouseExited(onMouseExitVideoContainer);
+        //        transition = new TranslateTransition(Duration.millis(500),
+        //                  listviewSubtitleFullScreen);
+        //        transition.setByX(-512);
+        //        transition.setFromX(512);
+        //        listviewSubtitleFullScreen.setVisible(false);
+        //        mediaContainer.setOnMouseEntered(onMouseEnterVideoContainer);
+        //        mediaContainer.setOnMouseExited(onMouseExitVideoContainer);
         toggleSubImageView.setOnMouseClicked(event -> subController.toggleSub());
-        fullWidthImageView.setOnMouseClicked(
-                  (EventHandler<Event>) event -> controller.toggleFullScreen());
+        //        fullWidthImageView.setOnMouseClicked(
+        //                  (EventHandler<Event>) event -> controller.toggleFullScreen());
         
         controllerContainer.getChildren().addAll(
                   playImageView,
@@ -180,8 +185,8 @@ public class VideoShowController implements Initializable,
                   volumeImageView,
                   slider,
                   region,
-                  toggleSubImageView,
-                  fullWidthImageView);
+                  toggleSubImageView);
+        // fullWidthImageView);
         controllerContainer.setHgrow(region, Priority.ALWAYS);
         
         controller = new VideoController(videoPlayer,
@@ -252,12 +257,12 @@ public class VideoShowController implements Initializable,
         });
     }
     
-    private void setUpListSubTitleTransparent() {
-        listviewSubtitleFullScreen.setItems(mSubtitleCollection.getLstModel());
-        listviewSubtitleFullScreen.setCellFactory(
-                  (Callback<JFXListView<Subtitle>, JFXListCell<Subtitle>>) param ->
-                            new ListViewTransparentCell());
-    }
+    //    private void setUpListSubTitleTransparent() {
+    //        listviewSubtitleFullScreen.setItems(mSubtitleCollection.getLstModel());
+    //        listviewSubtitleFullScreen.setCellFactory(
+    //                  (Callback<JFXListView<Subtitle>, JFXListCell<Subtitle>>) param ->
+    //                            new ListViewTransparentCell());
+    //    }
     
     private void setUpTimeline() {
         timeLine.setOnMouseClicked(event -> {
@@ -344,13 +349,13 @@ public class VideoShowController implements Initializable,
             rightPaneSide.setMaxWidth(0);
             rightPaneSide.setManaged(false);
             fullWidthImageView.setImage("ic_fullscreen_exit_white_18dp_2x.png");
-            listviewSubtitleFullScreen.setVisible(true);
+            // listviewSubtitleFullScreen.setVisible(true);
             transition.play();
             
         } else {
             rightPaneSide.setMaxWidth(512.0);
             rightPaneSide.setManaged(true);
-            listviewSubtitleFullScreen.setVisible(false);
+            // listviewSubtitleFullScreen.setVisible(false);
             //splitPane.setDividerPositions(1);
             fullWidthImageView.setImage("ic_fullscreen_white_18dp_2x.png");
         }
