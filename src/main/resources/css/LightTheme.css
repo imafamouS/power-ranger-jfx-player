@@ -36,7 +36,10 @@
   -fx-padding: 0 0 10 0;
 
 }
-
+.label_sentence{
+	-fx-background-color: rgba(0, 1.0, 1.0, 0.6);
+	-fx-text-fill: #affa !important;
+}
 /* The increment and decrement button CSS class of scrollbar */
 .sublistviewtransparent .scroll-bar:horizontal .increment-arrow,
 .sublistviewtransparent .scroll-bar:horizontal .decrement-arrow,

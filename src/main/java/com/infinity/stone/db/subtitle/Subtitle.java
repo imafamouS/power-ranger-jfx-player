@@ -1,6 +1,12 @@
 package com.infinity.stone.db.subtitle;
 
 import com.infinity.stone.db.core.Entity;
+
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.util.Callback;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,26 +16,24 @@ import java.sql.SQLException;
 
 public class Subtitle extends Entity {
     
-    
     private String id;
     private String videoId;
     private String timeStart;
     private String timeEnd;
     private String content;
-    
     public Subtitle() {
-    
+    	
     }
     
     public Subtitle(String timeStart, String content) {
         this.timeStart = timeStart;
-        this.content = content;
+        this.content = content;     
     }
     
     public Subtitle(String timeStart, String timeEnd, String content) {
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        this.content = content;
+        this.content = content;      
     }
     
     public Subtitle(String id, String videoId, String timeStart, String timeEnd, String content) {
@@ -37,7 +41,7 @@ public class Subtitle extends Entity {
         this.videoId = videoId;
         this.timeEnd = timeEnd;
         this.timeStart = timeStart;
-        this.content = content;
+        this.content = content;       
     }
     
     public Subtitle(ResultSet resultSet) {
@@ -53,7 +57,7 @@ public class Subtitle extends Entity {
         }
     }
     
-    public String getTimeEnd() {
+	public String getTimeEnd() {
         return timeEnd;
     }
     
@@ -93,37 +97,40 @@ public class Subtitle extends Entity {
         this.content = content;
     }
     
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        
-        Subtitle subtitle = (Subtitle) o;
-        
-        return (id != null ? id.equals(subtitle.id) : subtitle.id == null) &&
-               (videoId != null ? videoId.equals(subtitle.videoId) : subtitle.videoId == null) &&
-               ((timeStart != null) ? timeStart.equals(subtitle.timeStart)
-                         : (subtitle.timeStart == null)) &&
-               ((timeEnd != null) ? timeEnd.equals(subtitle.timeEnd)
-                         : (subtitle.timeEnd == null)) &&
-               (content != null ? content.equals(subtitle.content) : subtitle.content == null);
-    }
+    
     
     @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (videoId != null ? videoId.hashCode() : 0);
-        result = 31 * result + (timeStart != null ? timeStart.hashCode() : 0);
-        result = 31 * result + (timeEnd != null ? timeEnd.hashCode() : 0);
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        return result;
-    }
-    
-    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((videoId == null) ? 0 : videoId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Subtitle other = (Subtitle) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (videoId == null) {
+			if (other.videoId != null)
+				return false;
+		} else if (!videoId.equals(other.videoId))
+			return false;
+		return true;
+	}
+
+	@Override
     public String toString() {
         return "Subtitle{" +
                "id='" + id + '\'' +

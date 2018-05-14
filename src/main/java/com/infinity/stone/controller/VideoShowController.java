@@ -18,6 +18,7 @@ import com.infinity.stone.tracking.TrackingManager;
 import com.infinity.stone.util.Constant;
 import com.infinity.stone.util.ResourceUtils;
 import com.infinity.stone.util.TextUtils;
+import com.infinity.stone.util.TrackingSubUtils;
 import com.infinity.stone.youtube.DownloadCaptionManager;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
@@ -31,11 +32,16 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -47,8 +53,13 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -63,7 +74,7 @@ import javafx.util.Duration;
 @SuppressWarnings("unchecked")
 public class VideoShowController implements Initializable,
                                             BaseVideoController.OnVideoControllerListener,
-                                            OnClickFavorite {
+                                            OnClickFavorite,TrackingSubUtils.OnChangeListener {
     
     private static final Logger LOG = Logger
               .getLogger(VideoShowController.class.getCanonicalName());
@@ -126,7 +137,7 @@ public class VideoShowController implements Initializable,
     private TranslateTransition transition;
     private JFXSlider slider;
     private SubtitleController subController;
-
+    private TrackingSubUtils mTrackingSubUtils;
     public String getVideoPath() {
         return videoPath;
     }
@@ -175,6 +186,7 @@ public class VideoShowController implements Initializable,
         setUpListSubTitle();
         setUpListSubTitleTransparent();
         setUpFavoriteSubTitle();
+        setUpTrackingSub();
     }
     
     private void setUpVideoController() {
@@ -288,6 +300,20 @@ public class VideoShowController implements Initializable,
         };
     }
     
+    
+    
+    private void setUpTrackingSub() {
+    	mTrackingSubUtils = new TrackingSubUtils(mSubtitleCollection);
+    	mTrackingSubUtils.setOnChangeListener(this);
+    }
+    
+    @Override
+	public void onChangedSub(Subtitle sub) {
+		listViewSubtitle.getSelectionModel().select(sub);
+		listViewSubtitle.getFocusModel().focus(mSubtitleCollection.getLstModel().indexOf(sub));
+		listViewSubtitle.scrollTo(sub);
+    }
+    
     private void setUpSubTitleController() {
         subController = new SubtitleController(subtilelabel);
     }
@@ -298,10 +324,12 @@ public class VideoShowController implements Initializable,
                   (Callback<JFXListView<Subtitle>, JFXListCell<Subtitle>>) param ->
                             new ListViewCell(this, listViewSubtitle));
         listViewSubtitle.setOnMouseClicked(event -> {
-            controller.calculatedClickSub(TextUtils
-                      .reverseFormatTime(
-                                ((Subtitle) listViewSubtitle.getSelectionModel().getSelectedItem())
-                                          .getTimeStart()));
+            if(event.getButton() == MouseButton.PRIMARY) {
+            	controller.calculatedClickSub(TextUtils
+                        .reverseFormatTime(
+                                  ((Subtitle) listViewSubtitle.getSelectionModel().getSelectedItem())
+                                            .getTimeStart()));
+            }
         });
     }
     
@@ -376,10 +404,12 @@ public class VideoShowController implements Initializable,
     public void updateValues(Duration currentTime, Duration contentLength, String subVideo) {
         Platform.runLater(() -> {
             if (!timeLine.isDisable() && contentLength.greaterThan(Duration.ZERO)) {
-                
                 timeLine.setValue(
                           currentTime.divide(contentLength.toMillis()).toMillis() *
                           100.0);
+                if(!hoverListViewSubtitle) {
+                	mTrackingSubUtils.trackingSub(currentTime);
+                }
                 if (subVideo == null) {
                     subController.setText(subVideo);
                     subController.hideSub();
@@ -393,7 +423,15 @@ public class VideoShowController implements Initializable,
             
             // playTime.setText(formatTime(currentTime, duration));
         });
-    }
+        listViewSubtitle.addEventFilter(MouseEvent.MOUSE_ENTERED, event->{
+        	hoverListViewSubtitle = true;
+        });
+        listViewSubtitle.addEventFilter(MouseEvent.MOUSE_EXITED, event->{
+        	hoverListViewSubtitle = false;
+        });
+    }   
+
+	private boolean hoverListViewSubtitle = false;
     
     @Override
     public void onReady() {
@@ -431,21 +469,19 @@ public class VideoShowController implements Initializable,
         
     }
     
+    
     static class ListViewCell extends JFXListCell<Subtitle> {
-        
+        public static final String highlightLabelClass = "label_sentence";
         final HBox hbox = new HBox();
         final Label lblTime = new Label();
         final Label lblSentence = new Label();
-        final BorderPane borderPane = new BorderPane();
-        final Button button = new Button();
-        final MyImageView image = new MyImageView("round_favorite_black_18dp.png");
         private OnClickFavorite mOnClickFavorite;
         
-        public ListViewCell(OnClickFavorite onClickFavorite, JFXListView listViewSubtitle) {
+        public ListViewCell(OnClickFavorite onClickFavorite,JFXListView listViewSubtitle) {
             prefWidthProperty().bind(listViewSubtitle.widthProperty().subtract(2));
             setMaxWidth(Control.USE_PREF_SIZE);
-            this.mOnClickFavorite = onClickFavorite;
-        }
+            this.mOnClickFavorite = onClickFavorite;     
+        }             
         
         @Override
         protected void updateItem(Subtitle item, boolean empty) {
@@ -454,18 +490,18 @@ public class VideoShowController implements Initializable,
                 
                 if (item != null) {
                     setText(null);
-                    setUpLabelTime(lblTime);
-                    setUpLabelSentence(lblSentence);
+                    setUpLabelTime(lblTime);                   
+                    setUpLabelSentence(lblSentence);                   
                     hbox.getChildren().clear();
-                    borderPane.setCenter(button);
-                    button.setGraphic(image);
-                    button.setOnMouseClicked(event -> {
-                        if (mOnClickFavorite != null) {
-                            mOnClickFavorite.onClickFavorite(item);
-                        }
-                    });
+                    hbox.setOnMouseClicked(event->{
+                    	if(event.getButton() == MouseButton.SECONDARY) {
+                    		if (mOnClickFavorite != null) {
+                                mOnClickFavorite.onClickFavorite(item);
+                            }
+                    	}
+                    });                  
                     hbox.setSpacing(30);
-                    hbox.getChildren().addAll(lblTime, lblSentence, borderPane);
+                    hbox.getChildren().addAll(lblTime, lblSentence);
                     lblTime.setText(item.getTimeStart());
                     lblSentence.setText(item.getContent());
                     setGraphic(hbox);
@@ -594,4 +630,8 @@ public class VideoShowController implements Initializable,
         
         
     }
+
+	
+
+	
 }

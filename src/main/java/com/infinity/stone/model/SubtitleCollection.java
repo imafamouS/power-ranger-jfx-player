@@ -4,6 +4,8 @@ import com.infinity.stone.db.favorite.Favorite;
 import com.infinity.stone.db.subtitle.Subtitle;
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,7 +14,7 @@ public class SubtitleCollection {
     final ObservableList<Subtitle> lstModel = FXCollections.observableArrayList();
     
     public static SubtitleCollection makeSubtitleCollectionFromListSub(List<Subtitle> list) {
-        SubtitleCollection collection = new SubtitleCollection();
+        SubtitleCollection collection = new SubtitleCollection();        
         collection.addAll(list);
         return collection;
     }
