@@ -1,8 +1,8 @@
 package com.infinity.stone.controller;
 
 import com.infinity.stone.db.subtitle.Subtitle;
+import com.infinity.stone.model.SubtitleCollection;
 import com.infinity.stone.model.VideoModel;
-import com.infinity.stone.util.ResourceUtils;
 import com.infinity.stone.util.TextUtils;
 import java.net.URI;
 import java.util.List;
@@ -33,9 +33,13 @@ public class VideoController extends BaseVideoController {
         this.videoView.setPreserveRatio(true);
         this.lst_video = lst_video;
         this.activeVideo = picked_video_name;
-        this.indexActiveVideo = getIndexActiveVideo();
-        loadSourceVideo(picked_video_name);
+        
         this.isEnd = false;
+    }
+    
+    public void setSub(SubtitleCollection subtitleCollection) {
+        this.activeVideo.setCollection(subtitleCollection);
+        loadSourceVideo(activeVideo);
     }
     
     public Media getMedia() {
@@ -54,7 +58,7 @@ public class VideoController extends BaseVideoController {
     
     @Override
     public void releaseMedia() {
-    	mediaPlayer.pause();
+        mediaPlayer.pause();
         media = null;
         mediaPlayer = null;
     }
@@ -99,7 +103,7 @@ public class VideoController extends BaseVideoController {
             mvh.bind(Bindings.selectDouble(videoView.sceneProperty(), "height"));
             mediaPlayer.setAutoPlay(true);
             mediaPlayer.currentTimeProperty().addListener(observable -> {
-                if (listener != null && mediaPlayer!=null) {
+                if (listener != null && mediaPlayer != null) {
                     listener.updateValues(mediaPlayer.getCurrentTime(),
                               media.getDuration(),
                               trackVideoSub());

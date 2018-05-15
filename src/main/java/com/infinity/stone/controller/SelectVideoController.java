@@ -169,22 +169,14 @@ public class SelectVideoController implements Initializable {
         String pathWithoutExtension = video.getVideoPath().split("[.]")[0];
         String pathSub = pathWithoutExtension + ".ttml";
         
-        DownloadCaptionManager downloadCaptionManager = new DownloadCaptionManager();
-        List<Subtitle> collection = downloadCaptionManager
-                  .buildSubtitleListFromFileTTML(pathSub);
-        
-        for (Subtitle subtitle : collection) {
-            subtitle.setId(SecurityUtils.getRandomUUID());
-            subtitle.setVideoId(Constant.CURRENT_VIDEO_ID);
-        }
-
         SubtitleRepository repository = (SubtitleRepository) RepositoryManager
                   .getInstance(RepositoryType.SUBTITLE);
         
         repository.findAllSubtitleByVideoId(video.getVideoId())
                   .subscribe(success -> {
                       if (success.isEmpty()) {
-                          repository.create(collection)
+                          
+                          repository.create(createSub(pathSub))
                                     .subscribe(_success -> {
                                         openScreen(event);
                                     }, _throwable -> {
@@ -193,12 +185,25 @@ public class SelectVideoController implements Initializable {
                       }
                       openScreen(event);
                   }, throwable -> {
-                      repository.create(collection)
+                      repository.create(createSub(pathSub))
                                 .subscribe(success -> {
                                     openScreen(event);
                                 }, _throwable -> {
                                 });
-                  });             
+                  });
+    }
+    
+    private List<Subtitle> createSub(String path) {
+        DownloadCaptionManager downloadCaptionManager = new DownloadCaptionManager();
+        List<Subtitle> collection = downloadCaptionManager
+                  .buildSubtitleListFromFileTTML(path);
+        
+        for (Subtitle subtitle : collection) {
+            subtitle.setId(SecurityUtils.getRandomUUID());
+            subtitle.setVideoId(Constant.CURRENT_VIDEO_ID);
+        }
+        
+        return collection;
     }
     
     private void openScreen(Event event) {
