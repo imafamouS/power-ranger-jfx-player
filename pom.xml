@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
   <groupId>groupId</groupId>
   <artifactId>TheGoodPlayer</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <dependencies>
     <dependency>
       <groupId>com.jfoenix</groupId>
@@ -52,7 +52,9 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>8.8.3</version>
         <configuration>
+          <vendor>TheGoodPlayer</vendor>
           <mainClass>com.infinity.stone.ui.Main</mainClass>
+          <verbose>true</verbose>
         </configuration>
       </plugin>
       <plugin>

@@ -26,6 +26,7 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
@@ -185,6 +186,16 @@ public class VideoShowController implements Initializable,
     }
     
     public void init() {
+        tabPane.getSelectionModel().selectedItemProperty().addListener(
+                  (observable, oldValue, newValue) -> {
+                      if (newValue.getText().equals("Subtitle")) {
+                          TrackingManager.getInstance()
+                                    .track(Action.CHOOSE_TAB_SUB, "at " + new Date());
+                      } else if (newValue.getText().equals("Favourite")) {
+                          TrackingManager.getInstance()
+                                    .track(Action.CHOOSE_TAG_FAVORITE, "at " + new Date());
+                      }
+                  });
         setUpSlider();
         setUpTimeline();
     }
@@ -329,11 +340,12 @@ public class VideoShowController implements Initializable,
                             new ListViewCell(this, listViewSubtitle));
         listViewSubtitle.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
+                Subtitle item = (Subtitle) listViewSubtitle.getSelectionModel()
+                          .getSelectedItem();
                 controller.calculatedClickSub(TextUtils
                           .reverseFormatTime(
-                                    ((Subtitle) listViewSubtitle.getSelectionModel()
-                                              .getSelectedItem())
-                                              .getTimeStart()));
+                                    item.getTimeStart()));
+                TrackingManager.getInstance().track(Action.CLICK_TO_SUB, item.getContent());
             }
         });
     }

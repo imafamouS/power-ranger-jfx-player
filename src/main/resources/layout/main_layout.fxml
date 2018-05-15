@@ -41,15 +41,15 @@
               AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
                 <JFXTabPane prefHeight="355.2" prefWidth="511.2" AnchorPane.bottomAnchor="0.0"
-                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" fx:id="tabPane"
                   AnchorPane.topAnchor="0.0">
                   <tabs>
                     <Tab text="Subtitle">
                       <content>
                         <AnchorPane prefHeight="180.0" prefWidth="512.0">
                           <VBox>
-                            <Label  minHeight="30" minWidth="30" text="Right click to add favorite"
-                              prefHeight="30.0" prefWidth="520.0" >
+                            <Label minHeight="30" minWidth="30" text="Right click to add favorite"
+                              prefHeight="30.0" prefWidth="520.0">
                               <padding>
                                 <Insets bottom="0" left="40.0" right="40.0" top="0" />
                               </padding>
@@ -58,9 +58,9 @@
                               </font>
                             </Label>
                             <JFXListView fx:id="listViewSubtitle" prefHeight="634.0"
-                              prefWidth="520.0" AnchorPane.bottomAnchor="0.0" styleClass="mylistview"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0" />
+                              prefWidth="520.0" AnchorPane.bottomAnchor="0.0"
+                              styleClass="mylistview" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                           </VBox>
                         </AnchorPane>
                       </content>
@@ -80,9 +80,9 @@
                               </font>
                             </JFXTextField>
                             <JFXListView fx:id="favouriteListview" prefHeight="634.0"
-                              prefWidth="520.0" AnchorPane.bottomAnchor="0.0" styleClass="mylistview"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0" />
+                              prefWidth="520.0" AnchorPane.bottomAnchor="0.0"
+                              styleClass="mylistview" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                           </VBox>
                         </AnchorPane>
                       </content>

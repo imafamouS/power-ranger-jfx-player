@@ -1,5 +1,6 @@
 package com.infinity.stone.tracking;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.FileHandler;
@@ -19,8 +20,11 @@ public class TrackingManager implements TrackingService {
     
     static {
         try {
+            String userPath = System.getProperty("user.home");
+            File file = new File(userPath + "/TheGoodPlayer");
+            file.mkdir();
             FileHandler fh = new FileHandler(
-                      "TheGoodPlayer-" + System.currentTimeMillis() + ".log");
+                      file.getAbsolutePath() + "/log-" + System.currentTimeMillis() + ".log");
             LOGGER.addHandler(fh);
             fh.setFormatter(new SimpleFormatter() {
                 private static final String format = "[%1$tF %1$tT] [%2$-7s] %3$s %n";

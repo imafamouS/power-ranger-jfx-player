@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<tt xml:lang="en" xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" ttp:profile="http://www.w3.org/TR/profile/sdp-us" >
+<head>
+<styling>
+<style xml:id="s1" tts:textAlign="center" tts:extent="90% 90%" tts:origin="5% 5%" tts:displayAlign="after"/>
+<style xml:id="s2" tts:fontSize=".72c" tts:backgroundColor="black" tts:color="white"/>
+</styling>
+<layout>
+<region xml:id="r1" style="s1"/>
+</layout>
+</head>
+<body region="r1">
+<div>
+<p begin="00:00:01.900" end="00:00:03.520" style="s2">Hi, I&#39;m Gina.</p>
+<p begin="00:00:03.520" end="00:00:06.620" style="s2">Welcome to Oxford Online English.</p>
+<p begin="00:00:06.620" end="00:00:13.579" style="s2">In this lesson, you can learn how to talk<br />about your vacation in English.</p>
+<p begin="00:00:13.579" end="00:00:17.480" style="s2">Where did you go for your last holiday?</p>
+<p begin="00:00:17.480" end="00:00:19.539" style="s2">What did you do there?</p>
+<p begin="00:00:19.539" end="00:00:22.420" style="s2">Did you have a good time?</p>
+<p begin="00:00:22.420" end="00:00:28.600" style="s2">In this lesson, you’ll learn how to answer<br />these questions and more in clear, natural</p>
+<p begin="00:00:28.600" end="00:00:30.820" style="s2">English.</p>
+<p begin="00:00:30.820" end="00:00:36.590" style="s2">Did you notice how Jack says &#39;holiday&#39;, but<br />I said &#39;vacation&#39;?</p>
+<p begin="00:00:36.590" end="00:00:40.520" style="s2">This is a difference between British and American<br />English.</p>
+<p begin="00:00:40.520" end="00:00:44.360" style="s2">Both words have the same meaning.</p>
+<p begin="00:00:44.360" end="00:00:52.700" style="s2">Let&#39;s start with some simple language you<br />can use to start your answer.</p>
+<p begin="00:00:52.700" end="00:00:59.690" style="s2">Begin your answer by saying where you went,<br />who with and how long for.</p>
+<p begin="00:00:59.690" end="00:01:01.600" style="s2">For example:</p>
+<p begin="00:01:01.600" end="00:01:06.470" style="s2">I went to the countryside with my family for<br />a couple of weeks.</p>
+<p begin="00:01:06.470" end="00:01:12.060" style="s2">I went to Thailand with a group of friends<br />for ten days.</p>
+<p begin="00:01:12.060" end="00:01:17.860" style="s2">My girlfriend and I went to Rome for a long<br />weekend.</p>
+<p begin="00:01:17.860" end="00:01:28.560" style="s2">A long weekend means you go for three or four<br />days, usually Friday-Monday or Saturday-Monday,</p>
+<p begin="00:01:28.560" end="00:01:33.740" style="s2">maybe because there’s a public holiday on<br />the Monday.</p>
+<p begin="00:01:33.740" end="00:01:35.630" style="s2">What about you?</p>
+<p begin="00:01:35.630" end="00:01:39.580" style="s2">Where did you go for your last vacation?</p>
+<p begin="00:01:39.580" end="00:01:44.670" style="s2">Who did you go with, and how long for?</p>
+<p begin="00:01:44.670" end="00:01:49.070" style="s2">Pause the video and make your own sentence.</p>
+<p begin="00:01:49.070" end="00:01:54.350" style="s2">If you want extra practice, write your sentence<br />down.</p>
+<p begin="00:01:54.350" end="00:02:02.020" style="s2">If you really want extra practice, write down<br />three different sentences!</p>
+<p begin="00:02:02.020" end="00:02:03.320" style="s2">Okay?</p>
+<p begin="00:02:03.320" end="00:02:08.580" style="s2">Next, let’s see how you can talk about what<br />you did on your holiday.</p>
+<p begin="00:02:12.080" end="00:02:14.700" style="s2">What do you like doing on holiday?</p>
+<p begin="00:02:14.709" end="00:02:20.920" style="s2">Do you prefer a more active holiday, maybe<br />with lots of adventure sports and activities,</p>
+<p begin="00:02:20.920" end="00:02:24.779" style="s2">or would you rather do something more cultural?</p>
+<p begin="00:02:24.779" end="00:02:30.590" style="s2">Or, maybe you just like relaxing on the beach.</p>
+<p begin="00:02:30.590" end="00:02:36.139" style="s2">Whatever you prefer, it’s good if you can<br />say something about how you spent your time</p>
+<p begin="00:02:36.139" end="00:02:37.749" style="s2">on holiday.</p>
+<p begin="00:02:37.749" end="00:02:45.489" style="s2">Let’s look at some examples and some good<br />vocabulary for you to use:</p>
+<p begin="00:02:45.489" end="00:02:50.370" style="s2">I went to the countryside with my family for<br />a couple of weeks.</p>
+<p begin="00:02:50.370" end="00:02:55.980" style="s2">Mostly, we went hiking in the hills and mountains<br />nearby.</p>
+<p begin="00:02:55.980" end="00:03:03.489" style="s2">We also just hung out in the village, playing<br />cards and eating.</p>
+<p begin="00:03:03.489" end="00:03:06.209" style="s2">Do you like hiking?</p>
+<p begin="00:03:06.209" end="00:03:13.840" style="s2">Hiking means going for longer walks, often<br />in the hills or the mountains.</p>
+<p begin="00:03:13.840" end="00:03:21.319" style="s2">If you hang out, you spend time without having<br />any particular goal.</p>
+<p begin="00:03:21.319" end="00:03:28.599" style="s2">If you say we just hung out in the village,<br />you mean that you spent time there in a relaxed</p>
+<p begin="00:03:28.600" end="00:03:30.780" style="s2">way.</p>
+<p begin="00:03:30.780" end="00:03:33.510" style="s2">Let’s look at our second example:</p>
+<p begin="00:03:33.510" end="00:03:38.059" style="s2">I went to Thailand with a group of friends<br />for ten days.</p>
+<p begin="00:03:38.059" end="00:03:44.920" style="s2">We did some sightseeing in Bangkok: the Grand<br />Palace, Wat Pho and so on.</p>
+<p begin="00:03:44.920" end="00:03:53.590" style="s2">Then we hit the beaches in Krabi for some<br />sun, swimming and cocktails!</p>
+<p begin="00:03:53.590" end="00:03:58.139" style="s2">Sightseeing means visiting the famous places<br />in a city.</p>
+<p begin="00:03:58.139" end="00:04:03.670" style="s2">You can go sightseeing or do sightseeing.</p>
+<p begin="00:04:03.670" end="00:04:10.919" style="s2">For example, if you go sightseeing in Paris,<br />you’d probably visit the Eiffel Tower, the</p>
+<p begin="00:04:10.919" end="00:04:15.909" style="s2">Louvre, Notre Dame and so on.</p>
+<p begin="00:04:15.909" end="00:04:23.870" style="s2">Saying we hit the beaches is a very informal<br />way of saying we went to the beaches.</p>
+<p begin="00:04:23.870" end="00:04:29.870" style="s2">You could also say we hit the bars or we hit<br />the clubs.</p>
+<p begin="00:04:29.870" end="00:04:35.890" style="s2">Using hit suggests you’re going somewhere<br />to party and have a good time, so you probably</p>
+<p begin="00:04:35.890" end="00:04:39.660" style="s2">wouldn’t use it with other places.</p>
+<p begin="00:04:39.660" end="00:04:43.640" style="s2">Let’s do one more example together:</p>
+<p begin="00:04:43.650" end="00:04:48.159" style="s2">My boyfriend and I went to Rome for a long<br />weekend.</p>
+<p begin="00:04:48.159" end="00:04:52.879" style="s2">We went on a walking tour of the centre and<br />the Vatican.</p>
+<p begin="00:04:52.879" end="00:04:59.169" style="s2">Mostly, we went to restaurants and cafes and<br />sampled as much of the local cuisine as we</p>
+<p begin="00:04:59.169" end="00:05:04.009" style="s2">could fit in our stomachs!</p>
+<p begin="00:05:04.009" end="00:05:11.050" style="s2">If you go on a tour, for example a walking<br />tour, you pay for a guide.</p>
+<p begin="00:05:11.050" end="00:05:15.580" style="s2">Often, tours are in big groups.</p>
+<p begin="00:05:15.580" end="00:05:26.130" style="s2">Do you prefer to go on a tour with a guide,<br />or do you like to explore by yourself?</p>
+<p begin="00:05:26.130" end="00:05:29.710" style="s2">Sample means to try many different things.</p>
+<p begin="00:05:29.710" end="00:05:36.210" style="s2">We sampled as much of the local cuisine as<br />we could means that we tried many different</p>
+<p begin="00:05:36.210" end="00:05:37.900" style="s2">dishes.</p>
+<p begin="00:05:37.900" end="00:05:40.520" style="s2">Alright, over to you!</p>
+<p begin="00:05:40.520" end="00:05:43.520" style="s2">What did you do on your last holiday?</p>
+<p begin="00:05:43.520" end="00:05:51.289" style="s2">Did you go hiking in the mountains, go sightseeing,<br />or sample lots of delicious food?</p>
+<p begin="00:05:51.289" end="00:05:54.870" style="s2">Try to make two or three sentences.</p>
+<p begin="00:05:54.870" end="00:05:58.020" style="s2">Use the language from this section if you<br />can.</p>
+<p begin="00:05:58.020" end="00:06:03.320" style="s2">Pause the video now and make your answer.</p>
+<p begin="00:06:03.320" end="00:06:09.800" style="s2">Next, let’s see how you can describe the<br />place you visited in more detail.</p>
+<p begin="00:06:14.260" end="00:06:22.820" style="s2">Can you think of three adjectives to describe<br />where you went for your last vacation?</p>
+<p begin="00:06:22.820" end="00:06:30.310" style="s2">Here, try to avoid general adjectives like<br />nice or good.</p>
+<p begin="00:06:30.310" end="00:06:33.580" style="s2">Try to find specific adjectives.</p>
+<p begin="00:06:33.580" end="00:06:38.380" style="s2">Your answer will be more interesting!</p>
+<p begin="00:06:38.380" end="00:06:41.650" style="s2">Let’s look at an example:</p>
+<p begin="00:06:41.650" end="00:06:46.699" style="s2">I went to the countryside with my family for<br />a couple of weeks.</p>
+<p begin="00:06:46.699" end="00:06:55.449" style="s2">We stayed in a very nice village surrounded<br />by nice mountain scenery.</p>
+<p begin="00:06:55.449" end="00:06:58.139" style="s2">Do you see what we mean?</p>
+<p begin="00:06:58.139" end="00:07:01.490" style="s2">Saying nice doesn’t say much.</p>
+<p begin="00:07:01.490" end="00:07:04.499" style="s2">This isn’t a very good example.</p>
+<p begin="00:07:04.500" end="00:07:08.700" style="s2">How could you make it better?</p>
+<p begin="00:07:08.700" end="00:07:11.780" style="s2">Here’s one way to improve it:</p>
+<p begin="00:07:11.789" end="00:07:16.240" style="s2">I went to the countryside with my family for<br />a couple of weeks.</p>
+<p begin="00:07:16.240" end="00:07:23.650" style="s2">We stayed in a very picturesque, sleepy village<br />surrounded by some dramatic mountain scenery.</p>
+<p begin="00:07:23.650" end="00:07:27.550" style="s2">What do you think dramatic scenery means?</p>
+<p begin="00:07:27.550" end="00:07:34.300" style="s2">It means the mountains were very impressive<br />and beautiful.</p>
+<p begin="00:07:34.300" end="00:07:37.509" style="s2">Picturesque is another way to say ‘beautiful’.</p>
+<p begin="00:07:37.509" end="00:07:42.289" style="s2">If something is picturesque, it’s beautiful<br />like a painting.</p>
+<p begin="00:07:42.289" end="00:07:48.770" style="s2">So you can use picturesque to talk about scenery<br />and places.</p>
+<p begin="00:07:48.770" end="00:07:54.270" style="s2">Sleepy means that the village was very quiet<br />and peaceful.</p>
+<p begin="00:07:54.270" end="00:08:01.810" style="s2">You can see that using more specific adjectives<br />like picturesque, sleepy or dramatic makes</p>
+<p begin="00:08:01.810" end="00:08:06.419" style="s2">your answer more interesting and expressive.</p>
+<p begin="00:08:06.420" end="00:08:11.760" style="s2">Of course, you’ll need different language<br />to talk about different places.</p>
+<p begin="00:08:11.760" end="00:08:16.970" style="s2">Let’s look at another example:</p>
+<p begin="00:08:16.970" end="00:08:21.789" style="s2">I went to Thailand with a group of friends<br />for ten days.</p>
+<p begin="00:08:21.789" end="00:08:28.650" style="s2">Bangkok is a very cosmopolitan place but it<br />could be a little overwhelming because there</p>
+<p begin="00:08:28.650" end="00:08:31.180" style="s2">was so much going on!</p>
+<p begin="00:08:31.180" end="00:08:38.950" style="s2">Then we went to Krabi, which has some stunning<br />beaches.</p>
+<p begin="00:08:38.950" end="00:08:44.690" style="s2">Do you know the meaning of the key words in<br />this answer?</p>
+<p begin="00:08:44.690" end="00:08:54.000" style="s2">Cosmopolitan describes a city which has many<br />different people and cultures mixed together.</p>
+<p begin="00:08:54.000" end="00:08:57.730" style="s2">Overwhelming describes something which is<br />very intense.</p>
+<p begin="00:08:57.730" end="00:09:06.690" style="s2">For example, a city can be overwhelming if<br />there are lots of people, noises, sights and</p>
+<p begin="00:09:06.690" end="00:09:10.020" style="s2">smells all around you.</p>
+<p begin="00:09:10.020" end="00:09:16.770" style="s2">There’s so much to take in that you don’t<br />know where to look!</p>
+<p begin="00:09:16.770" end="00:09:20.120" style="s2">Stunning means ‘very beautiful’.</p>
+<p begin="00:09:20.120" end="00:09:23.540" style="s2">Let’s do one more example together:</p>
+<p begin="00:09:23.540" end="00:09:27.230" style="s2">My girlfriend and I went to Rome for a long<br />weekend.</p>
+<p begin="00:09:27.230" end="00:09:33.410" style="s2">It’s a fascinating place but it’s quite<br />touristy, too.</p>
+<p begin="00:09:33.410" end="00:09:37.530" style="s2">The best thing was the food, which was out<br />of this world.</p>
+<p begin="00:09:37.530" end="00:09:46.690" style="s2">Here, we used the adjectives fascinating,<br />touristy and out of this world.</p>
+<p begin="00:09:46.690" end="00:09:51.520" style="s2">Could you explain what these mean?</p>
+<p begin="00:09:51.520" end="00:09:56.440" style="s2">Fascinating means ‘very interesting’.</p>
+<p begin="00:09:56.450" end="00:10:01.310" style="s2">Touristy describes a place where tourism has<br />grown too much.</p>
+<p begin="00:10:01.310" end="00:10:07.020" style="s2">Often, if you describe a place as touristy,<br />you mean that it’s lost some of its original</p>
+<p begin="00:10:07.020" end="00:10:09.240" style="s2">atmosphere.</p>
+<p begin="00:10:09.240" end="00:10:15.360" style="s2">Finally, if you describe something as out<br />of this world, you mean it’s really good</p>
+<p begin="00:10:15.360" end="00:10:18.500" style="s2">and you enjoyed it very much.</p>
+<p begin="00:10:18.500" end="00:10:21.560" style="s2">Now, it’s your turn.</p>
+<p begin="00:10:21.560" end="00:10:26.820" style="s2">Can you describe the place you visited on<br />your last vacation?</p>
+<p begin="00:10:26.820" end="00:10:33.470" style="s2">You can use the adjectives and language from<br />this section, or you can find your own words</p>
+<p begin="00:10:33.470" end="00:10:35.850" style="s2">and phrases.</p>
+<p begin="00:10:35.850" end="00:10:42.070" style="s2">Try to use at least three interesting adjectives<br />in your answer.</p>
+<p begin="00:10:42.070" end="00:10:51.580" style="s2">Pause the video and do it now, either speaking<br />or writing.</p>
+<p begin="00:10:51.580" end="00:10:53.120" style="s2">How was that?</p>
+<p begin="00:10:53.120" end="00:10:59.020" style="s2">Remember that you can always review a section<br />if you found something difficult.</p>
+<p begin="00:10:59.020" end="00:11:07.200" style="s2">Next, how can you talk about what you liked<br />or disliked on your vacation?</p>
+<p begin="00:11:10.000" end="00:11:14.240" style="s2">What’s the best vacation you’ve ever had?</p>
+<p begin="00:11:14.240" end="00:11:19.250" style="s2">What about the worst vacation you’ve ever<br />been on?</p>
+<p begin="00:11:19.250" end="00:11:22.700" style="s2">What made these holidays so good or so bad?</p>
+<p begin="00:11:22.700" end="00:11:28.360" style="s2">Let’s see how you can talk about the positives<br />and negatives of your holiday.</p>
+<p begin="00:11:28.360" end="00:11:31.390" style="s2">Here’s our first example:</p>
+<p begin="00:11:31.390" end="00:11:35.880" style="s2">I went to the countryside with my family for<br />a couple of weeks.</p>
+<p begin="00:11:35.880" end="00:11:41.830" style="s2">It was relaxing but by the end I was getting<br />quite bored.</p>
+<p begin="00:11:41.830" end="00:11:48.070" style="s2">This is good, but it’s always better to<br />add a reason if you can:</p>
+<p begin="00:11:48.070" end="00:11:52.450" style="s2">I went to the countryside with my family for<br />a couple of weeks.</p>
+<p begin="00:11:52.450" end="00:12:00.120" style="s2">It was relaxing but by the end I was getting<br />quite bored, because each day was pretty similar.</p>
+<p begin="00:12:00.120" end="00:12:03.700" style="s2">What does that mean, each day was pretty similar?</p>
+<p begin="00:12:03.700" end="00:12:05.880" style="s2">Do you know?</p>
+<p begin="00:12:05.880" end="00:12:11.920" style="s2">It means that you did the same kind of things<br />each day, so there wasn’t much variety from</p>
+<p begin="00:12:11.920" end="00:12:14.410" style="s2">one day to the next.</p>
+<p begin="00:12:14.410" end="00:12:19.890" style="s2">Let’s look at our next example:</p>
+<p begin="00:12:19.890" end="00:12:24.450" style="s2">I went to Thailand with a group of friends<br />for ten days.</p>
+<p begin="00:12:24.450" end="00:12:31.220" style="s2">I loved Krabi, because it was like nowhere<br />I’d ever been before.</p>
+<p begin="00:12:31.220" end="00:12:33.350" style="s2">I wasn’t so keen on Bangkok.</p>
+<p begin="00:12:33.350" end="00:12:42.260" style="s2">It’s a cool place but it’s a bit big and<br />noisy for my tastes.</p>
+<p begin="00:12:42.260" end="00:12:48.420" style="s2">Saying it was like nowhere I’d ever been<br />before means that the place you went to was</p>
+<p begin="00:12:48.420" end="00:12:51.100" style="s2">really unique.</p>
+<p begin="00:12:51.100" end="00:12:57.530" style="s2">You can use I wasn’t so keen on… to talk<br />about something you didn’t like very much</p>
+<p begin="00:12:57.530" end="00:12:59.700" style="s2">in the past.</p>
+<p begin="00:12:59.700" end="00:13:01.450" style="s2">For example:</p>
+<p begin="00:13:01.450" end="00:13:05.820" style="s2">I wasn’t so keen on the food in the hotel.</p>
+<p begin="00:13:05.820" end="00:13:13.030" style="s2">I wasn’t so keen on the museums—I didn’t<br />think they were very interesting.</p>
+<p begin="00:13:13.030" end="00:13:21.570" style="s2">Adding for my tastes after you give your opinion<br />shows that this is just your perspective.</p>
+<p begin="00:13:21.570" end="00:13:28.310" style="s2">You would use it after you give a negative<br />opinion, to soften your idea slightly.</p>
+<p begin="00:13:28.310" end="00:13:29.660" style="s2">For example:</p>
+<p begin="00:13:29.660" end="00:13:37.060" style="s2">It’s a nice area, but it’s too developed<br />and touristy for my tastes.</p>
+<p begin="00:13:37.060" end="00:13:44.400" style="s2">Adding for my tastes makes this sound slightly<br />softer and less direct.</p>
+<p begin="00:13:44.400" end="00:13:50.780" style="s2">Okay, let’s do one more example together:</p>
+<p begin="00:13:50.780" end="00:13:55.060" style="s2">My girlfriend and I went to Rome for a long<br />weekend.</p>
+<p begin="00:13:55.060" end="00:13:59.800" style="s2">I think I liked the general atmosphere most<br />of all.</p>
+<p begin="00:13:59.800" end="00:14:05.240" style="s2">Walking around the little streets in the centre<br />felt like being in an old film.</p>
+<p begin="00:14:05.240" end="00:14:09.140" style="s2">I wish it had been less crowded, though.</p>
+<p begin="00:14:09.140" end="00:14:16.490" style="s2">Here, you can use the phrase I liked … most<br />of all to talk about your favourite thing</p>
+<p begin="00:14:16.490" end="00:14:19.940" style="s2">from your vacation.</p>
+<p begin="00:14:19.940" end="00:14:27.790" style="s2">Use I wish plus the past perfect (had done)<br />to talk about something in the past which</p>
+<p begin="00:14:27.790" end="00:14:30.600" style="s2">you would change if you could.</p>
+<p begin="00:14:30.600" end="00:14:32.310" style="s2">For example:</p>
+<p begin="00:14:32.310" end="00:14:36.940" style="s2">I wish we’d had more time to explore the<br />city.</p>
+<p begin="00:14:36.940" end="00:14:41.390" style="s2">I wish we hadn’t stayed in that awful hotel.</p>
+<p begin="00:14:41.390" end="00:14:44.910" style="s2">Okay, your turn again!</p>
+<p begin="00:14:44.910" end="00:14:50.350" style="s2">What did you like and dislike about your last<br />holiday?</p>
+<p begin="00:14:50.350" end="00:14:55.450" style="s2">Make at least two or three sentences, and<br />say them out loud.</p>
+<p begin="00:14:55.450" end="00:15:00.840" style="s2">Remember to give reasons to support your ideas.</p>
+<p begin="00:15:00.840" end="00:15:11.010" style="s2">Now, you should be ready to put everything<br />together into a longer answer.</p>
+<p begin="00:15:11.010" end="00:15:14.700" style="s2">To make a longer answer, you need to:</p>
+<p begin="00:15:14.700" end="00:15:18.990" style="s2">Say where you went, who with, and for how<br />long.</p>
+<p begin="00:15:18.990" end="00:15:21.700" style="s2">Say what you did.</p>
+<p begin="00:15:21.700" end="00:15:23.940" style="s2">Describe the place.</p>
+<p begin="00:15:23.940" end="00:15:29.260" style="s2">Talk about what you liked and disliked.</p>
+<p begin="00:15:29.260" end="00:15:35.980" style="s2">Let’s do an example using language from<br />the lesson:</p>
+<p begin="00:15:35.980" end="00:15:40.660" style="s2">I went to Thailand with a group of friends<br />for ten days.</p>
+<p begin="00:15:40.660" end="00:15:48.560" style="s2">We did some sightseeing in Bangkok: the Grand<br />Palace, Wat Pho and so on.</p>
+<p begin="00:15:48.560" end="00:15:56.030" style="s2">Then we hit the beaches in Krabi for some<br />sun, swimming and cocktails!</p>
+<p begin="00:15:56.030" end="00:16:03.070" style="s2">Bangkok is a very cosmopolitan place but it<br />could be a little overwhelming because there</p>
+<p begin="00:16:03.070" end="00:16:06.410" style="s2">was so much going on!</p>
+<p begin="00:16:06.410" end="00:16:13.190" style="s2">Krabi has some stunning beaches, and I loved<br />it there, because it was like nowhere I’d</p>
+<p begin="00:16:13.190" end="00:16:15.820" style="s2">ever been before.</p>
+<p begin="00:16:15.820" end="00:16:19.620" style="s2">On the other hand, I wasn’t so keen on Bangkok.</p>
+<p begin="00:16:19.620" end="00:16:25.680" style="s2">It’s a cool place but it’s a bit big and<br />noisy for my tastes.</p>
+<p begin="00:16:30.590" end="00:16:38.140" style="s2">Do you see how using simple phrases and ideas,<br />you can build a full, clear, detailed answer?</p>
+<p begin="00:16:38.140" end="00:16:46.000" style="s2">We’ve added some linking words, but otherwise<br />this is only using language you’ve seen</p>
+<p begin="00:16:46.000" end="00:16:47.410" style="s2">in this lesson.</p>
+<p begin="00:16:47.410" end="00:16:50.940" style="s2">Let’s do one more example.</p>
+<p begin="00:16:50.940" end="00:16:55.650" style="s2">This time, we’ll use original ideas:</p>
+<p begin="00:16:55.650" end="00:16:58.990" style="s2">I went to Siberia by myself for three weeks.</p>
+<p begin="00:16:58.990" end="00:17:06.400" style="s2">I travelled around, did some hiking and camping,<br />and explored the countryside.</p>
+<p begin="00:17:06.400" end="00:17:13.880" style="s2">I was near Lake Baikal, which is a huge lake<br />with mountains and villages dotted around</p>
+<p begin="00:17:13.880" end="00:17:14.880" style="s2">the sides.</p>
+<p begin="00:17:14.880" end="00:17:23.800" style="s2">It was beautiful in a wild way, and the emptiness<br />gave me a real feeling of isolation and solitude.</p>
+<p begin="00:17:23.800" end="00:17:29.300" style="s2">I liked the people I met—everyone was so<br />open and welcoming.</p>
+<p begin="00:17:29.300" end="00:17:34.650" style="s2">On the other hand, even though it was summer,<br />the nights were so cold!</p>
+<p begin="00:17:34.650" end="00:17:39.090" style="s2">I wish I’d taken a warmer sleeping bag.</p>
+<p begin="00:17:39.090" end="00:17:44.040" style="s2">This time, I’m using different ideas and<br />some different language, but I’m still following</p>
+<p begin="00:17:44.040" end="00:17:46.040" style="s2">the same structure.</p>
+<p begin="00:17:46.040" end="00:17:52.260" style="s2">Now, can you make a longer answer like these?</p>
+<p begin="00:17:52.260" end="00:17:53.260" style="s2">Try it!</p>
+<p begin="00:17:53.260" end="00:18:00.670" style="s2">If it’s difficult, review the video or use<br />a dictionary to get the vocabulary you need.</p>
+<p begin="00:18:00.670" end="00:18:07.750" style="s2">Practise your answer several times, until<br />you can do it fluently and comfortably.</p>
+<p begin="00:18:07.750" end="00:18:14.650" style="s2">You could also talk about other vacations<br />you had, not just the last one.</p>
+<p begin="00:18:14.650" end="00:18:17.500" style="s2">If you want feedback on your answer, put it<br />in the comments.</p>
+<p begin="00:18:17.500" end="00:18:22.480" style="s2">We’ll give you feedback and show you how<br />you can improve.</p>
+<p begin="00:18:22.480" end="00:18:28.440" style="s2">And remember, you can find many more free<br />English lessons on our website Oxford Online</p>
+<p begin="00:18:28.440" end="00:18:29.440" style="s2">English.com.</p>
+<p begin="00:18:29.440" end="00:18:32.500" style="s2">Thanks for watching!</p>
+<p begin="00:18:32.500" end="00:18:33.440" style="s2">See you next time!</p>
+</div>
+</body>
+</tt>
