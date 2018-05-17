@@ -27,7 +27,7 @@ public class VideoController extends BaseVideoController {
               List<VideoModel> lst_video) {
         super(videoView);
         this.videoView = videoView;
-        this.videoView.setSmooth(true);
+        //this.videoView.setSmooth(true);
         //this.videoView.setPreserveRatio(true);
         this.lst_video = lst_video;
         this.activeVideo = picked_video_name;
