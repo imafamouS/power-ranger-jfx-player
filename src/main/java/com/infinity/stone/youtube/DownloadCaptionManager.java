@@ -46,13 +46,13 @@ public class DownloadCaptionManager {
     
     public DownloadCaptionManager() {
         Credential credential;
-        try {
-            credential = Auth.authorize(SCOPES, "captions");
-            mYouTube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential)
-                      .setApplicationName("youtube-cmdline-captions-sample").build();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     credential = Auth.authorize(SCOPES, "captions");
+        //     mYouTube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential)
+        //               .setApplicationName("youtube-cmdline-captions-sample").build();
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
     }
     
     public static void main(String[] args) throws IOException {
