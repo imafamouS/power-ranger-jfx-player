@@ -30,7 +30,7 @@ public class VideoController extends BaseVideoController {
         super(videoView);
         this.videoView = videoView;
         this.videoView.setSmooth(true);
-        this.videoView.setPreserveRatio(true);
+        //this.videoView.setPreserveRatio(true);
         this.lst_video = lst_video;
         this.activeVideo = picked_video_name;
         
@@ -97,10 +97,10 @@ public class VideoController extends BaseVideoController {
             URI uri = new URI(filePath.replaceAll(" ", "%20"));
             media = new Media(uri.toString());
             mediaPlayer = new MediaPlayer(media);
-            DoubleProperty mvw = videoView.fitWidthProperty();
-            DoubleProperty mvh = videoView.fitHeightProperty();
-            mvw.bind(Bindings.selectDouble(videoView.sceneProperty(), "width"));
-            mvh.bind(Bindings.selectDouble(videoView.sceneProperty(), "height"));
+            //DoubleProperty mvw = videoView.fitWidthProperty();
+            //DoubleProperty mvh = videoView.fitHeightProperty();
+            //mvw.bind(Bindings.selectDouble(videoView.sceneProperty(), "width"));
+            //mvh.bind(Bindings.selectDouble(videoView.sceneProperty(), "height"));
             mediaPlayer.setAutoPlay(true);
             mediaPlayer.currentTimeProperty().addListener(observable -> {
                 if (listener != null && mediaPlayer != null) {

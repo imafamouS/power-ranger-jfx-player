@@ -175,11 +175,11 @@ public class SelectVideoController implements Initializable {
         repository.findAllSubtitleByVideoId(video.getVideoId())
                   .subscribe(success -> {
                       if (success.isEmpty()) {
-                          
                           repository.create(createSub(pathSub))
                                     .subscribe(_success -> {
                                         openScreen(event);
                                     }, _throwable -> {
+                                    	System.out.println(_throwable.getMessage());
                                     });
                           return;
                       }
@@ -189,6 +189,7 @@ public class SelectVideoController implements Initializable {
                                 .subscribe(success -> {
                                     openScreen(event);
                                 }, _throwable -> {
+                                	System.out.println(throwable.getMessage());
                                 });
                   });
     }

@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXListView?><?import com.jfoenix.controls.JFXSlider?><?import com.jfoenix.controls.JFXTabPane?><?import com.jfoenix.controls.JFXTextField?><?import javafx.geometry.Insets?><?import javafx.scene.control.Label?><?import javafx.scene.control.SplitPane?><?import javafx.scene.control.Tab?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.BorderPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.VBox?><?import javafx.scene.media.MediaView?><?import javafx.scene.text.Font?>
-<AnchorPane fx:id="mainPane" styleClass="anchor-pane" stylesheets="@../css/LightTheme.css"
-  xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="com.infinity.stone.controller.VideoShowController">
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" styleClass="anchor-pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.infinity.stone.controller.VideoShowController">
   <children>
-    <SplitPane fx:id="splitPane" dividerPositions="0.298" layoutX="290.0" layoutY="212.0"
-      styleClass="split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <SplitPane fx:id="splitPane" dividerPositions="0.298" layoutX="290.0" layoutY="212.0" styleClass="split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
-        <AnchorPane fx:id="mediaContainer" maxWidth="1.7976931348623157E308" minWidth="720.0"
-          styleClass="videocontainer">
+        <AnchorPane fx:id="mediaContainer" maxWidth="1.7976931348623157E308" minWidth="720.0" styleClass="videocontainer">
           <children>
-            <MediaView fx:id="videoPlayer" fitHeight="720.0" fitWidth="768.0"
-              styleClass="videoplayer" />
-            <ImageView fx:id="backImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true"
-              preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
-            <BorderPane AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150.0"
-              AnchorPane.rightAnchor="200.0">
-              <center>
-                <Label fx:id="subtilelabel" text="Label" BorderPane.alignment="CENTER" />
-              </center>
+            <ImageView fx:id="backImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
+            <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <center>
+                  <MediaView fx:id="videoPlayer" fitHeight="720.0" fitWidth="768.0" styleClass="videoplayer" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </top>
+                     <bottom>
+                        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </bottom>
             </BorderPane>
-            <JFXListView fx:id="listviewSubtitleFullScreen" minWidth="450.0"
-              style="-fx-background-color: transparent;" styleClass="sublistviewtransparent"
-              AnchorPane.rightAnchor="0.0" />
-            <VBox fx:id="slidercontrollercontainer" styleClass="videocontroller"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0">
+          <Label fx:id="subtilelabel" contentDisplay="CENTER" text="Label" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="200.0" />
+            <JFXListView fx:id="listviewSubtitleFullScreen" minWidth="450.0" style="-fx-background-color: transparent;" styleClass="sublistviewtransparent" AnchorPane.rightAnchor="0.0" />
+            <VBox fx:id="slidercontrollercontainer" styleClass="videocontroller" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
               <children>
                 <JFXSlider fx:id="timeLine" prefHeight="1.0" prefWidth="768.0" />
                 <HBox fx:id="controllerContainer" alignment="CENTER_LEFT" prefWidth="200.0" />
@@ -37,19 +47,15 @@
         </AnchorPane>
         <AnchorPane fx:id="rightPaneSide" maxWidth="520.0">
           <children>
-            <AnchorPane minHeight="720.0" minWidth="0.0" prefWidth="520.0"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane minHeight="720.0" minWidth="0.0" prefWidth="520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                <JFXTabPane fx:id="tabPane" prefHeight="355.2" prefWidth="511.2"
-                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <JFXTabPane fx:id="tabPane" prefHeight="355.2" prefWidth="511.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <tabs>
                     <Tab text="Subtitle">
                       <content>
                         <AnchorPane prefHeight="180.0" prefWidth="512.0">
-                          <VBox>
-                            <Label minHeight="30" minWidth="30" prefHeight="30.0" prefWidth="520.0"
-                              text="Right click to add favorite">
+                          <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <Label minHeight="30" minWidth="30" prefHeight="30.0" prefWidth="520.0" text="Right click to add favorite" VBox.vgrow="ALWAYS">
                               <padding>
                                 <Insets bottom="0" left="40.0" right="40.0" top="0" />
                               </padding>
@@ -57,39 +63,29 @@
                                 <Font size="14.0" />
                               </font>
                             </Label>
-                            <JFXListView fx:id="listViewSubtitle" prefHeight="634.0"
-                              prefWidth="520.0" styleClass="mylistview"
-                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            <JFXListView fx:id="listViewSubtitle" prefWidth="520.0" styleClass="mylistview" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS" />
                           </VBox>
                         </AnchorPane>
                       </content>
                     </Tab>
                     <Tab text="Favourite">
                       <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                          prefWidth="512.0">
-                          <VBox>
-                            <HBox prefHeight="34.0"
-                              prefWidth="512.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="512.0">
+                          <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <HBox prefHeight="34.0" prefWidth="512.0">
                               <ImageView fitHeight="30.0" fitWidth="30.0">
                                 <image>
                                   <Image url="@../icon/ic_search.png" />
                                 </image>
                               </ImageView>
-                              <JFXTextField fx:id="mTxtSearchFavorite" minHeight="34" minWidth="30" prefHeight="34.0"
-                                prefWidth="450.0"
-                                promptText="Search">
+                              <JFXTextField fx:id="mTxtSearchFavorite" minHeight="34" minWidth="30" prefHeight="34.0" prefWidth="450.0" promptText="Search">
                                 <font>
                                   <Font size="18.0" />
                                 </font>
                               </JFXTextField>
                             </HBox>
 
-                            <JFXListView fx:id="favouriteListview" prefHeight="634.0"
-                              prefWidth="520.0" styleClass="mylistview"
-                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <JFXListView fx:id="favouriteListview" prefHeight="830.0" prefWidth="520.0" styleClass="mylistview" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                               <VBox.margin>
                                 <Insets />
                               </VBox.margin>

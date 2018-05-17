@@ -168,12 +168,13 @@ public class VideoShowController implements Initializable,
                                 }, throwable -> {
                                 });
                   })
-                  .doOnSubscribe(onSubscribe -> {
-                      setUpVideoController();
+                  .doOnSubscribe(onSubscribe ->{
+                 	 setUpVideoController();
                   })
                   .subscribe(success -> {
                       mSubtitleCollection = SubtitleCollection
                                 .makeSubtitleCollectionFromListSub(success);
+                     
                       controller.setSub(mSubtitleCollection);
                       setUpSubTitleController();
                       setUpListSubTitle();
