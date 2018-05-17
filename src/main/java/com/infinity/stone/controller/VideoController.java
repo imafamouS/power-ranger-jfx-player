@@ -7,8 +7,6 @@ import com.infinity.stone.util.TextUtils;
 import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
