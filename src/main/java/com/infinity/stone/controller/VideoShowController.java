@@ -275,6 +275,7 @@ public class VideoShowController implements Initializable,
             appStage.setScene(mainScreen);
             appStage.show();
         } catch (IOException e) {
+            TrackingManager.getInstance().track(Action.ERROR, e.getCause());
             e.printStackTrace();
         }
     }

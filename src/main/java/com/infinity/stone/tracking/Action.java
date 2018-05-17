@@ -13,6 +13,7 @@ public enum Action {
     CHOOSE_TAB_SUB(Level.INFO, "CHOOSE TAB SUB"),
     CHOOSE_TAG_FAVORITE(Level.INFO, "CHOOSE TAB FAVORITE"),
     CLICK_TO_SUB(Level.INFO, "CLICK TO SUB"),
+    ERROR(Level.INFO, "ERROR"),
     ADD_FAVORITE(Level.INFO, "ADD FAVORITE");
     
     final Level mLevel;

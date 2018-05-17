@@ -3,6 +3,8 @@ package com.infinity.stone.controller;
 import com.infinity.stone.db.subtitle.Subtitle;
 import com.infinity.stone.model.SubtitleCollection;
 import com.infinity.stone.model.VideoModel;
+import com.infinity.stone.tracking.Action;
+import com.infinity.stone.tracking.TrackingManager;
 import com.infinity.stone.util.TextUtils;
 import java.net.URI;
 import java.util.List;
@@ -152,6 +154,7 @@ public class VideoController extends BaseVideoController {
             setPlaying(true);
             videoView.setMediaPlayer(mediaPlayer);
         } catch (Exception e) {
+            TrackingManager.getInstance().track(Action.ERROR, e.getCause());
             e.printStackTrace();
         }
     }
