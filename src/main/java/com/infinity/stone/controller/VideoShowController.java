@@ -6,8 +6,9 @@ import com.infinity.stone.db.RepositoryManager;
 import com.infinity.stone.db.RepositoryType;
 import com.infinity.stone.db.favorite.Favorite;
 import com.infinity.stone.db.favorite.FavoriteRepository;
+import com.infinity.stone.db.favorite.FavoriteRepositoryImpl;
 import com.infinity.stone.db.subtitle.Subtitle;
-import com.infinity.stone.db.subtitle.SubtitleRepository;
+import com.infinity.stone.db.subtitle.SubtitleRepositoryImpl;
 import com.infinity.stone.model.SubtitleCollection;
 import com.infinity.stone.model.VideoModel;
 import com.infinity.stone.model.VideoModel.LEVEL;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
@@ -55,7 +57,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaView;
@@ -144,44 +145,43 @@ public class VideoShowController implements Initializable,
         this.videoPath = path;
     }
     
-    private FavoriteRepository mFavoriteRepository;
+    private FavoriteRepositoryImpl mFavoriteRepository;
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        mFavoriteRepository = (FavoriteRepository) RepositoryManager
+        mFavoriteRepository = (FavoriteRepositoryImpl) RepositoryManager
                   .getInstance(RepositoryType.FAVORITE);
         
-        SubtitleRepository subtitleRepository = (SubtitleRepository) RepositoryManager
+        SubtitleRepositoryImpl subtitleRepository = (SubtitleRepositoryImpl) RepositoryManager
                   .getInstance(RepositoryType.SUBTITLE);
-        init();
-        subtitleRepository.findAllSubtitleByVideoId(Constant.CURRENT_VIDEO_ID)
-                  .doOnSuccess((result) -> {
-                      mFavoriteRepository.findFavoritesByVideoId(Constant.CURRENT_VIDEO_ID)
-                                .doFinally(this::setUpFavoriteSubTitle)
-                                .subscribe(success -> {
-                                    mFavoriteSubtitleCollection =
-                                              SubtitleCollection
-                                                        .makeSubtitleCollectionFromListFavorite(
-                                                                  success, result);
-                                }, throwable -> {
-                                });
-                  })
-                  .doOnSubscribe(onSubscribe ->{
-                 	 setUpVideoController();
-                  })
-                  .subscribe(success -> {
-                      mSubtitleCollection = SubtitleCollection
-                                .makeSubtitleCollectionFromListSub(success);
-                     
-                      controller.setSub(mSubtitleCollection);
-                      setUpSubTitleController();
-                      setUpListSubTitle();
-                      setUpTrackingSub();
-                  }, throwable -> {
-                      init();
-                      throwable.printStackTrace();
-                  });
         
+        List<Subtitle> subtitleList = subtitleRepository
+                  ._findAllSubtitleByVideoId(Constant.CURRENT_VIDEO_ID);
+        init();
+    
+        if (subtitleList != null) {
+            mSubtitleCollection = SubtitleCollection
+                      .makeSubtitleCollectionFromListSub(subtitleList);
+            controller.setSub(mSubtitleCollection);
+            setUpSubTitleController();
+            setUpListSubTitle();
+            setUpTrackingSub();
+            
+            List<Favorite> favoriteList = mFavoriteRepository
+                      ._findFavoriteByVideoId(Constant.CURRENT_VIDEO_ID);
+            if (favoriteList != null) {
+                mFavoriteSubtitleCollection =
+                          SubtitleCollection
+                                    .makeSubtitleCollectionFromListFavorite(
+                                              favoriteList, subtitleList);
+                setUpFavoriteSubTitle();
+            } else {
+                TrackingManager.getInstance().track(Action.ERROR, " failure get list favorite");
+            }
+        } else {
+            TrackingManager.getInstance().track(Action.ERROR, " failure get list sub");
+        }
+    
     }
     
     public void init() {
@@ -195,6 +195,8 @@ public class VideoShowController implements Initializable,
                                     .track(Action.CHOOSE_TAG_FAVORITE, "at " + new Date());
                       }
                   });
+        setUpVideoController();
+        
         setUpSlider();
         setUpTimeline();
     }
@@ -227,16 +229,16 @@ public class VideoShowController implements Initializable,
         fullWidthImageView.setOnMouseClicked(
                   (EventHandler<Event>) event -> controller.toggleFullScreen());
         
-        controllerContainer.getChildren().addAll(
-                  playImageView,
-                  lblplaytime,
-                  volumeImageView,
-                  slider,
-                  region,
-                  toggleSubImageView);
-        // fullWidthImageView);
-        controllerContainer.setHgrow(region, Priority.ALWAYS);
-        
+//        controllerContainer.getChildren().addAll(
+//                  playImageView,
+//                  lblplaytime,
+//                  volumeImageView,
+//                  slider,
+//                  region,
+//                  toggleSubImageView);
+//        // fullWidthImageView);
+//        controllerContainer.setHgrow(region, Priority.ALWAYS);
+    
         controller = new VideoController(videoPlayer,
                   new VideoModel(Constant.CURRENT_VIDEO_PATH, mSubtitleCollection, LEVEL.ADVANCE),
                   new ArrayList<>());
@@ -249,6 +251,7 @@ public class VideoShowController implements Initializable,
                 controller.calculatedPositionSlider(timeLine.getValue());
             }
         });
+        
         controller.setOnVideoControllerListener(this);
     }
     
@@ -385,17 +388,18 @@ public class VideoShowController implements Initializable,
         favouriteListview
                   .setCellFactory((Callback<JFXListView<Subtitle>, JFXListCell<Subtitle>>) param ->
                             new ListViewFavouriteCell(sub -> {
-                                mFavoriteRepository
-                                          .delete(new Favorite(sub.getVideoId(), sub.getId()))
-                                          .subscribe(success -> {
-                                              JFXSnackbar snackbar = new JFXSnackbar(rightPaneSide);
-                                              snackbar.show("Remove favorite successfully", 1000);
-                                              TrackingManager.getInstance()
-                                                        .track(Action.DELETE_FAVORITE,
-                                                                  sub.getContent());
-                                          }, throwable -> {
-                                              System.out.print(throwable.getMessage());
-                                          });
+                                long resultRemoveFavorite = mFavoriteRepository
+                                          ._delete(new Favorite(sub.getVideoId(), sub.getId()));
+                                if (resultRemoveFavorite >= 0) {
+                                    JFXSnackbar snackbar = new JFXSnackbar(rightPaneSide);
+                                    snackbar.show("Remove favorite successfully", 1000);
+                                    TrackingManager.getInstance()
+                                              .track(Action.DELETE_FAVORITE,
+                                                        sub.getContent());
+                                } else {
+                                    TrackingManager.getInstance()
+                                              .track(Action.ERROR, "failure delete favorite");
+                                }
                             }, favouriteListview));
         
     }
@@ -411,18 +415,19 @@ public class VideoShowController implements Initializable,
     
     @Override
     public void onClickFavorite(Subtitle subtitle) {
-        mFavoriteRepository.create(new Favorite(subtitle.getVideoId(), subtitle.getId()))
-                  .subscribe(success -> {
-                      if (!mFavoriteSubtitleCollection.getLstModel().contains(subtitle)) {
-                          mFavoriteSubtitleCollection.add(subtitle);
-                      }
-                      JFXSnackbar snackbar = new JFXSnackbar(rightPaneSide);
-                      snackbar.show("Add to favorite successfully", 1000);
-                      TrackingManager.getInstance()
-                                .track(Action.ADD_FAVORITE, subtitle.getContent());
-                  }, throwable -> {
-                      System.out.print(throwable.getMessage());
-                  });
+        long resultAddFavorite = mFavoriteRepository
+                  ._create(new Favorite(subtitle.getVideoId(), subtitle.getId()));
+        if (resultAddFavorite >= 0) {
+            if (!mFavoriteSubtitleCollection.getLstModel().contains(subtitle)) {
+                mFavoriteSubtitleCollection.add(subtitle);
+            }
+            JFXSnackbar snackbar = new JFXSnackbar(rightPaneSide);
+            snackbar.show("Add to favorite successfully", 1000);
+            TrackingManager.getInstance()
+                      .track(Action.ADD_FAVORITE, subtitle.getContent());
+        } else {
+            TrackingManager.getInstance().track(Action.ERROR, " add favourite failure");
+        }
         
     }
     

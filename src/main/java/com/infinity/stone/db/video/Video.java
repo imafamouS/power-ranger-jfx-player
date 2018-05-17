@@ -20,6 +20,10 @@ public class Video extends Entity {
     
     }
     
+    public Video(String id) {
+        this.id = id;
+    }
+    
     public Video(String id, String youtubeId, String url, Date dateCreated) {
         this.id = id;
         this.youtubeId = youtubeId;

@@ -6,9 +6,9 @@ import com.infinity.stone.custom.MyRecentVideoView.OnClickRecentItem;
 import com.infinity.stone.db.RepositoryManager;
 import com.infinity.stone.db.RepositoryType;
 import com.infinity.stone.db.subtitle.Subtitle;
-import com.infinity.stone.db.subtitle.SubtitleRepository;
+import com.infinity.stone.db.subtitle.SubtitleRepositoryImpl;
 import com.infinity.stone.db.video.Video;
-import com.infinity.stone.db.video.VideoRepository;
+import com.infinity.stone.db.video.VideoRepositoryImpl;
 import com.infinity.stone.model.RecentVideoModel;
 import com.infinity.stone.tracking.Action;
 import com.infinity.stone.tracking.TrackingManager;
@@ -49,12 +49,7 @@ public class SelectVideoController implements Initializable {
     
     public static final String[] EXTENSIONS = new String[]{"*.mp4"};
     private static final Logger LOG = Logger.getLogger("SelectVideoController");
-    private final OnClickRecentItem mOnClickRecentItem = (event, item) -> {
-        TrackingManager.getInstance()
-                  .track(Action.SELECT_VIDEO,
-                            "Select video " + item.getVideoName() + " at " + new Date());
-        showMainScreen(item, event);
-    };
+    
     private final EventHandler<DragEvent> mOnDragOver = event -> {
         Dragboard db = event.getDragboard();
         if (db.hasFiles()) {
@@ -85,6 +80,29 @@ public class SelectVideoController implements Initializable {
     @FXML
     private ImageView imageView;
     
+    VideoRepositoryImpl mVideoRepository;
+    
+    private final OnClickRecentItem mOnClickRecentItem = new OnClickRecentItem() {
+        @Override
+        public void onClickRecentItem(Event event, RecentVideoModel item) {
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO,
+                                "Select video " + item.getVideoName() + " at " + new Date());
+            showMainScreen(item, event);
+        }
+        
+        @Override
+        public void onRemoveRecentItem(Event event, RecentVideoModel item) {
+            long resultRemoveVideo = mVideoRepository._delete(new Video(item.getVideoId()));
+            if (resultRemoveVideo > 0) {
+                mListView.getItems().remove(item);
+                TrackingManager.getInstance().track(Action.ERROR, "remove video successfully");
+            }else{
+                TrackingManager.getInstance().track(Action.ERROR, "remove video failed");
+            }
+        }
+    };
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         MyFileChooserDialog myFileChooserDialog = buildFileChooser();
@@ -107,40 +125,37 @@ public class SelectVideoController implements Initializable {
         
         mSelectVideoPanel.setOnDragOver(mOnDragOver);
         mSelectVideoPanel.setOnDragDropped(mOnDragDropped);
-        VideoRepository videoRepo = (VideoRepository) RepositoryManager
+        mVideoRepository = (VideoRepositoryImpl) RepositoryManager
                   .getInstance(RepositoryType.VIDEO);
         
-        videoRepo.findAll()
-                  .subscribe(success -> {
-                      List<RecentVideoModel> recentVideoModelList = getListRecentVideo(success);
-                      mListView.setItems(FXCollections.observableArrayList(recentVideoModelList));
-                      mListView.setCellFactory(
-                                param -> new MyRecentVideoView.RecentVideoFactory(
-                                          mOnClickRecentItem));
-                  }, throwable -> {
-                  
-                  });
-        
+        List<Video> videos = mVideoRepository._findAll();
+        if (videos != null && !videos.isEmpty()) {
+            List<RecentVideoModel> recentVideoModelList = getListRecentVideo(videos);
+            mListView.setItems(FXCollections.observableArrayList(recentVideoModelList));
+            mListView.setCellFactory(
+                      param -> new MyRecentVideoView.RecentVideoFactory(
+                                mOnClickRecentItem));
+        }
     }
     
     private void insertVideoAndOpenScreen(File selectedFile, Event event) {
         
-        VideoRepository videoRepo = (VideoRepository) RepositoryManager
+        VideoRepositoryImpl videoRepo = (VideoRepositoryImpl) RepositoryManager
                   .getInstance(RepositoryType.VIDEO);
         Video video = new Video(SecurityUtils.getRandomUUID(),
                   selectedFile.getName(),
                   selectedFile.getPath(),
                   new Date());
-        videoRepo.create(video)
-                  .subscribe(success -> {
-                      TrackingManager.getInstance()
-                                .track(Action.SELECT_VIDEO, "Insert video to database success");
-                      
-                      showMainScreen(new RecentVideoModel(video), event);
-                  }, throwable -> {
-                      TrackingManager.getInstance()
-                                .track(Action.SELECT_VIDEO, "Insert video to database failure");
-                  });
+        long resultCreateVideo = videoRepo._create(video);
+        if (resultCreateVideo >= 0) {
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO, "Insert video to database success");
+            
+            showMainScreen(new RecentVideoModel(video), event);
+        } else {
+            TrackingManager.getInstance()
+                      .track(Action.SELECT_VIDEO, "Insert video to database failure");
+        }
     }
     
     
@@ -169,29 +184,32 @@ public class SelectVideoController implements Initializable {
         String pathWithoutExtension = video.getVideoPath().split("[.]")[0];
         String pathSub = pathWithoutExtension + ".ttml";
         
-        SubtitleRepository repository = (SubtitleRepository) RepositoryManager
+        SubtitleRepositoryImpl repository = (SubtitleRepositoryImpl) RepositoryManager
                   .getInstance(RepositoryType.SUBTITLE);
         
-        repository.findAllSubtitleByVideoId(video.getVideoId())
-                  .subscribe(success -> {
-                      if (success.isEmpty()) {
-                          repository.create(createSub(pathSub))
-                                    .subscribe(_success -> {
-                                        openScreen(event);
-                                    }, _throwable -> {
-                                    	System.out.println(_throwable.getMessage());
-                                    });
-                          return;
-                      }
-                      openScreen(event);
-                  }, throwable -> {
-                      repository.create(createSub(pathSub))
-                                .subscribe(success -> {
-                                    openScreen(event);
-                                }, _throwable -> {
-                                	System.out.println(throwable.getMessage());
-                                });
-                  });
+        List<Subtitle> subtitleList = repository._findAllSubtitleByVideoId(video.getVideoId());
+        
+        if (subtitleList != null) {
+            if (subtitleList.isEmpty()) {
+                long resultCreateListSub = repository._create(createSub(pathSub));
+                if (resultCreateListSub >= 0) {
+                    openScreen(event);
+                } else {
+                    TrackingManager.getInstance().track(Action.ERROR,
+                              " error at SelectVideoController.showMainScreen:188");
+                }
+                return;
+            }
+            openScreen(event);
+        } else {
+            long resultCreateListSub = repository._create(createSub(pathSub));
+            if (resultCreateListSub >= 0) {
+                openScreen(event);
+            } else {
+                TrackingManager.getInstance().track(Action.ERROR,
+                          " error at SelectVideoController.showMainScreen:200");
+            }
+        }
     }
     
     private List<Subtitle> createSub(String path) {

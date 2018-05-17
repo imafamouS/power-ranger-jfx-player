@@ -1,6 +1,8 @@
 package com.infinity.stone.db.favorite;
 
 import com.infinity.stone.exception.FavoriteException;
+import com.infinity.stone.tracking.Action;
+import com.infinity.stone.tracking.TrackingManager;
 import io.reactivex.Single;
 import java.util.List;
 
@@ -14,6 +16,36 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
     
     public FavoriteRepositoryImpl() {
         mFavoriteDao = new FavoriteDaoImpl();
+    }
+    
+    public long _create(Favorite favorite) {
+        try {
+            return mFavoriteDao.create(favorite);
+            
+        } catch (Exception ex) {
+            TrackingManager.getInstance().track(Action.ERROR, ex.getCause());
+            return -1;
+        }
+    }
+    
+    public long _delete(Favorite favorite) {
+        try {
+            return mFavoriteDao.delete(favorite);
+            
+        } catch (Exception ex) {
+            TrackingManager.getInstance().track(Action.ERROR, ex.getCause());
+            return -1;
+        }
+    }
+    
+    public List<Favorite> _findFavoriteByVideoId(String videoId) {
+        try {
+            return mFavoriteDao.findFavoritesByVideoId(videoId);
+        
+        } catch (Exception ex) {
+            TrackingManager.getInstance().track(Action.ERROR, ex.getCause());
+            return null;
+        }
     }
     
     @Override

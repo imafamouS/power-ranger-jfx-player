@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 
 /**
@@ -77,6 +78,8 @@ public class MyRecentVideoView extends VBox {
     public interface OnClickRecentItem {
         
         void onClickRecentItem(Event event, RecentVideoModel item);
+        
+        void onRemoveRecentItem(Event event, RecentVideoModel item);
     }
     
     public static class RecentVideoFactory extends JFXListCell<RecentVideoModel> {
@@ -99,7 +102,16 @@ public class MyRecentVideoView extends VBox {
                         setGraphic(null);
                     } else {
                         view.setOnMouseClicked(
-                                  event -> mOnClickRecentItem.onClickRecentItem(event, item));
+                                  event -> {
+                                      if (mOnClickRecentItem == null) {
+                                          return;
+                                      }
+                                      if (event.getButton() == MouseButton.SECONDARY) {
+                                          mOnClickRecentItem.onRemoveRecentItem(event, item);
+                                      } else if (event.getButton() == MouseButton.PRIMARY) {
+                                          mOnClickRecentItem.onClickRecentItem(event, item);
+                                      }
+                                  });
                         view.setImage(item.getImageThumbnail());
                         view.setText(item.getVideoName());
                         setText(null);

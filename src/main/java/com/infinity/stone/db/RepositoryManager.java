@@ -1,11 +1,8 @@
 package com.infinity.stone.db;
 
 import com.infinity.stone.db.core.Repository;
-import com.infinity.stone.db.favorite.FavoriteRepository;
 import com.infinity.stone.db.favorite.FavoriteRepositoryImpl;
-import com.infinity.stone.db.subtitle.SubtitleRepository;
 import com.infinity.stone.db.subtitle.SubtitleRepositoryImpl;
-import com.infinity.stone.db.video.VideoRepository;
 import com.infinity.stone.db.video.VideoRepositoryImpl;
 
 /**
@@ -14,9 +11,9 @@ import com.infinity.stone.db.video.VideoRepositoryImpl;
 
 public class RepositoryManager {
     
-    private static final FavoriteRepository INSTANCE_FAVORITE_REPOSITORY = new FavoriteRepositoryImpl();
-    private static final SubtitleRepository INSTANCE_SUBTITLE_REPOSITORY = new SubtitleRepositoryImpl();
-    private static final VideoRepository INSTANCE_VIDEO_REPOSITORY = new VideoRepositoryImpl();
+    private static final FavoriteRepositoryImpl INSTANCE_FAVORITE_REPOSITORY = new FavoriteRepositoryImpl();
+    private static final SubtitleRepositoryImpl INSTANCE_SUBTITLE_REPOSITORY = new SubtitleRepositoryImpl();
+    private static final VideoRepositoryImpl INSTANCE_VIDEO_REPOSITORY = new VideoRepositoryImpl();
     
     
     public static Repository getInstance(RepositoryType type) {
