@@ -44,7 +44,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -157,7 +156,6 @@ public class VideoShowController implements Initializable,
         init();
         subtitleRepository.findAllSubtitleByVideoId(Constant.CURRENT_VIDEO_ID)
                   .doOnSuccess((result) -> {
-                      
                       mFavoriteRepository.findFavoritesByVideoId(Constant.CURRENT_VIDEO_ID)
                                 .doFinally(this::setUpFavoriteSubTitle)
                                 .subscribe(success -> {
@@ -621,8 +619,6 @@ public class VideoShowController implements Initializable,
         final Label lblTime = new Label();
         final Label lblSentence = new Label();
         final BorderPane borderPane = new BorderPane();
-        final Button button = new Button();
-        final MyImageView image = new MyImageView("round_delete_black_18dp.png");
         private OnClickFavorite mOnClickFavorite;
         private JFXListView listFavoriteSubtitle;
         
@@ -644,12 +640,12 @@ public class VideoShowController implements Initializable,
                     setUpLabelTime(lblTime);
                     setUpLabelSentence(lblSentence);
                     hbox.getChildren().clear();
-                    borderPane.setCenter(button);
-                    button.setGraphic(image);
-                    button.setOnMouseClicked(event -> {
-                        if (mOnClickFavorite != null) {
-                            mOnClickFavorite.onClickFavorite(item);
-                            listFavoriteSubtitle.getItems().remove(item);
+                    hbox.setOnMouseClicked(event -> {
+                        if (event.getButton() == MouseButton.SECONDARY) {
+                            if (mOnClickFavorite != null) {
+                                mOnClickFavorite.onClickFavorite(item);
+                                listFavoriteSubtitle.getItems().remove(item);
+                            }
                         }
                     });
                     hbox.setSpacing(30);

@@ -28,7 +28,6 @@ import org.jsoup.select.Elements;
  */
 
 public class DownloadCaptionManager {
-
 	private static final String TTML = "ttml";
 	private static final String EXTENSION_TTML = "." + TTML;
 	private final static String PATH = "sub/";
