@@ -24,6 +24,8 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXSlider.IndicatorPosition;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -95,7 +98,6 @@ public class VideoShowController implements Initializable,
     private HBox controllerContainer;
     @FXML
     private VBox slidercontrollercontainer;
-    
     @FXML
     private JFXListView favouriteListview;
     final EventHandler<Event> onMouseEnterVideoContainer = new EventHandler<Event>() {
@@ -123,17 +125,17 @@ public class VideoShowController implements Initializable,
     private JFXListView listviewSubtitleFullScreen;
     private DownloadCaptionManager mDownloadCaptionManager;
     private String videoPath;
-    private MyImageView playImageView;
-    private MyImageView toggleSubImageView;
-    private MyImageView fullWidthImageView;
-    private MyImageView nextImageView;
-    private MyImageView previousImageView;
-    private MyImageView volumeImageView;
-    private Region region;
-    private Label lblplaytime;
+    @FXML private ImageView playImageView;
+    @FXML private ImageView toggleSubImageView;
+//    private MyImageView fullWidthImageView;
+//    private MyImageView nextImageView;
+//    private MyImageView previousImageView;
+    @FXML private ImageView volumeImageView;
+    @FXML private Region region;
+    @FXML private Label lblplaytime;
     private VideoController controller;
     private TranslateTransition transition;
-    private JFXSlider slider;
+    @FXML private JFXSlider slider;
     private SubtitleController subController;
     private TrackingSubUtils mTrackingSubUtils;
     
@@ -202,20 +204,23 @@ public class VideoShowController implements Initializable,
     }
     
     private void setUpVideoController() {
-        playImageView = new MyImageView("ic_play_18dp_2x.png");
-        toggleSubImageView = new MyImageView("ic_subtitles_white_18dp_2x.png");
+        playImageView.setImage(new Image(
+                ResourceUtils.getInstance().loadIcon("ic_play_18dp_2x.png").toString()));
+        toggleSubImageView.setImage(new Image(
+                ResourceUtils.getInstance().loadIcon("ic_subtitles_white_18dp_2x.png").toString()));
         
-        fullWidthImageView = new MyImageView("ic_fullscreen_white_18dp_2x.png");
-        nextImageView = new MyImageView("ic_skip_next_white_18dp_2x.png");
-        previousImageView = new MyImageView("ic_skip_previous_white_18dp_2x.png");
-        volumeImageView = new MyImageView("ic_volume_max_white_18dp_2x.png");
+        //fullWidthImageView = new MyImageView("ic_fullscreen_white_18dp_2x.png");
+        //nextImageView = new MyImageView("ic_skip_next_white_18dp_2x.png");
+        //previousImageView = new MyImageView("ic_skip_previous_white_18dp_2x.png");
+        volumeImageView.setImage(new Image(
+                ResourceUtils.getInstance().loadIcon("ic_volume_max_white_18dp_2x.png").toString()));
         backImageView.setImage(new Image(
                   ResourceUtils.getInstance().loadIcon("round_back_white_18dp2x.png").toString()));
         backImageView.setOnMouseClicked(this::openSelectVideoScreen);
         
-        lblplaytime = new Label();
+        //lblplaytime = new Label();
         lblplaytime.getStyleClass().add("txt_play_time");
-        region = new Region();
+        //region = new Region();
         region.setPrefWidth(200.0);
         
         transition = new TranslateTransition(Duration.millis(500),
@@ -226,8 +231,8 @@ public class VideoShowController implements Initializable,
         mediaContainer.setOnMouseEntered(onMouseEnterVideoContainer);
         mediaContainer.setOnMouseExited(onMouseExitVideoContainer);
         toggleSubImageView.setOnMouseClicked(event -> subController.toggleSub());
-        fullWidthImageView.setOnMouseClicked(
-                  (EventHandler<Event>) event -> controller.toggleFullScreen());
+//        fullWidthImageView.setOnMouseClicked(
+//                  (EventHandler<Event>) event -> controller.toggleFullScreen());
         
 //        controllerContainer.getChildren().addAll(
 //                  playImageView,
@@ -284,39 +289,39 @@ public class VideoShowController implements Initializable,
     }
     
     private void setUpSlider() {
-        slider = new MySliderView(0, 1, 1) {
+    	slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue.doubleValue() > 0.0 && newValue.doubleValue() < 30.0) {
+    			volumeImageView.setImage(new Image(
+                        ResourceUtils.getInstance().loadIcon("ic_volume_min_white_18dp_2x.png").toString()));
+            }
+            if (newValue.doubleValue() >= 0.7 && newValue.doubleValue()<= 1) {
+            	volumeImageView.setImage(new Image(
+                        ResourceUtils.getInstance().loadIcon("ic_volume_max_white_18dp_2x.png").toString()));
+            }
+            if (newValue.doubleValue() == 0.0) {
+            	volumeImageView.setImage(new Image(
+                        ResourceUtils.getInstance().loadIcon("ic_volume_mute_white_18dp_2x.png").toString()));
+            }
+            if (newValue.doubleValue() >= 0.3 && newValue.doubleValue() < 0.7) {
+            	volumeImageView.setImage(new Image(
+                        ResourceUtils.getInstance().loadIcon("ic_volume_average_white_18dp_2x.png").toString()));
+            }
+            controller.setVolume(newValue.doubleValue());
+        });
+        slider.setIndicatorPosition(IndicatorPosition.LEFT);
+        slider.setValueFactory(param -> Bindings.createStringBinding(
+                  () -> ((int) param.getValue() * 100) + "%",
+                  param.valueProperty()));
+
+        /*slider = new MySliderView(0, 1, 1) {
             @Override
             public JFXSlider apply(JFXSlider slider) {
-                slider.setIndicatorPosition(IndicatorPosition.LEFT);
+                
                 return slider;
             }
             
-            @Override
-            public void onMute() {
-                volumeImageView.setImage("ic_volume_mute_white_18dp_2x.png");
-            }
             
-            @Override
-            public void onMin() {
-                volumeImageView.setImage("ic_volume_min_white_18dp_2x.png");
-            }
-            
-            @Override
-            public void onMax() {
-                volumeImageView.setImage("ic_volume_max_white_18dp_2x.png");
-            }
-            
-            @Override
-            public void onAverage() {
-                volumeImageView.setImage("ic_volume_average_white_18dp_2x.png");
-            }
-            
-            @Override
-            public void onValueChanged(double value) {
-                controller.setVolume(value);
-            }
-            
-        };
+        };*/
     }
     
     
@@ -433,12 +438,14 @@ public class VideoShowController implements Initializable,
     
     @Override
     public void onPause() {
-        playImageView.setImage("ic_play_18dp_2x.png");
+        playImageView.setImage(new Image(
+                ResourceUtils.getInstance().loadIcon("ic_play_18dp_2x.png").toString()));
     }
     
     @Override
     public void onPlaying() {
-        playImageView.setImage("ic_pause_white_18dp_2x.png");
+        playImageView.setImage(new Image(
+                ResourceUtils.getInstance().loadIcon("ic_pause_white_18dp_2x.png").toString()));
     }
     
     @Override
@@ -489,7 +496,8 @@ public class VideoShowController implements Initializable,
     
     @Override
     public void onMute() {
-        volumeImageView.setImage("ic_volume_mute_white_18dp_2x.png");
+        volumeImageView.setImage(new Image(
+                ResourceUtils.getInstance().loadIcon("ic_volume_mute_white_18dp_2x.png").toString()));
     }
     
     @Override
@@ -503,7 +511,7 @@ public class VideoShowController implements Initializable,
             splitPane.setDividerPositions(1);
             rightPaneSide.setMaxWidth(0);
             rightPaneSide.setManaged(false);
-            fullWidthImageView.setImage("ic_fullscreen_exit_white_18dp_2x.png");
+            //fullWidthImageView.setImage("ic_fullscreen_exit_white_18dp_2x.png");
             listviewSubtitleFullScreen.setVisible(true);
             transition.play();
             
@@ -512,7 +520,7 @@ public class VideoShowController implements Initializable,
             rightPaneSide.setManaged(true);
             listviewSubtitleFullScreen.setVisible(false);
             //splitPane.setDividerPositions(1);
-            fullWidthImageView.setImage("ic_fullscreen_white_18dp_2x.png");
+            //fullWidthImageView.setImage("ic_fullscreen_white_18dp_2x.png");
         }
         
     }

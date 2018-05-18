@@ -13,11 +13,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" styleClass="anchor-pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.infinity.stone.controller.VideoShowController">
+<AnchorPane fx:id="mainPane" styleClass="anchor-pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.infinity.stone.controller.VideoShowController">
   <children>
     <SplitPane fx:id="splitPane" dividerPositions="0.298" layoutX="290.0" layoutY="212.0" styleClass="split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
@@ -37,10 +38,18 @@
             <ImageView fx:id="backImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
             <Label fx:id="subtilelabel" contentDisplay="CENTER" text="Label" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="200.0" />
             <JFXListView fx:id="listviewSubtitleFullScreen" minWidth="450.0" style="-fx-background-color: transparent;" styleClass="sublistviewtransparent" AnchorPane.rightAnchor="0.0" />
-            <VBox fx:id="slidercontrollercontainer" styleClass="videocontroller" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <VBox fx:id="slidercontrollercontainer" prefHeight="60.0" styleClass="videocontroller" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
               <children>
                 <JFXSlider fx:id="timeLine" prefHeight="1.0" prefWidth="768.0" />
-                <HBox fx:id="controllerContainer" alignment="CENTER_LEFT" prefWidth="200.0" />
+                <HBox fx:id="controllerContainer" alignment="CENTER_LEFT" prefWidth="200.0">
+                           <children>
+                              <ImageView fx:id="playImageView" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label fx:id="lblplaytime" text="Label" />
+                              <ImageView fx:id="volumeImageView" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                              <JFXSlider fx:id="slider" />
+                              <Region fx:id="region" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <ImageView fx:id="toggleSubImageView" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                           </children></HBox>
               </children>
             </VBox>
           </children>

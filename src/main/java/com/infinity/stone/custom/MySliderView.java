@@ -1,54 +1,91 @@
 package com.infinity.stone.custom;
 
-import com.jfoenix.controls.JFXSlider;
-import javafx.beans.binding.Bindings;
-import javafx.scene.image.ImageView;
+import java.io.IOException;
+import java.util.logging.Logger;
 
-public abstract class MySliderView extends JFXSlider {
-    
-    public MySliderView(double min, double max, double value) {
-        super(min, max, value);
-        this.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (isMin()) {
-                onMin();
+import com.infinity.stone.util.ResourceUtils;
+import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXSlider.IndicatorPosition;
+
+import javafx.beans.binding.Bindings;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+
+public class MySliderView extends VBox {
+	/*private static final Logger LOG = Logger.getLogger("MySliderView");
+    private ListenerSliderChange listener;
+    @FXML JFXSlider slider;
+    public MySliderView() throws IOException{
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                      ResourceUtils.getInstance().loadLayout("custom_slider.fxml"));
+            loader.setController(this);
+            loader.setRoot(this);
+            loader.load();
+        } catch (IOException exc) {
+            LOG.info(exc.getMessage());
+        }
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(listener!=null) {
+            	if (isMin()) {
+                    listener.onMin();
+                }
+                if (isMax()) {
+                	listener.onMax();
+                }
+                if (isMute()) {
+                	listener.onMute();
+                }
+                if (isAverage()) {
+                	listener.onAverage();
+                }
+                listener.onValueChanged(newValue.doubleValue());
             }
-            if (isMax()) {
-                onMax();
-            }
-            if (isMute()) {
-                onMute();
-            }
-            if (isAverage()) {
-                onAverage();
-            }
-            onValueChanged(newValue.doubleValue());
         });
-        
-        this.setValueFactory(param -> Bindings.createStringBinding(
+        slider.setIndicatorPosition(IndicatorPosition.LEFT);
+        slider.setValueFactory(param -> Bindings.createStringBinding(
                   () -> ((int) param.getValue() * 100) + "%",
                   param.valueProperty()));
-        this.apply(this);
+        //this.apply(this);
     }
+    
     
     public void bindHoverVolumeToTransition(ImageView imageView) {
 
     }
     
+    public void setOnListenSliderChange(ListenerSliderChange listener) {
+    	this.listener = listener;
+    }
+    
+    public JFXSlider getSlider() {
+		return slider;
+	}
+    
+    public interface ListenerSliderChange{
+    	void onMute();
+    	void onMin();
+    	void onMax();
+    	void onValueChanged(double value);
+    	void onAverage();
+    }
     
     public boolean isMin() {
-        return this.getValue() > 0.0 && this.getValue() < 30.0;
+        return 
     }
     
     public boolean isMute() {
-        return this.getValue() == 0.0;
+        return ;
     }
     
     public boolean isMax() {
-        return this.getValue() >= 0.7 && this.getValue() <= 1;
+        return ;
     }
     
     public boolean isAverage() {
-        return this.getValue() >= 0.3 && this.getValue() < 0.7;
+        return slider.getValue() >= 0.3 && slider.getValue() < 0.7;
     }
     
     public abstract JFXSlider apply(JFXSlider slider);
@@ -61,5 +98,5 @@ public abstract class MySliderView extends JFXSlider {
     
     public abstract void onValueChanged(double value);
     
-    public abstract void onAverage();
+    public abstract void onAverage();*/
 }
