@@ -11,4 +11,6 @@ import java.util.List;
 public interface FavoriteDao extends BaseDao<Favorite> {
     
     List<Favorite> findFavoritesByVideoId(String videoId) throws SQLException;
+    
+    long deleteByVideoId(String videoId) throws SQLException;
 }

@@ -5,6 +5,7 @@ import com.infinity.stone.custom.MyRecentVideoView;
 import com.infinity.stone.custom.MyRecentVideoView.OnClickRecentItem;
 import com.infinity.stone.db.RepositoryManager;
 import com.infinity.stone.db.RepositoryType;
+import com.infinity.stone.db.favorite.FavoriteRepositoryImpl;
 import com.infinity.stone.db.subtitle.Subtitle;
 import com.infinity.stone.db.subtitle.SubtitleRepositoryImpl;
 import com.infinity.stone.db.video.Video;
@@ -97,7 +98,16 @@ public class SelectVideoController implements Initializable {
             if (resultRemoveVideo > 0) {
                 mListView.getItems().remove(item);
                 TrackingManager.getInstance().track(Action.ERROR, "remove video successfully");
-            }else{
+                SubtitleRepositoryImpl subtitleRepository = (SubtitleRepositoryImpl) RepositoryManager
+                          .getInstance(RepositoryType.SUBTITLE);
+                
+                subtitleRepository._deleteByVideoId(item.getVideoId());
+                
+                FavoriteRepositoryImpl favoriteRepository = (FavoriteRepositoryImpl) RepositoryManager
+                          .getInstance(RepositoryType.FAVORITE);
+                
+                favoriteRepository.deleteByVideoId(item.getVideoId());
+            } else {
                 TrackingManager.getInstance().track(Action.ERROR, "remove video failed");
             }
         }

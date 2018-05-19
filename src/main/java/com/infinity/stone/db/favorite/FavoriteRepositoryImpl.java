@@ -41,10 +41,20 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
     public List<Favorite> _findFavoriteByVideoId(String videoId) {
         try {
             return mFavoriteDao.findFavoritesByVideoId(videoId);
-        
+            
         } catch (Exception ex) {
             TrackingManager.getInstance().track(Action.ERROR, ex.getCause());
             return null;
+        }
+    }
+    
+    public long deleteByVideoId(String videoId) {
+        try {
+            return mFavoriteDao.deleteByVideoId(videoId);
+            
+        } catch (Exception ex) {
+            TrackingManager.getInstance().track(Action.ERROR, ex.getCause());
+            return -1;
         }
     }
     

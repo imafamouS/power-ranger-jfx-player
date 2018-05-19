@@ -158,7 +158,7 @@ public class VideoShowController implements Initializable,
         List<Subtitle> subtitleList = subtitleRepository
                   ._findAllSubtitleByVideoId(Constant.CURRENT_VIDEO_ID);
         init();
-    
+        
         if (subtitleList != null) {
             mSubtitleCollection = SubtitleCollection
                       .makeSubtitleCollectionFromListSub(subtitleList);
@@ -181,7 +181,7 @@ public class VideoShowController implements Initializable,
         } else {
             TrackingManager.getInstance().track(Action.ERROR, " failure get list sub");
         }
-    
+        
     }
     
     public void init() {
@@ -229,16 +229,16 @@ public class VideoShowController implements Initializable,
         fullWidthImageView.setOnMouseClicked(
                   (EventHandler<Event>) event -> controller.toggleFullScreen());
         
-//        controllerContainer.getChildren().addAll(
-//                  playImageView,
-//                  lblplaytime,
-//                  volumeImageView,
-//                  slider,
-//                  region,
-//                  toggleSubImageView);
-//        // fullWidthImageView);
-//        controllerContainer.setHgrow(region, Priority.ALWAYS);
-    
+        //        controllerContainer.getChildren().addAll(
+        //                  playImageView,
+        //                  lblplaytime,
+        //                  volumeImageView,
+        //                  slider,
+        //                  region,
+        //                  toggleSubImageView);
+        //        // fullWidthImageView);
+        //        controllerContainer.setHgrow(region, Priority.ALWAYS);
+        
         controller = new VideoController(videoPlayer,
                   new VideoModel(Constant.CURRENT_VIDEO_PATH, mSubtitleCollection, LEVEL.ADVANCE),
                   new ArrayList<>());
@@ -398,7 +398,8 @@ public class VideoShowController implements Initializable,
                                                         sub.getContent());
                                 } else {
                                     TrackingManager.getInstance()
-                                              .track(Action.ERROR, "failure delete favorite");
+                                              .track(Action.ERROR, "failure delete favorite " +
+                                                                   sub.getContent());
                                 }
                             }, favouriteListview));
         
@@ -422,11 +423,12 @@ public class VideoShowController implements Initializable,
                 mFavoriteSubtitleCollection.add(subtitle);
             }
             JFXSnackbar snackbar = new JFXSnackbar(rightPaneSide);
-            snackbar.show("Add to favorite successfully", 1000);
+            snackbar.show("Add to favorite successfully: " + subtitle.getContent(), 1000);
             TrackingManager.getInstance()
                       .track(Action.ADD_FAVORITE, subtitle.getContent());
         } else {
-            TrackingManager.getInstance().track(Action.ERROR, " add favourite failure");
+            TrackingManager.getInstance()
+                      .track(Action.ERROR, " add favourite failure: " + subtitle.getContent());
         }
         
     }

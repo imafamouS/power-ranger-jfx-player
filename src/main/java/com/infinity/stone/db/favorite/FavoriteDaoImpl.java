@@ -84,6 +84,22 @@ public class FavoriteDaoImpl extends ContentProvider<Favorite> implements Favori
     }
     
     @Override
+    public long deleteByVideoId(String videoId) throws SQLException {
+        Connection connection = mDatabaseHelper.getConnection();
+        try {
+            String sql =
+                      "DELETE FROM " + getTableName() + " WHERE " + Properties.VIDEO_ID + "= ?";
+            
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, videoId);
+            
+            return preparedStatement.executeUpdate();
+        } finally {
+            mDatabaseHelper.releaseConnection(connection);
+        }
+    }
+    
+    @Override
     public List<Favorite> findAll() throws SQLException {
         Connection connection = mDatabaseHelper.getConnection();
         try {
