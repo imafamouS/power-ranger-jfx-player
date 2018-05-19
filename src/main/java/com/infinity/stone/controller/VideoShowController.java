@@ -1,7 +1,5 @@
 package com.infinity.stone.controller;
 
-import com.infinity.stone.custom.MyImageView;
-import com.infinity.stone.custom.MySliderView;
 import com.infinity.stone.db.RepositoryManager;
 import com.infinity.stone.db.RepositoryType;
 import com.infinity.stone.db.favorite.Favorite;
@@ -22,10 +20,9 @@ import com.infinity.stone.youtube.DownloadCaptionManager;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXSlider.IndicatorPosition;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXSlider.IndicatorPosition;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -428,7 +425,7 @@ public class VideoShowController implements Initializable,
                 mFavoriteSubtitleCollection.add(subtitle);
             }
             JFXSnackbar snackbar = new JFXSnackbar(rightPaneSide);
-            snackbar.show("Add to favorite successfully: " + subtitle.getContent(), 1000);
+            snackbar.show("Add to favorite successfully", 1000);
             TrackingManager.getInstance()
                       .track(Action.ADD_FAVORITE, subtitle.getContent());
         } else {
